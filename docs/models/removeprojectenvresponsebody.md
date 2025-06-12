@@ -8,20 +8,14 @@ The environment variable was successfully removed
 ### `models.RemoveProjectEnvResponseBody1[]`
 
 ```typescript
-const value: models.RemoveProjectEnvResponseBody1[] = [
-  {
-    type: "system",
-    value: "<value>",
-    key: "<key>",
-  },
-];
+const value: models.RemoveProjectEnvResponseBody1[] = [];
 ```
 
 ### `models.RemoveProjectEnvResponseBody2`
 
 ```typescript
 const value: models.RemoveProjectEnvResponseBody2 = {
-  type: "secret",
+  type: "encrypted",
   value: "<value>",
   key: "<key>",
 };
@@ -31,7 +25,7 @@ const value: models.RemoveProjectEnvResponseBody2 = {
 
 ```typescript
 const value: models.RemoveProjectEnvResponseBody3 = {
-  type: "plain",
+  type: "sensitive",
   value: "<value>",
   key: "<key>",
 };

@@ -38,7 +38,6 @@ import { tool$artifactsStatus } from "./tools/artifactsStatus.js";
 import { tool$artifactsUploadArtifact } from "./tools/artifactsUploadArtifact.js";
 import { tool$authenticationCreateAuthToken } from "./tools/authenticationCreateAuthToken.js";
 import { tool$authenticationDeleteAuthToken } from "./tools/authenticationDeleteAuthToken.js";
-import { tool$authenticationExchangeSsoToken } from "./tools/authenticationExchangeSsoToken.js";
 import { tool$authenticationGetAuthToken } from "./tools/authenticationGetAuthToken.js";
 import { tool$authenticationListAuthTokens } from "./tools/authenticationListAuthTokens.js";
 import { tool$certsGetCertById } from "./tools/certsGetCertById.js";
@@ -50,7 +49,6 @@ import { tool$checksGetAllChecks } from "./tools/checksGetAllChecks.js";
 import { tool$checksGetCheck } from "./tools/checksGetCheck.js";
 import { tool$checksRerequestCheck } from "./tools/checksRerequestCheck.js";
 import { tool$checksUpdateCheck } from "./tools/checksUpdateCheck.js";
-import { tool$deleteProjectsProjectIdLogsPresetsId } from "./tools/deleteProjectsProjectIdLogsPresetsId.js";
 import { tool$deploymentsCancelDeployment } from "./tools/deploymentsCancelDeployment.js";
 import { tool$deploymentsCreateDeployment } from "./tools/deploymentsCreateDeployment.js";
 import { tool$deploymentsDeleteDeployment } from "./tools/deploymentsDeleteDeployment.js";
@@ -68,6 +66,7 @@ import { tool$dnsUpdateRecord } from "./tools/dnsUpdateRecord.js";
 import { tool$domainsBuyDomain } from "./tools/domainsBuyDomain.js";
 import { tool$domainsCheckDomainPrice } from "./tools/domainsCheckDomainPrice.js";
 import { tool$domainsCheckDomainStatus } from "./tools/domainsCheckDomainStatus.js";
+import { tool$domainsCreateOrTransferDomain } from "./tools/domainsCreateOrTransferDomain.js";
 import { tool$domainsDeleteDomain } from "./tools/domainsDeleteDomain.js";
 import { tool$domainsGetDomain } from "./tools/domainsGetDomain.js";
 import { tool$domainsGetDomainConfig } from "./tools/domainsGetDomainConfig.js";
@@ -88,6 +87,7 @@ import { tool$edgeConfigGetEdgeConfigs } from "./tools/edgeConfigGetEdgeConfigs.
 import { tool$edgeConfigGetEdgeConfigSchema } from "./tools/edgeConfigGetEdgeConfigSchema.js";
 import { tool$edgeConfigGetEdgeConfigToken } from "./tools/edgeConfigGetEdgeConfigToken.js";
 import { tool$edgeConfigGetEdgeConfigTokens } from "./tools/edgeConfigGetEdgeConfigTokens.js";
+import { tool$edgeConfigPatchEdgeConfigItems } from "./tools/edgeConfigPatchEdgeConfigItems.js";
 import { tool$edgeConfigPatchEdgeConfigSchema } from "./tools/edgeConfigPatchEdgeConfigSchema.js";
 import { tool$edgeConfigUpdateEdgeConfig } from "./tools/edgeConfigUpdateEdgeConfig.js";
 import { tool$environmentCreateCustomEnvironment } from "./tools/environmentCreateCustomEnvironment.js";
@@ -95,11 +95,9 @@ import { tool$environmentGetCustomEnvironment } from "./tools/environmentGetCust
 import { tool$environmentGetV9ProjectsIdOrNameCustomEnvironments } from "./tools/environmentGetV9ProjectsIdOrNameCustomEnvironments.js";
 import { tool$environmentRemoveCustomEnvironment } from "./tools/environmentRemoveCustomEnvironment.js";
 import { tool$environmentUpdateCustomEnvironment } from "./tools/environmentUpdateCustomEnvironment.js";
-import { tool$getProjectsProjectIdLogsPresets } from "./tools/getProjectsProjectIdLogsPresets.js";
 import { tool$integrationsDeleteConfiguration } from "./tools/integrationsDeleteConfiguration.js";
 import { tool$integrationsGetConfiguration } from "./tools/integrationsGetConfiguration.js";
 import { tool$integrationsGetConfigurations } from "./tools/integrationsGetConfigurations.js";
-import { tool$integrationsUpdateIntegrationDeploymentAction } from "./tools/integrationsUpdateIntegrationDeploymentAction.js";
 import { tool$logDrainsCreateLogDrain } from "./tools/logDrainsCreateLogDrain.js";
 import { tool$logDrainsDeleteConfigurableLogDrain } from "./tools/logDrainsDeleteConfigurableLogDrain.js";
 import { tool$logDrainsDeleteIntegrationLogDrain } from "./tools/logDrainsDeleteIntegrationLogDrain.js";
@@ -122,9 +120,6 @@ import { tool$marketplaceUpdateInstallationIntegrationEdgeConfig } from "./tools
 import { tool$marketplaceUpdateInvoice } from "./tools/marketplaceUpdateInvoice.js";
 import { tool$marketplaceUpdateResourceSecrets } from "./tools/marketplaceUpdateResourceSecrets.js";
 import { tool$marketplaceUpdateResourceSecretsById } from "./tools/marketplaceUpdateResourceSecretsById.js";
-import { tool$patchProjectsProjectIdLogsPresetsId } from "./tools/patchProjectsProjectIdLogsPresetsId.js";
-import { tool$postDomains } from "./tools/postDomains.js";
-import { tool$postProjectsProjectIdLogsPresets } from "./tools/postProjectsProjectIdLogsPresets.js";
 import { tool$projectMembersAddProjectMember } from "./tools/projectMembersAddProjectMember.js";
 import { tool$projectMembersGetProjectMembers } from "./tools/projectMembersGetProjectMembers.js";
 import { tool$projectMembersRemoveProjectMember } from "./tools/projectMembersRemoveProjectMember.js";
@@ -152,6 +147,12 @@ import { tool$projectsUpdateProjectDataCache } from "./tools/projectsUpdateProje
 import { tool$projectsUpdateProjectDomain } from "./tools/projectsUpdateProjectDomain.js";
 import { tool$projectsUpdateProjectProtectionBypass } from "./tools/projectsUpdateProjectProtectionBypass.js";
 import { tool$projectsVerifyProjectDomain } from "./tools/projectsVerifyProjectDomain.js";
+import { tool$rollingReleaseApproveRollingReleaseStage } from "./tools/rollingReleaseApproveRollingReleaseStage.js";
+import { tool$rollingReleaseCompleteRollingRelease } from "./tools/rollingReleaseCompleteRollingRelease.js";
+import { tool$rollingReleaseDeleteRollingReleaseConfig } from "./tools/rollingReleaseDeleteRollingReleaseConfig.js";
+import { tool$rollingReleaseGetRollingRelease } from "./tools/rollingReleaseGetRollingRelease.js";
+import { tool$rollingReleaseGetRollingReleaseConfig } from "./tools/rollingReleaseGetRollingReleaseConfig.js";
+import { tool$rollingReleaseUpdateRollingReleaseConfig } from "./tools/rollingReleaseUpdateRollingReleaseConfig.js";
 import { tool$securityAddBypassIp } from "./tools/securityAddBypassIp.js";
 import { tool$securityGetActiveAttackStatus } from "./tools/securityGetActiveAttackStatus.js";
 import { tool$securityGetBypassIp } from "./tools/securityGetBypassIp.js";
@@ -191,7 +192,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Vercel",
-    version: "1.7.7",
+    version: "1.8.2",
   });
 
   const client = new VercelCore({
@@ -221,11 +222,6 @@ export function createMCPServer(deps: {
   const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
 
-  tool(tool$postDomains);
-  tool(tool$getProjectsProjectIdLogsPresets);
-  tool(tool$postProjectsProjectIdLogsPresets);
-  tool(tool$deleteProjectsProjectIdLogsPresetsId);
-  tool(tool$patchProjectsProjectIdLogsPresetsId);
   tool(tool$accessGroupsReadAccessGroup);
   tool(tool$accessGroupsUpdateAccessGroup);
   tool(tool$accessGroupsDeleteAccessGroup);
@@ -282,7 +278,6 @@ export function createMCPServer(deps: {
   tool(tool$deploymentsGetDeploymentFileContents);
   tool(tool$deploymentsGetDeployments);
   tool(tool$deploymentsDeleteDeployment);
-  tool(tool$integrationsUpdateIntegrationDeploymentAction);
   tool(tool$integrationsGetConfigurations);
   tool(tool$integrationsGetConfiguration);
   tool(tool$integrationsDeleteConfiguration);
@@ -293,6 +288,7 @@ export function createMCPServer(deps: {
   tool(tool$domainsGetDomainConfig);
   tool(tool$domainsGetDomain);
   tool(tool$domainsGetDomains);
+  tool(tool$domainsCreateOrTransferDomain);
   tool(tool$domainsPatchDomain);
   tool(tool$domainsDeleteDomain);
   tool(tool$dnsGetRecords);
@@ -309,6 +305,7 @@ export function createMCPServer(deps: {
   tool(tool$edgeConfigUpdateEdgeConfig);
   tool(tool$edgeConfigDeleteEdgeConfig);
   tool(tool$edgeConfigGetEdgeConfigItems);
+  tool(tool$edgeConfigPatchEdgeConfigItems);
   tool(tool$edgeConfigGetEdgeConfigSchema);
   tool(tool$edgeConfigPatchEdgeConfigSchema);
   tool(tool$edgeConfigDeleteEdgeConfigSchema);
@@ -339,7 +336,6 @@ export function createMCPServer(deps: {
   tool(tool$marketplaceDeleteInstallationIntegrationConfiguration);
   tool(tool$marketplaceCreateInstallationIntegrationEdgeConfig);
   tool(tool$marketplaceUpdateInstallationIntegrationEdgeConfig);
-  tool(tool$authenticationExchangeSsoToken);
   tool(tool$authenticationListAuthTokens);
   tool(tool$authenticationCreateAuthToken);
   tool(tool$authenticationGetAuthToken);
@@ -353,6 +349,12 @@ export function createMCPServer(deps: {
   tool(tool$environmentGetCustomEnvironment);
   tool(tool$environmentUpdateCustomEnvironment);
   tool(tool$environmentRemoveCustomEnvironment);
+  tool(tool$rollingReleaseGetRollingReleaseConfig);
+  tool(tool$rollingReleaseDeleteRollingReleaseConfig);
+  tool(tool$rollingReleaseUpdateRollingReleaseConfig);
+  tool(tool$rollingReleaseGetRollingRelease);
+  tool(tool$rollingReleaseApproveRollingReleaseStage);
+  tool(tool$rollingReleaseCompleteRollingRelease);
   tool(tool$securityUpdateAttackChallengeMode);
   tool(tool$securityPutFirewallConfig);
   tool(tool$securityUpdateFirewallConfig);

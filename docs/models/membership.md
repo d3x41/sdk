@@ -5,14 +5,14 @@ The membership of the authenticated User in relation to the Team.
 ## Example Usage
 
 ```typescript
-import { Membership } from "@vercel/sdk/models/teamlimited.js";
+import { Membership } from "@vercel/sdk/models/team.js";
 
 let value: Membership = {
   confirmed: false,
-  confirmedAt: 5378.67,
-  role: "OWNER",
-  createdAt: 2058.4,
-  created: 8507.09,
+  confirmedAt: 149.12,
+  role: "MEMBER",
+  createdAt: 8507.09,
+  created: 408.14,
 };
 ```
 

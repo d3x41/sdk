@@ -10,9 +10,9 @@ import { ResponseBodyConfig } from "@vercel/sdk/models/getdeploymentop.js";
 let value: ResponseBodyConfig = {
   functionType: "standard",
   functionMemoryType: "standard",
-  functionTimeout: 862.25,
+  functionTimeout: null,
   secureComputePrimaryRegion: "<value>",
-  secureComputeFallbackRegion: "<value>",
+  secureComputeFallbackRegion: null,
 };
 ```
 
@@ -26,3 +26,4 @@ let value: ResponseBodyConfig = {
 | `functionTimeout`                                                                    | *number*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
 | `secureComputePrimaryRegion`                                                         | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
 | `secureComputeFallbackRegion`                                                        | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `isUsingActiveCPU`                                                                   | *boolean*                                                                            | :heavy_minus_sign:                                                                   | N/A                                                                                  |
