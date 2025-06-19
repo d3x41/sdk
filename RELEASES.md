@@ -359,3 +359,63 @@ Based on:
 - [typescript v1.7.7] .
 ### Releases
 - [NPM v1.7.7] https://www.npmjs.com/package/@vercel/sdk/v/1.7.7 - .
+
+## 2025-06-11 15:54:00
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.560.1 (2.625.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.8.0] .
+### Releases
+- [NPM v1.8.0] https://www.npmjs.com/package/@vercel/sdk/v/1.8.0 - .
+
+## 2025-06-11 22:11:32
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.561.0 (2.628.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.8.1] .
+### Releases
+- [NPM v1.8.1] https://www.npmjs.com/package/@vercel/sdk/v/1.8.1 - .
+
+## 2025-06-12 16:14:50
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.561.0 (2.628.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.8.2] .
+### Releases
+- [NPM v1.8.2] https://www.npmjs.com/package/@vercel/sdk/v/1.8.2 - .
+
+## 2025-06-16 00:07:50
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.563.1 (2.629.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.8.3] .
+### Releases
+- [NPM v1.8.3] https://www.npmjs.com/package/@vercel/sdk/v/1.8.3 - .
+
+## 2025-06-17 16:21:43
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.563.4 (2.630.6) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.8.4] .
+### Releases
+- [NPM v1.8.4] https://www.npmjs.com/package/@vercel/sdk/v/1.8.4 - .
+
+## 2025-06-19 00:07:32
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.567.0 (2.632.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.8.5] .
+### Releases
+- [NPM v1.8.5] https://www.npmjs.com/package/@vercel/sdk/v/1.8.5 - .

@@ -8,7 +8,7 @@
 ```typescript
 const value: models.Missing1 = {
   type: "host",
-  value: "<value>",
+  value: {},
 };
 ```
 
@@ -16,7 +16,7 @@ const value: models.Missing1 = {
 
 ```typescript
 const value: models.Missing2 = {
-  type: "cookie",
+  type: "header",
   key: "<key>",
 };
 ```
