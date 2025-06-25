@@ -198,13 +198,12 @@ const vercel = new Vercel({
 });
 
 async function run() {
-  const result = await vercel.postDomains({
-    name: "example.com",
-    method: "transfer-in",
-    token: "fdhfr820ad#@FAdlj$$",
+  const result = await vercel.accessGroups.readAccessGroup({
+    idOrName: "ag_1a2b3c4d5e6f7g8h9i0j",
+    teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
+    slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -243,7 +242,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -272,7 +270,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -371,6 +368,7 @@ run();
 * [getDomainConfig](docs/sdks/domains/README.md#getdomainconfig) - Get a Domain's configuration
 * [getDomain](docs/sdks/domains/README.md#getdomain) - Get Information for a Single Domain
 * [getDomains](docs/sdks/domains/README.md#getdomains) - List all the domains
+* [createOrTransferDomain](docs/sdks/domains/README.md#createortransferdomain) - Register or transfer-in a new Domain
 * [patchDomain](docs/sdks/domains/README.md#patchdomain) - Update or move apex domain
 * [deleteDomain](docs/sdks/domains/README.md#deletedomain) - Remove a domain by name
 
@@ -382,6 +380,7 @@ run();
 * [updateEdgeConfig](docs/sdks/edgeconfig/README.md#updateedgeconfig) - Update an Edge Config
 * [deleteEdgeConfig](docs/sdks/edgeconfig/README.md#deleteedgeconfig) - Delete an Edge Config
 * [getEdgeConfigItems](docs/sdks/edgeconfig/README.md#getedgeconfigitems) - Get Edge Config items
+* [patchEdgeConfigItems](docs/sdks/edgeconfig/README.md#patchedgeconfigitems) - Update Edge Config items in batch
 * [getEdgeConfigSchema](docs/sdks/edgeconfig/README.md#getedgeconfigschema) - Get Edge Config schema
 * [patchEdgeConfigSchema](docs/sdks/edgeconfig/README.md#patchedgeconfigschema) - Update Edge Config schema
 * [deleteEdgeConfigSchema](docs/sdks/edgeconfig/README.md#deleteedgeconfigschema) - Delete an Edge Config's schema
@@ -472,6 +471,16 @@ run();
 * [pauseProject](docs/sdks/projects/README.md#pauseproject) - Pause a project
 * [unpauseProject](docs/sdks/projects/README.md#unpauseproject) - Unpause a project
 
+### [rollingRelease](docs/sdks/rollingrelease/README.md)
+
+* [getRollingReleaseBillingStatus](docs/sdks/rollingrelease/README.md#getrollingreleasebillingstatus) - Get rolling release billing status
+* [getRollingReleaseConfig](docs/sdks/rollingrelease/README.md#getrollingreleaseconfig) - Get rolling release configuration
+* [deleteRollingReleaseConfig](docs/sdks/rollingrelease/README.md#deleterollingreleaseconfig) - Delete rolling release configuration
+* [updateRollingReleaseConfig](docs/sdks/rollingrelease/README.md#updaterollingreleaseconfig) - Update the rolling release settings for the project
+* [getRollingRelease](docs/sdks/rollingrelease/README.md#getrollingrelease) - Get the active rolling release information for a project
+* [approveRollingReleaseStage](docs/sdks/rollingrelease/README.md#approverollingreleasestage) - Update the active rolling release to the next stage for a project
+* [completeRollingRelease](docs/sdks/rollingrelease/README.md#completerollingrelease) - Complete the rolling release for the project
+
 ### [security](docs/sdks/security/README.md)
 
 * [updateAttackChallengeMode](docs/sdks/security/README.md#updateattackchallengemode) - Update Attack Challenge mode
@@ -505,13 +514,6 @@ run();
 * [getAuthUser](docs/sdks/user/README.md#getauthuser) - Get the User
 * [requestDelete](docs/sdks/user/README.md#requestdelete) - Delete User Account
 
-### [Vercel SDK](docs/sdks/vercel/README.md)
-
-* [postDomains](docs/sdks/vercel/README.md#postdomains)
-* [getProjectsProjectIdLogsPresets](docs/sdks/vercel/README.md#getprojectsprojectidlogspresets)
-* [postProjectsProjectIdLogsPresets](docs/sdks/vercel/README.md#postprojectsprojectidlogspresets)
-* [deleteProjectsProjectIdLogsPresetsId](docs/sdks/vercel/README.md#deleteprojectsprojectidlogspresetsid)
-* [patchProjectsProjectIdLogsPresetsId](docs/sdks/vercel/README.md#patchprojectsprojectidlogspresetsid)
 
 ### [webhooks](docs/sdks/webhooks/README.md)
 
@@ -563,7 +565,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`artifactsUploadArtifact`](docs/sdks/artifacts/README.md#uploadartifact) - Upload a cache artifact
 - [`authenticationCreateAuthToken`](docs/sdks/authentication/README.md#createauthtoken) - Create an Auth Token
 - [`authenticationDeleteAuthToken`](docs/sdks/authentication/README.md#deleteauthtoken) - Delete an authentication token
-- [`authenticationExchangeSsoToken`](docs/sdks/authentication/README.md#exchangessotoken) - SSO Token Exchange
 - [`authenticationGetAuthToken`](docs/sdks/authentication/README.md#getauthtoken) - Get Auth Token Metadata
 - [`authenticationListAuthTokens`](docs/sdks/authentication/README.md#listauthtokens) - List Auth Tokens
 - [`certsGetCertById`](docs/sdks/certs/README.md#getcertbyid) - Get cert by id
@@ -575,7 +576,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`checksGetCheck`](docs/sdks/checks/README.md#getcheck) - Get a single check
 - [`checksRerequestCheck`](docs/sdks/checks/README.md#rerequestcheck) - Rerequest a check
 - [`checksUpdateCheck`](docs/sdks/checks/README.md#updatecheck) - Update a check
-- [`deleteProjectsProjectIdLogsPresetsId`](docs/sdks/vercel/README.md#deleteprojectsprojectidlogspresetsid)
 - [`deploymentsCancelDeployment`](docs/sdks/deployments/README.md#canceldeployment) - Cancel a deployment
 - [`deploymentsCreateDeployment`](docs/sdks/deployments/README.md#createdeployment) - Create a new deployment
 - [`deploymentsDeleteDeployment`](docs/sdks/deployments/README.md#deletedeployment) - Delete a Deployment
@@ -585,6 +585,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`deploymentsGetDeployments`](docs/sdks/deployments/README.md#getdeployments) - List deployments
 - [`deploymentsListDeploymentFiles`](docs/sdks/deployments/README.md#listdeploymentfiles) - List Deployment Files
 - [`deploymentsUpdateIntegrationDeploymentAction`](docs/sdks/deployments/README.md#updateintegrationdeploymentaction) - Update deployment integration action
+- [`deploymentsUpdateIntegrationDeploymentAction`](docs/sdks/integrations/README.md#updateintegrationdeploymentaction) - Update deployment integration action
 - [`deploymentsUploadFile`](docs/sdks/deployments/README.md#uploadfile) - Upload Deployment Files
 - [`dnsCreateRecord`](docs/sdks/dns/README.md#createrecord) - Create a DNS record
 - [`dnsGetRecords`](docs/sdks/dns/README.md#getrecords) - List existing DNS records
@@ -593,6 +594,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`domainsBuyDomain`](docs/sdks/domains/README.md#buydomain) - Purchase a domain
 - [`domainsCheckDomainPrice`](docs/sdks/domains/README.md#checkdomainprice) - Check the price for a domain
 - [`domainsCheckDomainStatus`](docs/sdks/domains/README.md#checkdomainstatus) - Check a Domain Availability
+- [`domainsCreateOrTransferDomain`](docs/sdks/domains/README.md#createortransferdomain) - Register or transfer-in a new Domain
 - [`domainsDeleteDomain`](docs/sdks/domains/README.md#deletedomain) - Remove a domain by name
 - [`domainsGetDomain`](docs/sdks/domains/README.md#getdomain) - Get Information for a Single Domain
 - [`domainsGetDomainConfig`](docs/sdks/domains/README.md#getdomainconfig) - Get a Domain's configuration
@@ -613,6 +615,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`edgeConfigGetEdgeConfigSchema`](docs/sdks/edgeconfig/README.md#getedgeconfigschema) - Get Edge Config schema
 - [`edgeConfigGetEdgeConfigToken`](docs/sdks/edgeconfig/README.md#getedgeconfigtoken) - Get Edge Config token meta data
 - [`edgeConfigGetEdgeConfigTokens`](docs/sdks/edgeconfig/README.md#getedgeconfigtokens) - Get all tokens of an Edge Config
+- [`edgeConfigPatchEdgeConfigItems`](docs/sdks/edgeconfig/README.md#patchedgeconfigitems) - Update Edge Config items in batch
 - [`edgeConfigPatchEdgeConfigSchema`](docs/sdks/edgeconfig/README.md#patchedgeconfigschema) - Update Edge Config schema
 - [`edgeConfigUpdateEdgeConfig`](docs/sdks/edgeconfig/README.md#updateedgeconfig) - Update an Edge Config
 - [`environmentCreateCustomEnvironment`](docs/sdks/environment/README.md#createcustomenvironment) - Create a custom environment for the current project.
@@ -620,11 +623,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`environmentGetV9ProjectsIdOrNameCustomEnvironments`](docs/sdks/environment/README.md#getv9projectsidornamecustomenvironments) - Retrieve custom environments
 - [`environmentRemoveCustomEnvironment`](docs/sdks/environment/README.md#removecustomenvironment) - Remove a custom environment
 - [`environmentUpdateCustomEnvironment`](docs/sdks/environment/README.md#updatecustomenvironment) - Update a custom environment
-- [`getProjectsProjectIdLogsPresets`](docs/sdks/vercel/README.md#getprojectsprojectidlogspresets)
 - [`integrationsDeleteConfiguration`](docs/sdks/integrations/README.md#deleteconfiguration) - Delete an integration configuration
 - [`integrationsGetConfiguration`](docs/sdks/integrations/README.md#getconfiguration) - Retrieve an integration configuration
 - [`integrationsGetConfigurations`](docs/sdks/integrations/README.md#getconfigurations) - Get configurations for the authenticated user or team
-- [`integrationsUpdateIntegrationDeploymentAction`](docs/sdks/integrations/README.md#updateintegrationdeploymentaction) - Update deployment integration action
 - [`logDrainsCreateLogDrain`](docs/sdks/logdrains/README.md#createlogdrain) - Creates a new Integration Log Drain
 - [`logDrainsDeleteConfigurableLogDrain`](docs/sdks/logdrains/README.md#deleteconfigurablelogdrain) - Deletes a Configurable Log Drain
 - [`logDrainsDeleteIntegrationLogDrain`](docs/sdks/logdrains/README.md#deleteintegrationlogdrain) - Deletes the Integration log drain with the provided `id`
@@ -634,6 +635,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`marketplaceCreateInstallationIntegrationConfiguration`](docs/sdks/marketplace/README.md#createinstallationintegrationconfiguration) - Create one or multiple experimentation items
 - [`marketplaceCreateInstallationIntegrationEdgeConfig`](docs/sdks/marketplace/README.md#createinstallationintegrationedgeconfig) - Get the data of a user-provided Edge Config
 - [`marketplaceDeleteInstallationIntegrationConfiguration`](docs/sdks/marketplace/README.md#deleteinstallationintegrationconfiguration) - Delete an existing experimentation item
+- [`marketplaceExchangeSsoToken`](docs/sdks/authentication/README.md#exchangessotoken) - SSO Token Exchange
 - [`marketplaceExchangeSsoToken`](docs/sdks/marketplace/README.md#exchangessotoken) - SSO Token Exchange
 - [`marketplaceGetAccountInfo`](docs/sdks/marketplace/README.md#getaccountinfo) - Get Account Information
 - [`marketplaceGetInvoice`](docs/sdks/marketplace/README.md#getinvoice) - Get Invoice
@@ -647,9 +649,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`marketplaceUpdateInvoice`](docs/sdks/marketplace/README.md#updateinvoice) - Invoice Actions
 - [`marketplaceUpdateResourceSecrets`](docs/sdks/marketplace/README.md#updateresourcesecrets) - Update Resource Secrets (Deprecated)
 - [`marketplaceUpdateResourceSecretsById`](docs/sdks/marketplace/README.md#updateresourcesecretsbyid) - Update Resource Secrets
-- [`patchProjectsProjectIdLogsPresetsId`](docs/sdks/vercel/README.md#patchprojectsprojectidlogspresetsid)
-- [`postDomains`](docs/sdks/vercel/README.md#postdomains)
-- [`postProjectsProjectIdLogsPresets`](docs/sdks/vercel/README.md#postprojectsprojectidlogspresets)
 - [`projectMembersAddProjectMember`](docs/sdks/projectmembers/README.md#addprojectmember) - Adds a new member to a project.
 - [`projectMembersGetProjectMembers`](docs/sdks/projectmembers/README.md#getprojectmembers) - List project members
 - [`projectMembersRemoveProjectMember`](docs/sdks/projectmembers/README.md#removeprojectmember) - Remove a Project Member
@@ -677,6 +676,13 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`projectsUpdateProjectDomain`](docs/sdks/projects/README.md#updateprojectdomain) - Update a project domain
 - [`projectsUpdateProjectProtectionBypass`](docs/sdks/projects/README.md#updateprojectprotectionbypass) - Update Protection Bypass for Automation
 - [`projectsVerifyProjectDomain`](docs/sdks/projects/README.md#verifyprojectdomain) - Verify project domain
+- [`rollingReleaseApproveRollingReleaseStage`](docs/sdks/rollingrelease/README.md#approverollingreleasestage) - Update the active rolling release to the next stage for a project
+- [`rollingReleaseCompleteRollingRelease`](docs/sdks/rollingrelease/README.md#completerollingrelease) - Complete the rolling release for the project
+- [`rollingReleaseDeleteRollingReleaseConfig`](docs/sdks/rollingrelease/README.md#deleterollingreleaseconfig) - Delete rolling release configuration
+- [`rollingReleaseGetRollingRelease`](docs/sdks/rollingrelease/README.md#getrollingrelease) - Get the active rolling release information for a project
+- [`rollingReleaseGetRollingReleaseBillingStatus`](docs/sdks/rollingrelease/README.md#getrollingreleasebillingstatus) - Get rolling release billing status
+- [`rollingReleaseGetRollingReleaseConfig`](docs/sdks/rollingrelease/README.md#getrollingreleaseconfig) - Get rolling release configuration
+- [`rollingReleaseUpdateRollingReleaseConfig`](docs/sdks/rollingrelease/README.md#updaterollingreleaseconfig) - Update the rolling release settings for the project
 - [`securityAddBypassIp`](docs/sdks/security/README.md#addbypassip) - Create System Bypass Rule
 - [`securityGetActiveAttackStatus`](docs/sdks/security/README.md#getactiveattackstatus) - Read active attack data
 - [`securityGetBypassIp`](docs/sdks/security/README.md#getbypassip) - Read System Bypass
@@ -744,7 +750,6 @@ async function run() {
     requestBody: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -762,13 +767,15 @@ To change the default retry strategy for a single API call, simply provide a ret
 ```typescript
 import { Vercel } from "@vercel/sdk";
 
-const vercel = new Vercel();
+const vercel = new Vercel({
+  bearerToken: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
 async function run() {
-  const result = await vercel.postDomains({
-    name: "example.com",
-    method: "transfer-in",
-    token: "fdhfr820ad#@FAdlj$$",
+  const result = await vercel.accessGroups.readAccessGroup({
+    idOrName: "ag_1a2b3c4d5e6f7g8h9i0j",
+    teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
+    slug: "my-team-url-slug",
   }, {
     retries: {
       strategy: "backoff",
@@ -782,7 +789,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -805,16 +811,16 @@ const vercel = new Vercel({
     },
     retryConnectionErrors: false,
   },
+  bearerToken: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-  const result = await vercel.postDomains({
-    name: "example.com",
-    method: "transfer-in",
-    token: "fdhfr820ad#@FAdlj$$",
+  const result = await vercel.accessGroups.readAccessGroup({
+    idOrName: "ag_1a2b3c4d5e6f7g8h9i0j",
+    teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
+    slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -826,65 +832,47 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `postDomains` method may throw the following errors:
+[`VercelError`](./src/models/vercelerror.ts) is the base class for all HTTP error responses. It has the following properties:
 
-| Error Type                   | Status Code | Content Type     |
-| ---------------------------- | ----------- | ---------------- |
-| models.VercelBadRequestError | 400         | application/json |
-| models.VercelForbiddenError  | 401         | application/json |
-| models.VercelNotFoundError   | 404         | application/json |
-| models.SDKError              | 4XX, 5XX    | \*/\*            |
+| Property            | Type       | Description                                                                             |
+| ------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `error.message`     | `string`   | Error message                                                                           |
+| `error.statusCode`  | `number`   | HTTP response status code eg `404`                                                      |
+| `error.headers`     | `Headers`  | HTTP response headers                                                                   |
+| `error.body`        | `string`   | HTTP body. Can be empty string if no body is returned.                                  |
+| `error.rawResponse` | `Response` | Raw HTTP response                                                                       |
+| `error.data$`       |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
-If the method throws an error and it is not captured by the known errors, it will default to throwing a `SDKError`.
-
+### Example
 ```typescript
 import { Vercel } from "@vercel/sdk";
-import { SDKValidationError } from "@vercel/sdk/models/sdkvalidationerror.js";
 import { VercelBadRequestError } from "@vercel/sdk/models/vercelbadrequesterror.js";
-import { VercelForbiddenError } from "@vercel/sdk/models/vercelforbiddenerror.js";
-import { VercelNotFoundError } from "@vercel/sdk/models/vercelnotfounderror.js";
+import { VercelError } from "@vercel/sdk/models/vercelerror.js.js";
 
-const vercel = new Vercel();
+const vercel = new Vercel({
+  bearerToken: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
 async function run() {
-  let result;
   try {
-    result = await vercel.postDomains({
-      name: "example.com",
-      method: "transfer-in",
-      token: "fdhfr820ad#@FAdlj$$",
+    const result = await vercel.accessGroups.readAccessGroup({
+      idOrName: "ag_1a2b3c4d5e6f7g8h9i0j",
+      teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
+      slug: "my-team-url-slug",
     });
 
-    // Handle the result
     console.log(result);
-  } catch (err) {
-    switch (true) {
-      // The server response does not match the expected SDK schema
-      case (err instanceof SDKValidationError): {
-        // Pretty-print will provide a human-readable multi-line error message
-        console.error(err.pretty());
-        // Raw value may also be inspected
-        console.error(err.rawValue);
-        return;
-      }
-      case (err instanceof VercelBadRequestError): {
-        // Handle err.data$: VercelBadRequestErrorData
-        console.error(err);
-        return;
-      }
-      case (err instanceof VercelForbiddenError): {
-        // Handle err.data$: VercelForbiddenErrorData
-        console.error(err);
-        return;
-      }
-      case (err instanceof VercelNotFoundError): {
-        // Handle err.data$: VercelNotFoundErrorData
-        console.error(err);
-        return;
-      }
-      default: {
-        // Other errors such as network errors, see HTTPClientErrors for more details
-        throw err;
+  } catch (error) {
+    // The base class for HTTP error responses
+    if (error instanceof VercelError) {
+      console.log(error.message);
+      console.log(error.statusCode);
+      console.log(error.body);
+      console.log(error.headers);
+
+      // Depending on the method different errors may be thrown
+      if (error instanceof VercelBadRequestError) {
+        console.log(error.data$.error); // models.ErrorT
       }
     }
   }
@@ -894,17 +882,32 @@ run();
 
 ```
 
-Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted multi-line string since validation errors can list many issues and the plain error string may be difficult read when debugging.
+### Error Classes
+**Primary errors:**
+* [`VercelError`](./src/models/vercelerror.ts): The base class for HTTP error responses.
+  * [`VercelBadRequestError`](docs/models/vercelbadrequesterror.md): Status code `400`. *
+  * [`VercelForbiddenError`](docs/models/vercelforbiddenerror.md): Status code `401`. *
 
-In some rare cases, the SDK can fail to get a response from the server or even make the request due to unexpected circumstances such as network conditions. These types of errors are captured in the `models/httpclienterrors.ts` module:
+<details><summary>Less common errors (8)</summary>
 
-| HTTP Client Error                                    | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- |
-| RequestAbortedError                                  | HTTP request was aborted by the client               |
-| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
-| ConnectionError                                      | HTTP client was unable to make a request to a server |
-| InvalidRequestError                                  | Any input used to create a request is invalid        |
-| UnexpectedClientError                                | Unrecognised or unexpected error                     |
+<br />
+
+**Network errors:**
+* [`ConnectionError`](./src/models/httpclienterrors.ts): HTTP client was unable to make a request to a server.
+* [`RequestTimeoutError`](./src/models/httpclienterrors.ts): HTTP request timed out due to an AbortSignal signal.
+* [`RequestAbortedError`](./src/models/httpclienterrors.ts): HTTP request was aborted by the client.
+* [`InvalidRequestError`](./src/models/httpclienterrors.ts): Any input used to create a request is invalid.
+* [`UnexpectedClientError`](./src/models/httpclienterrors.ts): Unrecognised or unexpected error.
+
+
+**Inherit from [`VercelError`](./src/models/vercelerror.ts)**:
+* [`VercelNotFoundError`](docs/models/vercelnotfounderror.md): Status code `404`. Applicable to 100 of 171 methods.*
+* [`VercelRateLimitError`](docs/models/vercelratelimiterror.md): . Status code `429`. Applicable to 1 of 171 methods.*
+* [`ResponseValidationError`](./src/models/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
+
+</details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
@@ -918,16 +921,16 @@ import { Vercel } from "@vercel/sdk";
 
 const vercel = new Vercel({
   serverURL: "https://api.vercel.com",
+  bearerToken: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-  const result = await vercel.postDomains({
-    name: "example.com",
-    method: "transfer-in",
-    token: "fdhfr820ad#@FAdlj$$",
+  const result = await vercel.accessGroups.readAccessGroup({
+    idOrName: "ag_1a2b3c4d5e6f7g8h9i0j",
+    teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
+    slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 

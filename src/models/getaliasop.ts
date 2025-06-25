@@ -149,19 +149,23 @@ export type GetAliasProtectionBypass1 = {
 };
 
 export type GetAliasProtectionBypass =
-  | GetAliasProtectionBypass1
-  | ProtectionBypass3
+  | GetAliasProtectionBypass2
   | ProtectionBypass4
-  | GetAliasProtectionBypass2;
+  | GetAliasProtectionBypass1
+  | ProtectionBypass3;
 
 export type DefaultApp = {
   projectId: string;
 };
 
 /**
- * A mapping from `projectId` to information that should be used if the path is routed to that particular project.
+ * A list of the deployment routing information for each project.
  */
 export type Applications = {
+  /**
+   * The project ID that should use the below configuration.
+   */
+  projectId: string;
   /**
    * This is always set and is the fallback host to send the request to if there is no deployment ID.
    */
@@ -182,9 +186,9 @@ export type Applications = {
 export type GetAliasMicrofrontends = {
   defaultApp: DefaultApp;
   /**
-   * A mapping from `projectId` to information that should be used if the path is routed to that particular project.
+   * A list of the deployment routing information for each project.
    */
-  applications: { [k: string]: Applications };
+  applications: Array<Applications>;
 };
 
 /**
@@ -244,10 +248,10 @@ export type GetAliasResponseBody = {
    */
   protectionBypass?: {
     [k: string]:
-      | GetAliasProtectionBypass1
-      | ProtectionBypass3
+      | GetAliasProtectionBypass2
       | ProtectionBypass4
-      | GetAliasProtectionBypass2;
+      | GetAliasProtectionBypass1
+      | ProtectionBypass3;
   } | undefined;
   /**
    * The microfrontends for the alias including the routing configuration
@@ -810,18 +814,18 @@ export const GetAliasProtectionBypass$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
+  z.lazy(() => GetAliasProtectionBypass2$inboundSchema),
+  z.lazy(() => ProtectionBypass4$inboundSchema),
   z.lazy(() => GetAliasProtectionBypass1$inboundSchema),
   z.lazy(() => ProtectionBypass3$inboundSchema),
-  z.lazy(() => ProtectionBypass4$inboundSchema),
-  z.lazy(() => GetAliasProtectionBypass2$inboundSchema),
 ]);
 
 /** @internal */
 export type GetAliasProtectionBypass$Outbound =
-  | GetAliasProtectionBypass1$Outbound
-  | ProtectionBypass3$Outbound
+  | GetAliasProtectionBypass2$Outbound
   | ProtectionBypass4$Outbound
-  | GetAliasProtectionBypass2$Outbound;
+  | GetAliasProtectionBypass1$Outbound
+  | ProtectionBypass3$Outbound;
 
 /** @internal */
 export const GetAliasProtectionBypass$outboundSchema: z.ZodType<
@@ -829,10 +833,10 @@ export const GetAliasProtectionBypass$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetAliasProtectionBypass
 > = z.union([
+  z.lazy(() => GetAliasProtectionBypass2$outboundSchema),
+  z.lazy(() => ProtectionBypass4$outboundSchema),
   z.lazy(() => GetAliasProtectionBypass1$outboundSchema),
   z.lazy(() => ProtectionBypass3$outboundSchema),
-  z.lazy(() => ProtectionBypass4$outboundSchema),
-  z.lazy(() => GetAliasProtectionBypass2$outboundSchema),
 ]);
 
 /**
@@ -922,6 +926,7 @@ export const Applications$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  projectId: z.string(),
   fallbackHost: z.string(),
   deploymentId: z.string().optional(),
   deploymentUrl: z.string().optional(),
@@ -929,6 +934,7 @@ export const Applications$inboundSchema: z.ZodType<
 
 /** @internal */
 export type Applications$Outbound = {
+  projectId: string;
   fallbackHost: string;
   deploymentId?: string | undefined;
   deploymentUrl?: string | undefined;
@@ -940,6 +946,7 @@ export const Applications$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Applications
 > = z.object({
+  projectId: z.string(),
   fallbackHost: z.string(),
   deploymentId: z.string().optional(),
   deploymentUrl: z.string().optional(),
@@ -979,13 +986,13 @@ export const GetAliasMicrofrontends$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   defaultApp: z.lazy(() => DefaultApp$inboundSchema),
-  applications: z.record(z.lazy(() => Applications$inboundSchema)),
+  applications: z.array(z.lazy(() => Applications$inboundSchema)),
 });
 
 /** @internal */
 export type GetAliasMicrofrontends$Outbound = {
   defaultApp: DefaultApp$Outbound;
-  applications: { [k: string]: Applications$Outbound };
+  applications: Array<Applications$Outbound>;
 };
 
 /** @internal */
@@ -995,7 +1002,7 @@ export const GetAliasMicrofrontends$outboundSchema: z.ZodType<
   GetAliasMicrofrontends
 > = z.object({
   defaultApp: z.lazy(() => DefaultApp$outboundSchema),
-  applications: z.record(z.lazy(() => Applications$outboundSchema)),
+  applications: z.array(z.lazy(() => Applications$outboundSchema)),
 });
 
 /**
@@ -1049,10 +1056,10 @@ export const GetAliasResponseBody$inboundSchema: z.ZodType<
   updatedAt: z.nullable(z.number()).optional(),
   protectionBypass: z.record(
     z.union([
+      z.lazy(() => GetAliasProtectionBypass2$inboundSchema),
+      z.lazy(() => ProtectionBypass4$inboundSchema),
       z.lazy(() => GetAliasProtectionBypass1$inboundSchema),
       z.lazy(() => ProtectionBypass3$inboundSchema),
-      z.lazy(() => ProtectionBypass4$inboundSchema),
-      z.lazy(() => GetAliasProtectionBypass2$inboundSchema),
     ]),
   ).optional(),
   microfrontends: z.lazy(() => GetAliasMicrofrontends$inboundSchema).optional(),
@@ -1074,10 +1081,10 @@ export type GetAliasResponseBody$Outbound = {
   updatedAt?: number | null | undefined;
   protectionBypass?: {
     [k: string]:
-      | GetAliasProtectionBypass1$Outbound
-      | ProtectionBypass3$Outbound
+      | GetAliasProtectionBypass2$Outbound
       | ProtectionBypass4$Outbound
-      | GetAliasProtectionBypass2$Outbound;
+      | GetAliasProtectionBypass1$Outbound
+      | ProtectionBypass3$Outbound;
   } | undefined;
   microfrontends?: GetAliasMicrofrontends$Outbound | undefined;
 };
@@ -1102,10 +1109,10 @@ export const GetAliasResponseBody$outboundSchema: z.ZodType<
   updatedAt: z.nullable(z.number()).optional(),
   protectionBypass: z.record(
     z.union([
+      z.lazy(() => GetAliasProtectionBypass2$outboundSchema),
+      z.lazy(() => ProtectionBypass4$outboundSchema),
       z.lazy(() => GetAliasProtectionBypass1$outboundSchema),
       z.lazy(() => ProtectionBypass3$outboundSchema),
-      z.lazy(() => ProtectionBypass4$outboundSchema),
-      z.lazy(() => GetAliasProtectionBypass2$outboundSchema),
     ]),
   ).optional(),
   microfrontends: z.lazy(() => GetAliasMicrofrontends$outboundSchema)

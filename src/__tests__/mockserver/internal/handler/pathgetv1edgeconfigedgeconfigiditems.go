@@ -8,7 +8,6 @@ import (
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/components"
-	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
 	"mockserver/internal/tracking"
 	"net/http"
@@ -46,15 +45,7 @@ func testGetEdgeConfigItemsGetEdgeConfigItems0(w http.ResponseWriter, req *http.
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.EdgeConfigItem{
-		Key: "<key>",
-		Value: types.Pointer(components.CreateEdgeConfigItemValueNumber(
-			5002.95,
-		)),
-		EdgeConfigID: "<id>",
-		CreatedAt:    9069.69,
-		UpdatedAt:    6276.41,
-	}
+	var respBody []components.EdgeConfigItem = []components.EdgeConfigItem{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

@@ -121,20 +121,6 @@ export type GitMetadata = {
   dirty?: boolean | undefined;
 };
 
-export const CreateDeploymentGitSourceDeploymentsRequestRequestBodyType = {
-  Bitbucket: "bitbucket",
-} as const;
-export type CreateDeploymentGitSourceDeploymentsRequestRequestBodyType =
-  ClosedEnum<typeof CreateDeploymentGitSourceDeploymentsRequestRequestBodyType>;
-
-export type GitSource6 = {
-  owner: string;
-  ref: string;
-  sha?: string | undefined;
-  slug: string;
-  type: CreateDeploymentGitSourceDeploymentsRequestRequestBodyType;
-};
-
 export const CreateDeploymentGitSourceDeploymentsRequestType = {
   Bitbucket: "bitbucket",
 } as const;
@@ -143,42 +129,41 @@ export type CreateDeploymentGitSourceDeploymentsRequestType = ClosedEnum<
 >;
 
 export type GitSource5 = {
+  owner: string;
   ref: string;
-  repoUuid: string;
   sha?: string | undefined;
+  slug: string;
   type: CreateDeploymentGitSourceDeploymentsRequestType;
-  workspaceUuid?: string | undefined;
 };
 
-export type ProjectId = number | string;
-
 export const CreateDeploymentGitSourceDeploymentsType = {
-  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
 } as const;
 export type CreateDeploymentGitSourceDeploymentsType = ClosedEnum<
   typeof CreateDeploymentGitSourceDeploymentsType
 >;
 
 export type GitSource4 = {
-  projectId: number | string;
   ref: string;
+  repoUuid: string;
   sha?: string | undefined;
   type: CreateDeploymentGitSourceDeploymentsType;
+  workspaceUuid?: string | undefined;
 };
 
+export type ProjectId = number | string;
+
 export const CreateDeploymentGitSourceType = {
-  GithubCustomHost: "github-custom-host",
+  Gitlab: "gitlab",
 } as const;
 export type CreateDeploymentGitSourceType = ClosedEnum<
   typeof CreateDeploymentGitSourceType
 >;
 
 export type GitSource3 = {
-  org: string;
+  projectId: number | string;
   ref: string;
-  repo: string;
   sha?: string | undefined;
-  host: string;
   type: CreateDeploymentGitSourceType;
 };
 
@@ -197,31 +182,28 @@ export type GitSource2 = {
 
 export type RepoId = number | string;
 
-export const CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type = {
+export const CreateDeploymentGitSourceDeploymentsRequestRequestBodyType = {
   Github: "github",
 } as const;
-export type CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type =
-  ClosedEnum<
-    typeof CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type
-  >;
+export type CreateDeploymentGitSourceDeploymentsRequestRequestBodyType =
+  ClosedEnum<typeof CreateDeploymentGitSourceDeploymentsRequestRequestBodyType>;
 
 export type GitSource1 = {
   ref: string;
   repoId: number | string;
   sha?: string | undefined;
-  type: CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type;
+  type: CreateDeploymentGitSourceDeploymentsRequestRequestBodyType;
 };
 
 /**
  * Defines the Git Repository source to be deployed. This property can not be used in combination with `files`.
  */
 export type GitSource =
-  | GitSource1
-  | GitSource4
   | GitSource2
   | GitSource5
-  | GitSource6
-  | GitSource3;
+  | GitSource1
+  | GitSource3
+  | GitSource4;
 
 /**
  * The framework that is being used for this project. When `null` is used no framework is selected
@@ -367,12 +349,11 @@ export type CreateDeploymentRequestBody = {
    * Defines the Git Repository source to be deployed. This property can not be used in combination with `files`.
    */
   gitSource?:
-    | GitSource1
-    | GitSource4
     | GitSource2
     | GitSource5
-    | GitSource6
+    | GitSource1
     | GitSource3
+    | GitSource4
     | undefined;
   /**
    * An object containing the deployment's metadata. Multiple key-value pairs can be attached to a deployment
@@ -613,8 +594,8 @@ export type Creator = {
 };
 
 export const CreateDeploymentReadyState = {
-  Error: "ERROR",
   Building: "BUILDING",
+  Error: "ERROR",
   Initializing: "INITIALIZING",
   Ready: "READY",
 } as const;
@@ -631,10 +612,10 @@ export type CreateDeploymentOutput = {
  * A partial representation of a Build used by the deployment endpoint.
  */
 export type Lambdas = {
-  createdAt?: number | undefined;
   id?: string | undefined;
-  readyState?: CreateDeploymentReadyState | undefined;
+  createdAt?: number | undefined;
   entrypoint?: string | null | undefined;
+  readyState?: CreateDeploymentReadyState | undefined;
   readyStateAt?: number | undefined;
   output: Array<CreateDeploymentOutput>;
 };
@@ -650,8 +631,8 @@ export const CreateDeploymentStatus = {
 export type CreateDeploymentStatus = ClosedEnum<typeof CreateDeploymentStatus>;
 
 export type CreateDeploymentTeam = {
-  name: string;
   id: string;
+  name: string;
   slug: string;
   avatar?: string | undefined;
 };
@@ -677,9 +658,9 @@ export type CustomEnvironmentType = ClosedEnum<typeof CustomEnvironmentType>;
  * The type of matching to perform
  */
 export const CreateDeploymentCustomEnvironmentType = {
-  EndsWith: "endsWith",
   StartsWith: "startsWith",
   Equals: "equals",
+  EndsWith: "endsWith",
 } as const;
 /**
  * The type of matching to perform
@@ -777,7 +758,12 @@ export type CustomEnvironment1 = {
   updatedAt: number;
 };
 
-export type CustomEnvironment = CustomEnvironment2 | CustomEnvironment1;
+export type CustomEnvironment = CustomEnvironment1 | CustomEnvironment2;
+
+export const OomReport = {
+  OutOfMemory: "out-of-memory",
+} as const;
+export type OomReport = ClosedEnum<typeof OomReport>;
 
 export const CreateDeploymentType = {
   Lambdas: "LAMBDAS",
@@ -1012,18 +998,18 @@ export type CreateDeploymentGitSource1 = {
 };
 
 export type CreateDeploymentGitSource =
+  | CreateDeploymentGitSource10
+  | CreateDeploymentGitSource12
+  | CreateDeploymentGitSource4
   | CreateDeploymentGitSource8
+  | CreateDeploymentGitSource9
   | CreateDeploymentGitSource11
-  | CreateDeploymentGitSource1
-  | CreateDeploymentGitSource5
   | CreateDeploymentGitSource2
   | CreateDeploymentGitSource3
-  | CreateDeploymentGitSource6
   | CreateDeploymentGitSource7
-  | CreateDeploymentGitSource9
-  | CreateDeploymentGitSource4
-  | CreateDeploymentGitSource10
-  | CreateDeploymentGitSource12;
+  | CreateDeploymentGitSource1
+  | CreateDeploymentGitSource5
+  | CreateDeploymentGitSource6;
 
 export type CreateDeploymentProject = {
   id: string;
@@ -1118,10 +1104,256 @@ export const CreateDeploymentPlan = {
 } as const;
 export type CreateDeploymentPlan = ClosedEnum<typeof CreateDeploymentPlan>;
 
+export const FunctionType = {
+  Fluid: "fluid",
+  Standard: "standard",
+} as const;
+export type FunctionType = ClosedEnum<typeof FunctionType>;
+
+export const FunctionMemoryType = {
+  Standard: "standard",
+  StandardLegacy: "standard_legacy",
+  Performance: "performance",
+} as const;
+export type FunctionMemoryType = ClosedEnum<typeof FunctionMemoryType>;
+
+/**
+ * Since February 2025 the configuration must include snapshot data at the time of deployment creation to capture properties for the /deployments/:id/config endpoint utilized for displaying Deployment Configuration on the frontend This is optional because older deployments may not have this data captured
+ */
+export type Config = {
+  version?: number | undefined;
+  functionType: FunctionType;
+  functionMemoryType: FunctionMemoryType;
+  functionTimeout: number | null;
+  secureComputePrimaryRegion: string | null;
+  secureComputeFallbackRegion: string | null;
+  isUsingActiveCPU?: boolean | undefined;
+};
+
+export const Architecture = {
+  X8664: "x86_64",
+  Arm64: "arm64",
+} as const;
+export type Architecture = ClosedEnum<typeof Architecture>;
+
+export type Functions = {
+  architecture?: Architecture | undefined;
+  memory?: number | undefined;
+  maxDuration?: number | undefined;
+  runtime?: string | undefined;
+  includeFiles?: string | undefined;
+  excludeFiles?: string | undefined;
+};
+
+export type Routes3 = {
+  src: string;
+  continue: boolean;
+  middleware: number;
+};
+
+export const RoutesHandle = {
+  Error: "error",
+  Filesystem: "filesystem",
+  Hit: "hit",
+  Miss: "miss",
+  Rewrite: "rewrite",
+  Resource: "resource",
+} as const;
+export type RoutesHandle = ClosedEnum<typeof RoutesHandle>;
+
+export type Routes2 = {
+  handle: RoutesHandle;
+  src?: string | undefined;
+  dest?: string | undefined;
+  status?: number | undefined;
+};
+
+export const CreateDeploymentHasType = {
+  Header: "header",
+  Cookie: "cookie",
+  Query: "query",
+} as const;
+export type CreateDeploymentHasType = ClosedEnum<
+  typeof CreateDeploymentHasType
+>;
+
+export type ValueEq = string | number;
+
+export type CreateDeploymentValueDeployments2 = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+export type CreateDeploymentHasValue =
+  | CreateDeploymentValueDeployments2
+  | string;
+
+export type Has2 = {
+  type: CreateDeploymentHasType;
+  key: string;
+  value?: CreateDeploymentValueDeployments2 | string | undefined;
+};
+
+export const HasType = {
+  Host: "host",
+} as const;
+export type HasType = ClosedEnum<typeof HasType>;
+
+export type Eq = string | number;
+
+export type CreateDeploymentValue2 = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+export type HasValue = CreateDeploymentValue2 | string;
+
+export type Has1 = {
+  type: HasType;
+  value: CreateDeploymentValue2 | string;
+};
+
+export type RoutesHas = Has1 | Has2;
+
+export const CreateDeploymentMissingType = {
+  Header: "header",
+  Cookie: "cookie",
+  Query: "query",
+} as const;
+export type CreateDeploymentMissingType = ClosedEnum<
+  typeof CreateDeploymentMissingType
+>;
+
+export type CreateDeploymentValueDeploymentsEq = string | number;
+
+export type CreateDeploymentValueDeploymentsResponse2002 = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+export type CreateDeploymentMissingValue =
+  | CreateDeploymentValueDeploymentsResponse2002
+  | string;
+
+export type Missing2 = {
+  type: CreateDeploymentMissingType;
+  key: string;
+  value?: CreateDeploymentValueDeploymentsResponse2002 | string | undefined;
+};
+
+export const MissingType = {
+  Host: "host",
+} as const;
+export type MissingType = ClosedEnum<typeof MissingType>;
+
+export type CreateDeploymentValueEq = string | number;
+
+export type CreateDeploymentValueDeploymentsResponse2 = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+export type MissingValue = CreateDeploymentValueDeploymentsResponse2 | string;
+
+export type Missing1 = {
+  type: MissingType;
+  value: CreateDeploymentValueDeploymentsResponse2 | string;
+};
+
+export type RoutesMissing = Missing1 | Missing2;
+
+export const RoutesAction = {
+  Challenge: "challenge",
+  Deny: "deny",
+} as const;
+export type RoutesAction = ClosedEnum<typeof RoutesAction>;
+
+export type RoutesMitigate = {
+  action: RoutesAction;
+};
+
+export type Locale = {
+  redirect?: { [k: string]: string } | undefined;
+  cookie?: string | undefined;
+};
+
+export type Routes1 = {
+  src: string;
+  dest?: string | undefined;
+  headers?: { [k: string]: string } | undefined;
+  methods?: Array<string> | undefined;
+  continue?: boolean | undefined;
+  override?: boolean | undefined;
+  caseSensitive?: boolean | undefined;
+  check?: boolean | undefined;
+  important?: boolean | undefined;
+  status?: number | undefined;
+  has?: Array<Has1 | Has2> | undefined;
+  missing?: Array<Missing1 | Missing2> | undefined;
+  mitigate?: RoutesMitigate | undefined;
+  locale?: Locale | undefined;
+  /**
+   * A middleware key within the `output` key under the build result. Overrides a `middleware` definition.
+   */
+  middlewarePath?: string | undefined;
+  /**
+   * The original middleware matchers.
+   */
+  middlewareRawSrc?: Array<string> | undefined;
+  /**
+   * A middleware index in the `middleware` key under the build result
+   */
+  middleware?: number | undefined;
+};
+
+export type Routes = Routes3 | Routes1 | Routes2;
+
+export type CreateDeploymentCrons = {
+  schedule: string;
+  path: string;
+};
+
 /**
  * A map of the other applications that are part of this group. Only defined on the default application. The field is set after deployments have been created, so can be undefined, but should be there for a successful deployment.
  */
 export type CreateDeploymentMicrofrontendsApplications = {
+  isDefaultApp?: boolean | undefined;
   /**
    * This is the production alias, it will always show the most up to date of each application.
    */
@@ -1175,157 +1407,30 @@ export type CreateDeploymentMicrofrontends1 = {
 };
 
 export type CreateDeploymentMicrofrontends =
-  | CreateDeploymentMicrofrontends1
-  | CreateDeploymentMicrofrontends2;
+  | CreateDeploymentMicrofrontends2
+  | CreateDeploymentMicrofrontends1;
 
-export const FunctionType = {
-  Standard: "standard",
-  Fluid: "fluid",
+export const CreateDeploymentState = {
+  Succeeded: "succeeded",
+  Failed: "failed",
+  Pending: "pending",
 } as const;
-export type FunctionType = ClosedEnum<typeof FunctionType>;
-
-export const FunctionMemoryType = {
-  StandardLegacy: "standard_legacy",
-  Standard: "standard",
-  Performance: "performance",
-} as const;
-export type FunctionMemoryType = ClosedEnum<typeof FunctionMemoryType>;
+export type CreateDeploymentState = ClosedEnum<typeof CreateDeploymentState>;
 
 /**
- * Since February 2025 the configuration must include snapshot data at the time of deployment creation to capture properties for the /deployments/:id/config endpoint utilized for displaying Deployment Configuration on the frontend This is optional because older deployments may not have this data captured
+ * Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
  */
-export type Config = {
-  version?: number | undefined;
-  functionType: FunctionType;
-  functionMemoryType: FunctionMemoryType;
-  functionTimeout: number | null;
-  secureComputePrimaryRegion: string | null;
-  secureComputeFallbackRegion: string | null;
+export type DeploymentAlias = {
+  state: CreateDeploymentState;
+  startedAt: number;
+  completedAt?: number | undefined;
 };
 
-export type Functions = {
-  memory?: number | undefined;
-  maxDuration?: number | undefined;
-  runtime?: string | undefined;
-  includeFiles?: string | undefined;
-  excludeFiles?: string | undefined;
-};
-
-export type Routes3 = {
-  src: string;
-  continue: boolean;
-  middleware: number;
-};
-
-export const RoutesHandle = {
-  Error: "error",
-  Resource: "resource",
-  Filesystem: "filesystem",
-  Hit: "hit",
-  Miss: "miss",
-  Rewrite: "rewrite",
-} as const;
-export type RoutesHandle = ClosedEnum<typeof RoutesHandle>;
-
-export type Routes2 = {
-  handle: RoutesHandle;
-  src?: string | undefined;
-  dest?: string | undefined;
-  status?: number | undefined;
-};
-
-export const CreateDeploymentHasType = {
-  Header: "header",
-  Cookie: "cookie",
-  Query: "query",
-} as const;
-export type CreateDeploymentHasType = ClosedEnum<
-  typeof CreateDeploymentHasType
->;
-
-export type Has2 = {
-  type: CreateDeploymentHasType;
-  key: string;
-  value?: string | undefined;
-};
-
-export const HasType = {
-  Host: "host",
-} as const;
-export type HasType = ClosedEnum<typeof HasType>;
-
-export type Has1 = {
-  type: HasType;
-  value: string;
-};
-
-export type RoutesHas = Has1 | Has2;
-
-export const CreateDeploymentMissingType = {
-  Header: "header",
-  Cookie: "cookie",
-  Query: "query",
-} as const;
-export type CreateDeploymentMissingType = ClosedEnum<
-  typeof CreateDeploymentMissingType
->;
-
-export type Missing2 = {
-  type: CreateDeploymentMissingType;
-  key: string;
-  value?: string | undefined;
-};
-
-export const MissingType = {
-  Host: "host",
-} as const;
-export type MissingType = ClosedEnum<typeof MissingType>;
-
-export type Missing1 = {
-  type: MissingType;
-  value: string;
-};
-
-export type RoutesMissing = Missing1 | Missing2;
-
-export type Locale = {
-  redirect?: { [k: string]: string } | undefined;
-  cookie?: string | undefined;
-};
-
-export type Routes1 = {
-  src: string;
-  dest?: string | undefined;
-  headers?: { [k: string]: string } | undefined;
-  methods?: Array<string> | undefined;
-  continue?: boolean | undefined;
-  override?: boolean | undefined;
-  caseSensitive?: boolean | undefined;
-  check?: boolean | undefined;
-  important?: boolean | undefined;
-  status?: number | undefined;
-  has?: Array<Has1 | Has2> | undefined;
-  missing?: Array<Missing1 | Missing2> | undefined;
-  locale?: Locale | undefined;
+export type CreateDeploymentChecks = {
   /**
-   * A middleware key within the `output` key under the build result. Overrides a `middleware` definition.
+   * Condensed check data. Retrieve individual check and check run data using api-checks v2 routes.
    */
-  middlewarePath?: string | undefined;
-  /**
-   * The original middleware matchers.
-   */
-  middlewareRawSrc?: Array<string> | undefined;
-  /**
-   * A middleware index in the `middleware` key under the build result
-   */
-  middleware?: number | undefined;
-};
-
-export type Routes = Routes3 | Routes2 | Routes1;
-
-export type CreateDeploymentCrons = {
-  schedule: string;
-  path: string;
+  deploymentAlias: DeploymentAlias;
 };
 
 export const CreateDeploymentGitRepoDeploymentsType = {
@@ -1336,8 +1441,8 @@ export type CreateDeploymentGitRepoDeploymentsType = ClosedEnum<
 >;
 
 export const CreateDeploymentGitRepoOwnerType = {
-  User: "user",
   Team: "team",
+  User: "user",
 } as const;
 export type CreateDeploymentGitRepoOwnerType = ClosedEnum<
   typeof CreateDeploymentGitRepoOwnerType
@@ -1364,8 +1469,8 @@ export type CreateDeploymentGitRepoType = ClosedEnum<
 >;
 
 export const GitRepoOwnerType = {
-  User: "user",
   Team: "team",
+  User: "user",
 } as const;
 export type GitRepoOwnerType = ClosedEnum<typeof GitRepoOwnerType>;
 
@@ -1388,8 +1493,8 @@ export const GitRepoType = {
 export type GitRepoType = ClosedEnum<typeof GitRepoType>;
 
 export const OwnerType = {
-  User: "user",
   Team: "team",
+  User: "user",
 } as const;
 export type OwnerType = ClosedEnum<typeof OwnerType>;
 
@@ -1405,7 +1510,7 @@ export type GitRepo1 = {
   ownerType: OwnerType;
 };
 
-export type GitRepo = GitRepo1 | GitRepo2 | GitRepo3;
+export type GitRepo = GitRepo2 | GitRepo3 | GitRepo1;
 
 /**
  * Flags defined in the Build Output API, used by this deployment. Primarily used by the Toolbar to know about the used flags.
@@ -1469,30 +1574,31 @@ export type CreateDeploymentResponseBody = {
   userAliases?: Array<string> | undefined;
   previewCommentsEnabled?: boolean | undefined;
   ttyBuildLogs?: boolean | undefined;
-  customEnvironment?: CustomEnvironment2 | CustomEnvironment1 | undefined;
-  type: CreateDeploymentType;
+  customEnvironment?: CustomEnvironment1 | CustomEnvironment2 | undefined;
+  oomReport?: OomReport | undefined;
+  id: string;
   name: string;
   createdAt: number;
+  type: CreateDeploymentType;
   deletedAt?: number | null | undefined;
-  id: string;
   version: number;
   /**
    * applies to custom domains only, defaults to `true`
    */
   autoAssignCustomDomains?: boolean | undefined;
   gitSource?:
-    | CreateDeploymentGitSource8
-    | CreateDeploymentGitSource11
-    | CreateDeploymentGitSource1
-    | CreateDeploymentGitSource5
-    | CreateDeploymentGitSource2
-    | CreateDeploymentGitSource3
-    | CreateDeploymentGitSource6
-    | CreateDeploymentGitSource7
-    | CreateDeploymentGitSource9
-    | CreateDeploymentGitSource4
     | CreateDeploymentGitSource10
     | CreateDeploymentGitSource12
+    | CreateDeploymentGitSource4
+    | CreateDeploymentGitSource8
+    | CreateDeploymentGitSource9
+    | CreateDeploymentGitSource11
+    | CreateDeploymentGitSource2
+    | CreateDeploymentGitSource3
+    | CreateDeploymentGitSource7
+    | CreateDeploymentGitSource1
+    | CreateDeploymentGitSource5
+    | CreateDeploymentGitSource6
     | undefined;
   meta: { [k: string]: string };
   project?: CreateDeploymentProject | undefined;
@@ -1529,21 +1635,22 @@ export type CreateDeploymentResponseBody = {
   undeletedAt?: number | undefined;
   url: string;
   oidcTokenClaims?: OidcTokenClaims | undefined;
-  plan: CreateDeploymentPlan;
   projectId: string;
   ownerId: string;
-  microfrontends?:
-    | CreateDeploymentMicrofrontends1
-    | CreateDeploymentMicrofrontends2
-    | undefined;
   monorepoManager?: string | null | undefined;
+  plan: CreateDeploymentPlan;
   /**
    * Since February 2025 the configuration must include snapshot data at the time of deployment creation to capture properties for the /deployments/:id/config endpoint utilized for displaying Deployment Configuration on the frontend This is optional because older deployments may not have this data captured
    */
   config?: Config | undefined;
   functions?: { [k: string]: Functions } | null | undefined;
-  routes: Array<Routes3 | Routes2 | Routes1> | null;
+  routes: Array<Routes3 | Routes1 | Routes2> | null;
   crons?: Array<CreateDeploymentCrons> | undefined;
+  microfrontends?:
+    | CreateDeploymentMicrofrontends2
+    | CreateDeploymentMicrofrontends1
+    | undefined;
+  checks?: CreateDeploymentChecks | undefined;
   connectBuildsEnabled?: boolean | undefined;
   connectConfigurationId?: string | undefined;
   createdIn: string;
@@ -1551,7 +1658,7 @@ export type CreateDeploymentResponseBody = {
    * Since November 2023 this field defines a Secure Compute network that will only be used to deploy passive lambdas to (as in passiveRegions)
    */
   passiveConnectConfigurationId?: string | undefined;
-  gitRepo?: GitRepo1 | GitRepo2 | GitRepo3 | null | undefined;
+  gitRepo?: GitRepo2 | GitRepo3 | GitRepo1 | null | undefined;
   flags?: Flags1 | Array<Flags2> | undefined;
 };
 
@@ -1839,95 +1946,6 @@ export function gitMetadataFromJSON(
 }
 
 /** @internal */
-export const CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema:
-  z.ZodNativeEnum<
-    typeof CreateDeploymentGitSourceDeploymentsRequestRequestBodyType
-  > = z.nativeEnum(CreateDeploymentGitSourceDeploymentsRequestRequestBodyType);
-
-/** @internal */
-export const CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema:
-  z.ZodNativeEnum<
-    typeof CreateDeploymentGitSourceDeploymentsRequestRequestBodyType
-  > = CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$ {
-  /** @deprecated use `CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema;
-  /** @deprecated use `CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema;
-}
-
-/** @internal */
-export const GitSource6$inboundSchema: z.ZodType<
-  GitSource6,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  owner: z.string(),
-  ref: z.string(),
-  sha: z.string().optional(),
-  slug: z.string(),
-  type:
-    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema,
-});
-
-/** @internal */
-export type GitSource6$Outbound = {
-  owner: string;
-  ref: string;
-  sha?: string | undefined;
-  slug: string;
-  type: string;
-};
-
-/** @internal */
-export const GitSource6$outboundSchema: z.ZodType<
-  GitSource6$Outbound,
-  z.ZodTypeDef,
-  GitSource6
-> = z.object({
-  owner: z.string(),
-  ref: z.string(),
-  sha: z.string().optional(),
-  slug: z.string(),
-  type:
-    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitSource6$ {
-  /** @deprecated use `GitSource6$inboundSchema` instead. */
-  export const inboundSchema = GitSource6$inboundSchema;
-  /** @deprecated use `GitSource6$outboundSchema` instead. */
-  export const outboundSchema = GitSource6$outboundSchema;
-  /** @deprecated use `GitSource6$Outbound` instead. */
-  export type Outbound = GitSource6$Outbound;
-}
-
-export function gitSource6ToJSON(gitSource6: GitSource6): string {
-  return JSON.stringify(GitSource6$outboundSchema.parse(gitSource6));
-}
-
-export function gitSource6FromJSON(
-  jsonString: string,
-): SafeParseResult<GitSource6, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitSource6$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitSource6' from JSON`,
-  );
-}
-
-/** @internal */
 export const CreateDeploymentGitSourceDeploymentsRequestType$inboundSchema:
   z.ZodNativeEnum<typeof CreateDeploymentGitSourceDeploymentsRequestType> = z
     .nativeEnum(CreateDeploymentGitSourceDeploymentsRequestType);
@@ -1956,20 +1974,20 @@ export const GitSource5$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  owner: z.string(),
   ref: z.string(),
-  repoUuid: z.string(),
   sha: z.string().optional(),
+  slug: z.string(),
   type: CreateDeploymentGitSourceDeploymentsRequestType$inboundSchema,
-  workspaceUuid: z.string().optional(),
 });
 
 /** @internal */
 export type GitSource5$Outbound = {
+  owner: string;
   ref: string;
-  repoUuid: string;
   sha?: string | undefined;
+  slug: string;
   type: string;
-  workspaceUuid?: string | undefined;
 };
 
 /** @internal */
@@ -1978,11 +1996,11 @@ export const GitSource5$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitSource5
 > = z.object({
+  owner: z.string(),
   ref: z.string(),
-  repoUuid: z.string(),
   sha: z.string().optional(),
+  slug: z.string(),
   type: CreateDeploymentGitSourceDeploymentsRequestType$outboundSchema,
-  workspaceUuid: z.string().optional(),
 });
 
 /**
@@ -2009,6 +2027,91 @@ export function gitSource5FromJSON(
     jsonString,
     (x) => GitSource5$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GitSource5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentGitSourceDeploymentsType$inboundSchema:
+  z.ZodNativeEnum<typeof CreateDeploymentGitSourceDeploymentsType> = z
+    .nativeEnum(CreateDeploymentGitSourceDeploymentsType);
+
+/** @internal */
+export const CreateDeploymentGitSourceDeploymentsType$outboundSchema:
+  z.ZodNativeEnum<typeof CreateDeploymentGitSourceDeploymentsType> =
+    CreateDeploymentGitSourceDeploymentsType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentGitSourceDeploymentsType$ {
+  /** @deprecated use `CreateDeploymentGitSourceDeploymentsType$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateDeploymentGitSourceDeploymentsType$inboundSchema;
+  /** @deprecated use `CreateDeploymentGitSourceDeploymentsType$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateDeploymentGitSourceDeploymentsType$outboundSchema;
+}
+
+/** @internal */
+export const GitSource4$inboundSchema: z.ZodType<
+  GitSource4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  ref: z.string(),
+  repoUuid: z.string(),
+  sha: z.string().optional(),
+  type: CreateDeploymentGitSourceDeploymentsType$inboundSchema,
+  workspaceUuid: z.string().optional(),
+});
+
+/** @internal */
+export type GitSource4$Outbound = {
+  ref: string;
+  repoUuid: string;
+  sha?: string | undefined;
+  type: string;
+  workspaceUuid?: string | undefined;
+};
+
+/** @internal */
+export const GitSource4$outboundSchema: z.ZodType<
+  GitSource4$Outbound,
+  z.ZodTypeDef,
+  GitSource4
+> = z.object({
+  ref: z.string(),
+  repoUuid: z.string(),
+  sha: z.string().optional(),
+  type: CreateDeploymentGitSourceDeploymentsType$outboundSchema,
+  workspaceUuid: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GitSource4$ {
+  /** @deprecated use `GitSource4$inboundSchema` instead. */
+  export const inboundSchema = GitSource4$inboundSchema;
+  /** @deprecated use `GitSource4$outboundSchema` instead. */
+  export const outboundSchema = GitSource4$outboundSchema;
+  /** @deprecated use `GitSource4$Outbound` instead. */
+  export type Outbound = GitSource4$Outbound;
+}
+
+export function gitSource4ToJSON(gitSource4: GitSource4): string {
+  return JSON.stringify(GitSource4$outboundSchema.parse(gitSource4));
+}
+
+export function gitSource4FromJSON(
+  jsonString: string,
+): SafeParseResult<GitSource4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitSource4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitSource4' from JSON`,
   );
 }
 
@@ -2057,88 +2160,6 @@ export function projectIdFromJSON(
 }
 
 /** @internal */
-export const CreateDeploymentGitSourceDeploymentsType$inboundSchema:
-  z.ZodNativeEnum<typeof CreateDeploymentGitSourceDeploymentsType> = z
-    .nativeEnum(CreateDeploymentGitSourceDeploymentsType);
-
-/** @internal */
-export const CreateDeploymentGitSourceDeploymentsType$outboundSchema:
-  z.ZodNativeEnum<typeof CreateDeploymentGitSourceDeploymentsType> =
-    CreateDeploymentGitSourceDeploymentsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateDeploymentGitSourceDeploymentsType$ {
-  /** @deprecated use `CreateDeploymentGitSourceDeploymentsType$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateDeploymentGitSourceDeploymentsType$inboundSchema;
-  /** @deprecated use `CreateDeploymentGitSourceDeploymentsType$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateDeploymentGitSourceDeploymentsType$outboundSchema;
-}
-
-/** @internal */
-export const GitSource4$inboundSchema: z.ZodType<
-  GitSource4,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.union([z.number(), z.string()]),
-  ref: z.string(),
-  sha: z.string().optional(),
-  type: CreateDeploymentGitSourceDeploymentsType$inboundSchema,
-});
-
-/** @internal */
-export type GitSource4$Outbound = {
-  projectId: number | string;
-  ref: string;
-  sha?: string | undefined;
-  type: string;
-};
-
-/** @internal */
-export const GitSource4$outboundSchema: z.ZodType<
-  GitSource4$Outbound,
-  z.ZodTypeDef,
-  GitSource4
-> = z.object({
-  projectId: z.union([z.number(), z.string()]),
-  ref: z.string(),
-  sha: z.string().optional(),
-  type: CreateDeploymentGitSourceDeploymentsType$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitSource4$ {
-  /** @deprecated use `GitSource4$inboundSchema` instead. */
-  export const inboundSchema = GitSource4$inboundSchema;
-  /** @deprecated use `GitSource4$outboundSchema` instead. */
-  export const outboundSchema = GitSource4$outboundSchema;
-  /** @deprecated use `GitSource4$Outbound` instead. */
-  export type Outbound = GitSource4$Outbound;
-}
-
-export function gitSource4ToJSON(gitSource4: GitSource4): string {
-  return JSON.stringify(GitSource4$outboundSchema.parse(gitSource4));
-}
-
-export function gitSource4FromJSON(
-  jsonString: string,
-): SafeParseResult<GitSource4, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitSource4$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitSource4' from JSON`,
-  );
-}
-
-/** @internal */
 export const CreateDeploymentGitSourceType$inboundSchema: z.ZodNativeEnum<
   typeof CreateDeploymentGitSourceType
 > = z.nativeEnum(CreateDeploymentGitSourceType);
@@ -2165,21 +2186,17 @@ export const GitSource3$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  org: z.string(),
+  projectId: z.union([z.number(), z.string()]),
   ref: z.string(),
-  repo: z.string(),
   sha: z.string().optional(),
-  host: z.string(),
   type: CreateDeploymentGitSourceType$inboundSchema,
 });
 
 /** @internal */
 export type GitSource3$Outbound = {
-  org: string;
+  projectId: number | string;
   ref: string;
-  repo: string;
   sha?: string | undefined;
-  host: string;
   type: string;
 };
 
@@ -2189,11 +2206,9 @@ export const GitSource3$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitSource3
 > = z.object({
-  org: z.string(),
+  projectId: z.union([z.number(), z.string()]),
   ref: z.string(),
-  repo: z.string(),
   sha: z.string().optional(),
-  host: z.string(),
   type: CreateDeploymentGitSourceType$outboundSchema,
 });
 
@@ -2349,28 +2364,28 @@ export function repoIdFromJSON(
 }
 
 /** @internal */
-export const CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$inboundSchema:
+export const CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema:
   z.ZodNativeEnum<
-    typeof CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type
-  > = z.nativeEnum(CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type);
+    typeof CreateDeploymentGitSourceDeploymentsRequestRequestBodyType
+  > = z.nativeEnum(CreateDeploymentGitSourceDeploymentsRequestRequestBodyType);
 
 /** @internal */
-export const CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$outboundSchema:
+export const CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema:
   z.ZodNativeEnum<
-    typeof CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type
-  > = CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$inboundSchema;
+    typeof CreateDeploymentGitSourceDeploymentsRequestRequestBodyType
+  > = CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$ {
-  /** @deprecated use `CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$inboundSchema` instead. */
+export namespace CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$ {
+  /** @deprecated use `CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema` instead. */
   export const inboundSchema =
-    CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$inboundSchema;
-  /** @deprecated use `CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$outboundSchema` instead. */
+    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema;
+  /** @deprecated use `CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema` instead. */
   export const outboundSchema =
-    CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$outboundSchema;
+    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema;
 }
 
 /** @internal */
@@ -2383,7 +2398,7 @@ export const GitSource1$inboundSchema: z.ZodType<
   repoId: z.union([z.number(), z.string()]),
   sha: z.string().optional(),
   type:
-    CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$inboundSchema,
+    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$inboundSchema,
 });
 
 /** @internal */
@@ -2404,7 +2419,7 @@ export const GitSource1$outboundSchema: z.ZodType<
   repoId: z.union([z.number(), z.string()]),
   sha: z.string().optional(),
   type:
-    CreateDeploymentGitSourceDeploymentsRequestRequestBody1Type$outboundSchema,
+    CreateDeploymentGitSourceDeploymentsRequestRequestBodyType$outboundSchema,
 });
 
 /**
@@ -2440,22 +2455,20 @@ export const GitSource$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => GitSource1$inboundSchema),
-  z.lazy(() => GitSource4$inboundSchema),
   z.lazy(() => GitSource2$inboundSchema),
   z.lazy(() => GitSource5$inboundSchema),
-  z.lazy(() => GitSource6$inboundSchema),
+  z.lazy(() => GitSource1$inboundSchema),
   z.lazy(() => GitSource3$inboundSchema),
+  z.lazy(() => GitSource4$inboundSchema),
 ]);
 
 /** @internal */
 export type GitSource$Outbound =
-  | GitSource1$Outbound
-  | GitSource4$Outbound
   | GitSource2$Outbound
   | GitSource5$Outbound
-  | GitSource6$Outbound
-  | GitSource3$Outbound;
+  | GitSource1$Outbound
+  | GitSource3$Outbound
+  | GitSource4$Outbound;
 
 /** @internal */
 export const GitSource$outboundSchema: z.ZodType<
@@ -2463,12 +2476,11 @@ export const GitSource$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitSource
 > = z.union([
-  z.lazy(() => GitSource1$outboundSchema),
-  z.lazy(() => GitSource4$outboundSchema),
   z.lazy(() => GitSource2$outboundSchema),
   z.lazy(() => GitSource5$outboundSchema),
-  z.lazy(() => GitSource6$outboundSchema),
+  z.lazy(() => GitSource1$outboundSchema),
   z.lazy(() => GitSource3$outboundSchema),
+  z.lazy(() => GitSource4$outboundSchema),
 ]);
 
 /**
@@ -2634,12 +2646,11 @@ export const CreateDeploymentRequestBody$inboundSchema: z.ZodType<
   ).optional(),
   gitMetadata: z.lazy(() => GitMetadata$inboundSchema).optional(),
   gitSource: z.union([
-    z.lazy(() => GitSource1$inboundSchema),
-    z.lazy(() => GitSource4$inboundSchema),
     z.lazy(() => GitSource2$inboundSchema),
     z.lazy(() => GitSource5$inboundSchema),
-    z.lazy(() => GitSource6$inboundSchema),
+    z.lazy(() => GitSource1$inboundSchema),
     z.lazy(() => GitSource3$inboundSchema),
+    z.lazy(() => GitSource4$inboundSchema),
   ]).optional(),
   meta: z.record(z.string()).optional(),
   monorepoManager: z.nullable(z.string()).optional(),
@@ -2657,12 +2668,11 @@ export type CreateDeploymentRequestBody$Outbound = {
   files?: Array<InlinedFile$Outbound | UploadedFile$Outbound> | undefined;
   gitMetadata?: GitMetadata$Outbound | undefined;
   gitSource?:
-    | GitSource1$Outbound
-    | GitSource4$Outbound
     | GitSource2$Outbound
     | GitSource5$Outbound
-    | GitSource6$Outbound
+    | GitSource1$Outbound
     | GitSource3$Outbound
+    | GitSource4$Outbound
     | undefined;
   meta?: { [k: string]: string } | undefined;
   monorepoManager?: string | null | undefined;
@@ -2689,12 +2699,11 @@ export const CreateDeploymentRequestBody$outboundSchema: z.ZodType<
   ).optional(),
   gitMetadata: z.lazy(() => GitMetadata$outboundSchema).optional(),
   gitSource: z.union([
-    z.lazy(() => GitSource1$outboundSchema),
-    z.lazy(() => GitSource4$outboundSchema),
     z.lazy(() => GitSource2$outboundSchema),
     z.lazy(() => GitSource5$outboundSchema),
-    z.lazy(() => GitSource6$outboundSchema),
+    z.lazy(() => GitSource1$outboundSchema),
     z.lazy(() => GitSource3$outboundSchema),
+    z.lazy(() => GitSource4$outboundSchema),
   ]).optional(),
   meta: z.record(z.string()).optional(),
   monorepoManager: z.nullable(z.string()).optional(),
@@ -3670,20 +3679,20 @@ export function createDeploymentOutputFromJSON(
 /** @internal */
 export const Lambdas$inboundSchema: z.ZodType<Lambdas, z.ZodTypeDef, unknown> =
   z.object({
-    createdAt: z.number().optional(),
     id: z.string().optional(),
-    readyState: CreateDeploymentReadyState$inboundSchema.optional(),
+    createdAt: z.number().optional(),
     entrypoint: z.nullable(z.string()).optional(),
+    readyState: CreateDeploymentReadyState$inboundSchema.optional(),
     readyStateAt: z.number().optional(),
     output: z.array(z.lazy(() => CreateDeploymentOutput$inboundSchema)),
   });
 
 /** @internal */
 export type Lambdas$Outbound = {
-  createdAt?: number | undefined;
   id?: string | undefined;
-  readyState?: string | undefined;
+  createdAt?: number | undefined;
   entrypoint?: string | null | undefined;
+  readyState?: string | undefined;
   readyStateAt?: number | undefined;
   output: Array<CreateDeploymentOutput$Outbound>;
 };
@@ -3694,10 +3703,10 @@ export const Lambdas$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Lambdas
 > = z.object({
-  createdAt: z.number().optional(),
   id: z.string().optional(),
-  readyState: CreateDeploymentReadyState$outboundSchema.optional(),
+  createdAt: z.number().optional(),
   entrypoint: z.nullable(z.string()).optional(),
+  readyState: CreateDeploymentReadyState$outboundSchema.optional(),
   readyStateAt: z.number().optional(),
   output: z.array(z.lazy(() => CreateDeploymentOutput$outboundSchema)),
 });
@@ -3756,16 +3765,16 @@ export const CreateDeploymentTeam$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   id: z.string(),
+  name: z.string(),
   slug: z.string(),
   avatar: z.string().optional(),
 });
 
 /** @internal */
 export type CreateDeploymentTeam$Outbound = {
-  name: string;
   id: string;
+  name: string;
   slug: string;
   avatar?: string | undefined;
 };
@@ -3776,8 +3785,8 @@ export const CreateDeploymentTeam$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateDeploymentTeam
 > = z.object({
-  name: z.string(),
   id: z.string(),
+  name: z.string(),
   slug: z.string(),
   avatar: z.string().optional(),
 });
@@ -4212,14 +4221,14 @@ export const CustomEnvironment$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => CustomEnvironment2$inboundSchema),
   z.lazy(() => CustomEnvironment1$inboundSchema),
+  z.lazy(() => CustomEnvironment2$inboundSchema),
 ]);
 
 /** @internal */
 export type CustomEnvironment$Outbound =
-  | CustomEnvironment2$Outbound
-  | CustomEnvironment1$Outbound;
+  | CustomEnvironment1$Outbound
+  | CustomEnvironment2$Outbound;
 
 /** @internal */
 export const CustomEnvironment$outboundSchema: z.ZodType<
@@ -4227,8 +4236,8 @@ export const CustomEnvironment$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CustomEnvironment
 > = z.union([
-  z.lazy(() => CustomEnvironment2$outboundSchema),
   z.lazy(() => CustomEnvironment1$outboundSchema),
+  z.lazy(() => CustomEnvironment2$outboundSchema),
 ]);
 
 /**
@@ -4260,6 +4269,25 @@ export function customEnvironmentFromJSON(
     (x) => CustomEnvironment$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CustomEnvironment' from JSON`,
   );
+}
+
+/** @internal */
+export const OomReport$inboundSchema: z.ZodNativeEnum<typeof OomReport> = z
+  .nativeEnum(OomReport);
+
+/** @internal */
+export const OomReport$outboundSchema: z.ZodNativeEnum<typeof OomReport> =
+  OomReport$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OomReport$ {
+  /** @deprecated use `OomReport$inboundSchema` instead. */
+  export const inboundSchema = OomReport$inboundSchema;
+  /** @deprecated use `OomReport$outboundSchema` instead. */
+  export const outboundSchema = OomReport$outboundSchema;
 }
 
 /** @internal */
@@ -5604,34 +5632,34 @@ export const CreateDeploymentGitSource$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => CreateDeploymentGitSource8$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource11$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource1$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource5$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource2$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource3$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource6$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource7$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource9$inboundSchema),
-  z.lazy(() => CreateDeploymentGitSource4$inboundSchema),
   z.lazy(() => CreateDeploymentGitSource10$inboundSchema),
   z.lazy(() => CreateDeploymentGitSource12$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource4$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource8$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource9$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource11$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource2$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource3$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource7$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource1$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource5$inboundSchema),
+  z.lazy(() => CreateDeploymentGitSource6$inboundSchema),
 ]);
 
 /** @internal */
 export type CreateDeploymentGitSource$Outbound =
+  | CreateDeploymentGitSource10$Outbound
+  | CreateDeploymentGitSource12$Outbound
+  | CreateDeploymentGitSource4$Outbound
   | CreateDeploymentGitSource8$Outbound
+  | CreateDeploymentGitSource9$Outbound
   | CreateDeploymentGitSource11$Outbound
-  | CreateDeploymentGitSource1$Outbound
-  | CreateDeploymentGitSource5$Outbound
   | CreateDeploymentGitSource2$Outbound
   | CreateDeploymentGitSource3$Outbound
-  | CreateDeploymentGitSource6$Outbound
   | CreateDeploymentGitSource7$Outbound
-  | CreateDeploymentGitSource9$Outbound
-  | CreateDeploymentGitSource4$Outbound
-  | CreateDeploymentGitSource10$Outbound
-  | CreateDeploymentGitSource12$Outbound;
+  | CreateDeploymentGitSource1$Outbound
+  | CreateDeploymentGitSource5$Outbound
+  | CreateDeploymentGitSource6$Outbound;
 
 /** @internal */
 export const CreateDeploymentGitSource$outboundSchema: z.ZodType<
@@ -5639,18 +5667,18 @@ export const CreateDeploymentGitSource$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateDeploymentGitSource
 > = z.union([
-  z.lazy(() => CreateDeploymentGitSource8$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource11$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource1$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource5$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource2$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource3$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource6$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource7$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource9$outboundSchema),
-  z.lazy(() => CreateDeploymentGitSource4$outboundSchema),
   z.lazy(() => CreateDeploymentGitSource10$outboundSchema),
   z.lazy(() => CreateDeploymentGitSource12$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource4$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource8$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource9$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource11$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource2$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource3$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource7$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource1$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource5$outboundSchema),
+  z.lazy(() => CreateDeploymentGitSource6$outboundSchema),
 ]);
 
 /**
@@ -6086,9 +6114,1838 @@ export namespace CreateDeploymentPlan$ {
 }
 
 /** @internal */
+export const FunctionType$inboundSchema: z.ZodNativeEnum<typeof FunctionType> =
+  z.nativeEnum(FunctionType);
+
+/** @internal */
+export const FunctionType$outboundSchema: z.ZodNativeEnum<typeof FunctionType> =
+  FunctionType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace FunctionType$ {
+  /** @deprecated use `FunctionType$inboundSchema` instead. */
+  export const inboundSchema = FunctionType$inboundSchema;
+  /** @deprecated use `FunctionType$outboundSchema` instead. */
+  export const outboundSchema = FunctionType$outboundSchema;
+}
+
+/** @internal */
+export const FunctionMemoryType$inboundSchema: z.ZodNativeEnum<
+  typeof FunctionMemoryType
+> = z.nativeEnum(FunctionMemoryType);
+
+/** @internal */
+export const FunctionMemoryType$outboundSchema: z.ZodNativeEnum<
+  typeof FunctionMemoryType
+> = FunctionMemoryType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace FunctionMemoryType$ {
+  /** @deprecated use `FunctionMemoryType$inboundSchema` instead. */
+  export const inboundSchema = FunctionMemoryType$inboundSchema;
+  /** @deprecated use `FunctionMemoryType$outboundSchema` instead. */
+  export const outboundSchema = FunctionMemoryType$outboundSchema;
+}
+
+/** @internal */
+export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
+  .object({
+    version: z.number().optional(),
+    functionType: FunctionType$inboundSchema,
+    functionMemoryType: FunctionMemoryType$inboundSchema,
+    functionTimeout: z.nullable(z.number()),
+    secureComputePrimaryRegion: z.nullable(z.string()),
+    secureComputeFallbackRegion: z.nullable(z.string()),
+    isUsingActiveCPU: z.boolean().optional(),
+  });
+
+/** @internal */
+export type Config$Outbound = {
+  version?: number | undefined;
+  functionType: string;
+  functionMemoryType: string;
+  functionTimeout: number | null;
+  secureComputePrimaryRegion: string | null;
+  secureComputeFallbackRegion: string | null;
+  isUsingActiveCPU?: boolean | undefined;
+};
+
+/** @internal */
+export const Config$outboundSchema: z.ZodType<
+  Config$Outbound,
+  z.ZodTypeDef,
+  Config
+> = z.object({
+  version: z.number().optional(),
+  functionType: FunctionType$outboundSchema,
+  functionMemoryType: FunctionMemoryType$outboundSchema,
+  functionTimeout: z.nullable(z.number()),
+  secureComputePrimaryRegion: z.nullable(z.string()),
+  secureComputeFallbackRegion: z.nullable(z.string()),
+  isUsingActiveCPU: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Config$ {
+  /** @deprecated use `Config$inboundSchema` instead. */
+  export const inboundSchema = Config$inboundSchema;
+  /** @deprecated use `Config$outboundSchema` instead. */
+  export const outboundSchema = Config$outboundSchema;
+  /** @deprecated use `Config$Outbound` instead. */
+  export type Outbound = Config$Outbound;
+}
+
+export function configToJSON(config: Config): string {
+  return JSON.stringify(Config$outboundSchema.parse(config));
+}
+
+export function configFromJSON(
+  jsonString: string,
+): SafeParseResult<Config, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Config$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Config' from JSON`,
+  );
+}
+
+/** @internal */
+export const Architecture$inboundSchema: z.ZodNativeEnum<typeof Architecture> =
+  z.nativeEnum(Architecture);
+
+/** @internal */
+export const Architecture$outboundSchema: z.ZodNativeEnum<typeof Architecture> =
+  Architecture$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Architecture$ {
+  /** @deprecated use `Architecture$inboundSchema` instead. */
+  export const inboundSchema = Architecture$inboundSchema;
+  /** @deprecated use `Architecture$outboundSchema` instead. */
+  export const outboundSchema = Architecture$outboundSchema;
+}
+
+/** @internal */
+export const Functions$inboundSchema: z.ZodType<
+  Functions,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  architecture: Architecture$inboundSchema.optional(),
+  memory: z.number().optional(),
+  maxDuration: z.number().optional(),
+  runtime: z.string().optional(),
+  includeFiles: z.string().optional(),
+  excludeFiles: z.string().optional(),
+});
+
+/** @internal */
+export type Functions$Outbound = {
+  architecture?: string | undefined;
+  memory?: number | undefined;
+  maxDuration?: number | undefined;
+  runtime?: string | undefined;
+  includeFiles?: string | undefined;
+  excludeFiles?: string | undefined;
+};
+
+/** @internal */
+export const Functions$outboundSchema: z.ZodType<
+  Functions$Outbound,
+  z.ZodTypeDef,
+  Functions
+> = z.object({
+  architecture: Architecture$outboundSchema.optional(),
+  memory: z.number().optional(),
+  maxDuration: z.number().optional(),
+  runtime: z.string().optional(),
+  includeFiles: z.string().optional(),
+  excludeFiles: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Functions$ {
+  /** @deprecated use `Functions$inboundSchema` instead. */
+  export const inboundSchema = Functions$inboundSchema;
+  /** @deprecated use `Functions$outboundSchema` instead. */
+  export const outboundSchema = Functions$outboundSchema;
+  /** @deprecated use `Functions$Outbound` instead. */
+  export type Outbound = Functions$Outbound;
+}
+
+export function functionsToJSON(functions: Functions): string {
+  return JSON.stringify(Functions$outboundSchema.parse(functions));
+}
+
+export function functionsFromJSON(
+  jsonString: string,
+): SafeParseResult<Functions, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Functions$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Functions' from JSON`,
+  );
+}
+
+/** @internal */
+export const Routes3$inboundSchema: z.ZodType<Routes3, z.ZodTypeDef, unknown> =
+  z.object({
+    src: z.string(),
+    continue: z.boolean(),
+    middleware: z.number(),
+  });
+
+/** @internal */
+export type Routes3$Outbound = {
+  src: string;
+  continue: boolean;
+  middleware: number;
+};
+
+/** @internal */
+export const Routes3$outboundSchema: z.ZodType<
+  Routes3$Outbound,
+  z.ZodTypeDef,
+  Routes3
+> = z.object({
+  src: z.string(),
+  continue: z.boolean(),
+  middleware: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Routes3$ {
+  /** @deprecated use `Routes3$inboundSchema` instead. */
+  export const inboundSchema = Routes3$inboundSchema;
+  /** @deprecated use `Routes3$outboundSchema` instead. */
+  export const outboundSchema = Routes3$outboundSchema;
+  /** @deprecated use `Routes3$Outbound` instead. */
+  export type Outbound = Routes3$Outbound;
+}
+
+export function routes3ToJSON(routes3: Routes3): string {
+  return JSON.stringify(Routes3$outboundSchema.parse(routes3));
+}
+
+export function routes3FromJSON(
+  jsonString: string,
+): SafeParseResult<Routes3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Routes3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Routes3' from JSON`,
+  );
+}
+
+/** @internal */
+export const RoutesHandle$inboundSchema: z.ZodNativeEnum<typeof RoutesHandle> =
+  z.nativeEnum(RoutesHandle);
+
+/** @internal */
+export const RoutesHandle$outboundSchema: z.ZodNativeEnum<typeof RoutesHandle> =
+  RoutesHandle$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RoutesHandle$ {
+  /** @deprecated use `RoutesHandle$inboundSchema` instead. */
+  export const inboundSchema = RoutesHandle$inboundSchema;
+  /** @deprecated use `RoutesHandle$outboundSchema` instead. */
+  export const outboundSchema = RoutesHandle$outboundSchema;
+}
+
+/** @internal */
+export const Routes2$inboundSchema: z.ZodType<Routes2, z.ZodTypeDef, unknown> =
+  z.object({
+    handle: RoutesHandle$inboundSchema,
+    src: z.string().optional(),
+    dest: z.string().optional(),
+    status: z.number().optional(),
+  });
+
+/** @internal */
+export type Routes2$Outbound = {
+  handle: string;
+  src?: string | undefined;
+  dest?: string | undefined;
+  status?: number | undefined;
+};
+
+/** @internal */
+export const Routes2$outboundSchema: z.ZodType<
+  Routes2$Outbound,
+  z.ZodTypeDef,
+  Routes2
+> = z.object({
+  handle: RoutesHandle$outboundSchema,
+  src: z.string().optional(),
+  dest: z.string().optional(),
+  status: z.number().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Routes2$ {
+  /** @deprecated use `Routes2$inboundSchema` instead. */
+  export const inboundSchema = Routes2$inboundSchema;
+  /** @deprecated use `Routes2$outboundSchema` instead. */
+  export const outboundSchema = Routes2$outboundSchema;
+  /** @deprecated use `Routes2$Outbound` instead. */
+  export type Outbound = Routes2$Outbound;
+}
+
+export function routes2ToJSON(routes2: Routes2): string {
+  return JSON.stringify(Routes2$outboundSchema.parse(routes2));
+}
+
+export function routes2FromJSON(
+  jsonString: string,
+): SafeParseResult<Routes2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Routes2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Routes2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentHasType$inboundSchema: z.ZodNativeEnum<
+  typeof CreateDeploymentHasType
+> = z.nativeEnum(CreateDeploymentHasType);
+
+/** @internal */
+export const CreateDeploymentHasType$outboundSchema: z.ZodNativeEnum<
+  typeof CreateDeploymentHasType
+> = CreateDeploymentHasType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentHasType$ {
+  /** @deprecated use `CreateDeploymentHasType$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentHasType$inboundSchema;
+  /** @deprecated use `CreateDeploymentHasType$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentHasType$outboundSchema;
+}
+
+/** @internal */
+export const ValueEq$inboundSchema: z.ZodType<ValueEq, z.ZodTypeDef, unknown> =
+  z.union([z.string(), z.number()]);
+
+/** @internal */
+export type ValueEq$Outbound = string | number;
+
+/** @internal */
+export const ValueEq$outboundSchema: z.ZodType<
+  ValueEq$Outbound,
+  z.ZodTypeDef,
+  ValueEq
+> = z.union([z.string(), z.number()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ValueEq$ {
+  /** @deprecated use `ValueEq$inboundSchema` instead. */
+  export const inboundSchema = ValueEq$inboundSchema;
+  /** @deprecated use `ValueEq$outboundSchema` instead. */
+  export const outboundSchema = ValueEq$outboundSchema;
+  /** @deprecated use `ValueEq$Outbound` instead. */
+  export type Outbound = ValueEq$Outbound;
+}
+
+export function valueEqToJSON(valueEq: ValueEq): string {
+  return JSON.stringify(ValueEq$outboundSchema.parse(valueEq));
+}
+
+export function valueEqFromJSON(
+  jsonString: string,
+): SafeParseResult<ValueEq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ValueEq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ValueEq' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentValueDeployments2$inboundSchema: z.ZodType<
+  CreateDeploymentValueDeployments2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  eq: z.union([z.string(), z.number()]).optional(),
+  neq: z.string().optional(),
+  inc: z.array(z.string()).optional(),
+  ninc: z.array(z.string()).optional(),
+  pre: z.string().optional(),
+  suf: z.string().optional(),
+  re: z.string().optional(),
+  gt: z.number().optional(),
+  gte: z.number().optional(),
+  lt: z.number().optional(),
+  lte: z.number().optional(),
+});
+
+/** @internal */
+export type CreateDeploymentValueDeployments2$Outbound = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+/** @internal */
+export const CreateDeploymentValueDeployments2$outboundSchema: z.ZodType<
+  CreateDeploymentValueDeployments2$Outbound,
+  z.ZodTypeDef,
+  CreateDeploymentValueDeployments2
+> = z.object({
+  eq: z.union([z.string(), z.number()]).optional(),
+  neq: z.string().optional(),
+  inc: z.array(z.string()).optional(),
+  ninc: z.array(z.string()).optional(),
+  pre: z.string().optional(),
+  suf: z.string().optional(),
+  re: z.string().optional(),
+  gt: z.number().optional(),
+  gte: z.number().optional(),
+  lt: z.number().optional(),
+  lte: z.number().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentValueDeployments2$ {
+  /** @deprecated use `CreateDeploymentValueDeployments2$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentValueDeployments2$inboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeployments2$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateDeploymentValueDeployments2$outboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeployments2$Outbound` instead. */
+  export type Outbound = CreateDeploymentValueDeployments2$Outbound;
+}
+
+export function createDeploymentValueDeployments2ToJSON(
+  createDeploymentValueDeployments2: CreateDeploymentValueDeployments2,
+): string {
+  return JSON.stringify(
+    CreateDeploymentValueDeployments2$outboundSchema.parse(
+      createDeploymentValueDeployments2,
+    ),
+  );
+}
+
+export function createDeploymentValueDeployments2FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateDeploymentValueDeployments2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateDeploymentValueDeployments2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentValueDeployments2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentHasValue$inboundSchema: z.ZodType<
+  CreateDeploymentHasValue,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => CreateDeploymentValueDeployments2$inboundSchema),
+  z.string(),
+]);
+
+/** @internal */
+export type CreateDeploymentHasValue$Outbound =
+  | CreateDeploymentValueDeployments2$Outbound
+  | string;
+
+/** @internal */
+export const CreateDeploymentHasValue$outboundSchema: z.ZodType<
+  CreateDeploymentHasValue$Outbound,
+  z.ZodTypeDef,
+  CreateDeploymentHasValue
+> = z.union([
+  z.lazy(() => CreateDeploymentValueDeployments2$outboundSchema),
+  z.string(),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentHasValue$ {
+  /** @deprecated use `CreateDeploymentHasValue$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentHasValue$inboundSchema;
+  /** @deprecated use `CreateDeploymentHasValue$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentHasValue$outboundSchema;
+  /** @deprecated use `CreateDeploymentHasValue$Outbound` instead. */
+  export type Outbound = CreateDeploymentHasValue$Outbound;
+}
+
+export function createDeploymentHasValueToJSON(
+  createDeploymentHasValue: CreateDeploymentHasValue,
+): string {
+  return JSON.stringify(
+    CreateDeploymentHasValue$outboundSchema.parse(createDeploymentHasValue),
+  );
+}
+
+export function createDeploymentHasValueFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateDeploymentHasValue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateDeploymentHasValue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentHasValue' from JSON`,
+  );
+}
+
+/** @internal */
+export const Has2$inboundSchema: z.ZodType<Has2, z.ZodTypeDef, unknown> = z
+  .object({
+    type: CreateDeploymentHasType$inboundSchema,
+    key: z.string(),
+    value: z.union([
+      z.lazy(() => CreateDeploymentValueDeployments2$inboundSchema),
+      z.string(),
+    ]).optional(),
+  });
+
+/** @internal */
+export type Has2$Outbound = {
+  type: string;
+  key: string;
+  value?: CreateDeploymentValueDeployments2$Outbound | string | undefined;
+};
+
+/** @internal */
+export const Has2$outboundSchema: z.ZodType<Has2$Outbound, z.ZodTypeDef, Has2> =
+  z.object({
+    type: CreateDeploymentHasType$outboundSchema,
+    key: z.string(),
+    value: z.union([
+      z.lazy(() => CreateDeploymentValueDeployments2$outboundSchema),
+      z.string(),
+    ]).optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Has2$ {
+  /** @deprecated use `Has2$inboundSchema` instead. */
+  export const inboundSchema = Has2$inboundSchema;
+  /** @deprecated use `Has2$outboundSchema` instead. */
+  export const outboundSchema = Has2$outboundSchema;
+  /** @deprecated use `Has2$Outbound` instead. */
+  export type Outbound = Has2$Outbound;
+}
+
+export function has2ToJSON(has2: Has2): string {
+  return JSON.stringify(Has2$outboundSchema.parse(has2));
+}
+
+export function has2FromJSON(
+  jsonString: string,
+): SafeParseResult<Has2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Has2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Has2' from JSON`,
+  );
+}
+
+/** @internal */
+export const HasType$inboundSchema: z.ZodNativeEnum<typeof HasType> = z
+  .nativeEnum(HasType);
+
+/** @internal */
+export const HasType$outboundSchema: z.ZodNativeEnum<typeof HasType> =
+  HasType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace HasType$ {
+  /** @deprecated use `HasType$inboundSchema` instead. */
+  export const inboundSchema = HasType$inboundSchema;
+  /** @deprecated use `HasType$outboundSchema` instead. */
+  export const outboundSchema = HasType$outboundSchema;
+}
+
+/** @internal */
+export const Eq$inboundSchema: z.ZodType<Eq, z.ZodTypeDef, unknown> = z.union([
+  z.string(),
+  z.number(),
+]);
+
+/** @internal */
+export type Eq$Outbound = string | number;
+
+/** @internal */
+export const Eq$outboundSchema: z.ZodType<Eq$Outbound, z.ZodTypeDef, Eq> = z
+  .union([z.string(), z.number()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Eq$ {
+  /** @deprecated use `Eq$inboundSchema` instead. */
+  export const inboundSchema = Eq$inboundSchema;
+  /** @deprecated use `Eq$outboundSchema` instead. */
+  export const outboundSchema = Eq$outboundSchema;
+  /** @deprecated use `Eq$Outbound` instead. */
+  export type Outbound = Eq$Outbound;
+}
+
+export function eqToJSON(eq: Eq): string {
+  return JSON.stringify(Eq$outboundSchema.parse(eq));
+}
+
+export function eqFromJSON(
+  jsonString: string,
+): SafeParseResult<Eq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Eq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Eq' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentValue2$inboundSchema: z.ZodType<
+  CreateDeploymentValue2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  eq: z.union([z.string(), z.number()]).optional(),
+  neq: z.string().optional(),
+  inc: z.array(z.string()).optional(),
+  ninc: z.array(z.string()).optional(),
+  pre: z.string().optional(),
+  suf: z.string().optional(),
+  re: z.string().optional(),
+  gt: z.number().optional(),
+  gte: z.number().optional(),
+  lt: z.number().optional(),
+  lte: z.number().optional(),
+});
+
+/** @internal */
+export type CreateDeploymentValue2$Outbound = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+/** @internal */
+export const CreateDeploymentValue2$outboundSchema: z.ZodType<
+  CreateDeploymentValue2$Outbound,
+  z.ZodTypeDef,
+  CreateDeploymentValue2
+> = z.object({
+  eq: z.union([z.string(), z.number()]).optional(),
+  neq: z.string().optional(),
+  inc: z.array(z.string()).optional(),
+  ninc: z.array(z.string()).optional(),
+  pre: z.string().optional(),
+  suf: z.string().optional(),
+  re: z.string().optional(),
+  gt: z.number().optional(),
+  gte: z.number().optional(),
+  lt: z.number().optional(),
+  lte: z.number().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentValue2$ {
+  /** @deprecated use `CreateDeploymentValue2$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentValue2$inboundSchema;
+  /** @deprecated use `CreateDeploymentValue2$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentValue2$outboundSchema;
+  /** @deprecated use `CreateDeploymentValue2$Outbound` instead. */
+  export type Outbound = CreateDeploymentValue2$Outbound;
+}
+
+export function createDeploymentValue2ToJSON(
+  createDeploymentValue2: CreateDeploymentValue2,
+): string {
+  return JSON.stringify(
+    CreateDeploymentValue2$outboundSchema.parse(createDeploymentValue2),
+  );
+}
+
+export function createDeploymentValue2FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateDeploymentValue2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateDeploymentValue2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentValue2' from JSON`,
+  );
+}
+
+/** @internal */
+export const HasValue$inboundSchema: z.ZodType<
+  HasValue,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.lazy(() => CreateDeploymentValue2$inboundSchema), z.string()]);
+
+/** @internal */
+export type HasValue$Outbound = CreateDeploymentValue2$Outbound | string;
+
+/** @internal */
+export const HasValue$outboundSchema: z.ZodType<
+  HasValue$Outbound,
+  z.ZodTypeDef,
+  HasValue
+> = z.union([z.lazy(() => CreateDeploymentValue2$outboundSchema), z.string()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace HasValue$ {
+  /** @deprecated use `HasValue$inboundSchema` instead. */
+  export const inboundSchema = HasValue$inboundSchema;
+  /** @deprecated use `HasValue$outboundSchema` instead. */
+  export const outboundSchema = HasValue$outboundSchema;
+  /** @deprecated use `HasValue$Outbound` instead. */
+  export type Outbound = HasValue$Outbound;
+}
+
+export function hasValueToJSON(hasValue: HasValue): string {
+  return JSON.stringify(HasValue$outboundSchema.parse(hasValue));
+}
+
+export function hasValueFromJSON(
+  jsonString: string,
+): SafeParseResult<HasValue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HasValue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HasValue' from JSON`,
+  );
+}
+
+/** @internal */
+export const Has1$inboundSchema: z.ZodType<Has1, z.ZodTypeDef, unknown> = z
+  .object({
+    type: HasType$inboundSchema,
+    value: z.union([
+      z.lazy(() => CreateDeploymentValue2$inboundSchema),
+      z.string(),
+    ]),
+  });
+
+/** @internal */
+export type Has1$Outbound = {
+  type: string;
+  value: CreateDeploymentValue2$Outbound | string;
+};
+
+/** @internal */
+export const Has1$outboundSchema: z.ZodType<Has1$Outbound, z.ZodTypeDef, Has1> =
+  z.object({
+    type: HasType$outboundSchema,
+    value: z.union([
+      z.lazy(() => CreateDeploymentValue2$outboundSchema),
+      z.string(),
+    ]),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Has1$ {
+  /** @deprecated use `Has1$inboundSchema` instead. */
+  export const inboundSchema = Has1$inboundSchema;
+  /** @deprecated use `Has1$outboundSchema` instead. */
+  export const outboundSchema = Has1$outboundSchema;
+  /** @deprecated use `Has1$Outbound` instead. */
+  export type Outbound = Has1$Outbound;
+}
+
+export function has1ToJSON(has1: Has1): string {
+  return JSON.stringify(Has1$outboundSchema.parse(has1));
+}
+
+export function has1FromJSON(
+  jsonString: string,
+): SafeParseResult<Has1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Has1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Has1' from JSON`,
+  );
+}
+
+/** @internal */
+export const RoutesHas$inboundSchema: z.ZodType<
+  RoutesHas,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => Has1$inboundSchema),
+  z.lazy(() => Has2$inboundSchema),
+]);
+
+/** @internal */
+export type RoutesHas$Outbound = Has1$Outbound | Has2$Outbound;
+
+/** @internal */
+export const RoutesHas$outboundSchema: z.ZodType<
+  RoutesHas$Outbound,
+  z.ZodTypeDef,
+  RoutesHas
+> = z.union([
+  z.lazy(() => Has1$outboundSchema),
+  z.lazy(() => Has2$outboundSchema),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RoutesHas$ {
+  /** @deprecated use `RoutesHas$inboundSchema` instead. */
+  export const inboundSchema = RoutesHas$inboundSchema;
+  /** @deprecated use `RoutesHas$outboundSchema` instead. */
+  export const outboundSchema = RoutesHas$outboundSchema;
+  /** @deprecated use `RoutesHas$Outbound` instead. */
+  export type Outbound = RoutesHas$Outbound;
+}
+
+export function routesHasToJSON(routesHas: RoutesHas): string {
+  return JSON.stringify(RoutesHas$outboundSchema.parse(routesHas));
+}
+
+export function routesHasFromJSON(
+  jsonString: string,
+): SafeParseResult<RoutesHas, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RoutesHas$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RoutesHas' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentMissingType$inboundSchema: z.ZodNativeEnum<
+  typeof CreateDeploymentMissingType
+> = z.nativeEnum(CreateDeploymentMissingType);
+
+/** @internal */
+export const CreateDeploymentMissingType$outboundSchema: z.ZodNativeEnum<
+  typeof CreateDeploymentMissingType
+> = CreateDeploymentMissingType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentMissingType$ {
+  /** @deprecated use `CreateDeploymentMissingType$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentMissingType$inboundSchema;
+  /** @deprecated use `CreateDeploymentMissingType$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentMissingType$outboundSchema;
+}
+
+/** @internal */
+export const CreateDeploymentValueDeploymentsEq$inboundSchema: z.ZodType<
+  CreateDeploymentValueDeploymentsEq,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.string(), z.number()]);
+
+/** @internal */
+export type CreateDeploymentValueDeploymentsEq$Outbound = string | number;
+
+/** @internal */
+export const CreateDeploymentValueDeploymentsEq$outboundSchema: z.ZodType<
+  CreateDeploymentValueDeploymentsEq$Outbound,
+  z.ZodTypeDef,
+  CreateDeploymentValueDeploymentsEq
+> = z.union([z.string(), z.number()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentValueDeploymentsEq$ {
+  /** @deprecated use `CreateDeploymentValueDeploymentsEq$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentValueDeploymentsEq$inboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeploymentsEq$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateDeploymentValueDeploymentsEq$outboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeploymentsEq$Outbound` instead. */
+  export type Outbound = CreateDeploymentValueDeploymentsEq$Outbound;
+}
+
+export function createDeploymentValueDeploymentsEqToJSON(
+  createDeploymentValueDeploymentsEq: CreateDeploymentValueDeploymentsEq,
+): string {
+  return JSON.stringify(
+    CreateDeploymentValueDeploymentsEq$outboundSchema.parse(
+      createDeploymentValueDeploymentsEq,
+    ),
+  );
+}
+
+export function createDeploymentValueDeploymentsEqFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateDeploymentValueDeploymentsEq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateDeploymentValueDeploymentsEq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentValueDeploymentsEq' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentValueDeploymentsResponse2002$inboundSchema:
+  z.ZodType<
+    CreateDeploymentValueDeploymentsResponse2002,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    eq: z.union([z.string(), z.number()]).optional(),
+    neq: z.string().optional(),
+    inc: z.array(z.string()).optional(),
+    ninc: z.array(z.string()).optional(),
+    pre: z.string().optional(),
+    suf: z.string().optional(),
+    re: z.string().optional(),
+    gt: z.number().optional(),
+    gte: z.number().optional(),
+    lt: z.number().optional(),
+    lte: z.number().optional(),
+  });
+
+/** @internal */
+export type CreateDeploymentValueDeploymentsResponse2002$Outbound = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+/** @internal */
+export const CreateDeploymentValueDeploymentsResponse2002$outboundSchema:
+  z.ZodType<
+    CreateDeploymentValueDeploymentsResponse2002$Outbound,
+    z.ZodTypeDef,
+    CreateDeploymentValueDeploymentsResponse2002
+  > = z.object({
+    eq: z.union([z.string(), z.number()]).optional(),
+    neq: z.string().optional(),
+    inc: z.array(z.string()).optional(),
+    ninc: z.array(z.string()).optional(),
+    pre: z.string().optional(),
+    suf: z.string().optional(),
+    re: z.string().optional(),
+    gt: z.number().optional(),
+    gte: z.number().optional(),
+    lt: z.number().optional(),
+    lte: z.number().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentValueDeploymentsResponse2002$ {
+  /** @deprecated use `CreateDeploymentValueDeploymentsResponse2002$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateDeploymentValueDeploymentsResponse2002$inboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeploymentsResponse2002$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateDeploymentValueDeploymentsResponse2002$outboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeploymentsResponse2002$Outbound` instead. */
+  export type Outbound = CreateDeploymentValueDeploymentsResponse2002$Outbound;
+}
+
+export function createDeploymentValueDeploymentsResponse2002ToJSON(
+  createDeploymentValueDeploymentsResponse2002:
+    CreateDeploymentValueDeploymentsResponse2002,
+): string {
+  return JSON.stringify(
+    CreateDeploymentValueDeploymentsResponse2002$outboundSchema.parse(
+      createDeploymentValueDeploymentsResponse2002,
+    ),
+  );
+}
+
+export function createDeploymentValueDeploymentsResponse2002FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CreateDeploymentValueDeploymentsResponse2002,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateDeploymentValueDeploymentsResponse2002$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CreateDeploymentValueDeploymentsResponse2002' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentMissingValue$inboundSchema: z.ZodType<
+  CreateDeploymentMissingValue,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => CreateDeploymentValueDeploymentsResponse2002$inboundSchema),
+  z.string(),
+]);
+
+/** @internal */
+export type CreateDeploymentMissingValue$Outbound =
+  | CreateDeploymentValueDeploymentsResponse2002$Outbound
+  | string;
+
+/** @internal */
+export const CreateDeploymentMissingValue$outboundSchema: z.ZodType<
+  CreateDeploymentMissingValue$Outbound,
+  z.ZodTypeDef,
+  CreateDeploymentMissingValue
+> = z.union([
+  z.lazy(() => CreateDeploymentValueDeploymentsResponse2002$outboundSchema),
+  z.string(),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentMissingValue$ {
+  /** @deprecated use `CreateDeploymentMissingValue$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentMissingValue$inboundSchema;
+  /** @deprecated use `CreateDeploymentMissingValue$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentMissingValue$outboundSchema;
+  /** @deprecated use `CreateDeploymentMissingValue$Outbound` instead. */
+  export type Outbound = CreateDeploymentMissingValue$Outbound;
+}
+
+export function createDeploymentMissingValueToJSON(
+  createDeploymentMissingValue: CreateDeploymentMissingValue,
+): string {
+  return JSON.stringify(
+    CreateDeploymentMissingValue$outboundSchema.parse(
+      createDeploymentMissingValue,
+    ),
+  );
+}
+
+export function createDeploymentMissingValueFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateDeploymentMissingValue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateDeploymentMissingValue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentMissingValue' from JSON`,
+  );
+}
+
+/** @internal */
+export const Missing2$inboundSchema: z.ZodType<
+  Missing2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CreateDeploymentMissingType$inboundSchema,
+  key: z.string(),
+  value: z.union([
+    z.lazy(() => CreateDeploymentValueDeploymentsResponse2002$inboundSchema),
+    z.string(),
+  ]).optional(),
+});
+
+/** @internal */
+export type Missing2$Outbound = {
+  type: string;
+  key: string;
+  value?:
+    | CreateDeploymentValueDeploymentsResponse2002$Outbound
+    | string
+    | undefined;
+};
+
+/** @internal */
+export const Missing2$outboundSchema: z.ZodType<
+  Missing2$Outbound,
+  z.ZodTypeDef,
+  Missing2
+> = z.object({
+  type: CreateDeploymentMissingType$outboundSchema,
+  key: z.string(),
+  value: z.union([
+    z.lazy(() => CreateDeploymentValueDeploymentsResponse2002$outboundSchema),
+    z.string(),
+  ]).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Missing2$ {
+  /** @deprecated use `Missing2$inboundSchema` instead. */
+  export const inboundSchema = Missing2$inboundSchema;
+  /** @deprecated use `Missing2$outboundSchema` instead. */
+  export const outboundSchema = Missing2$outboundSchema;
+  /** @deprecated use `Missing2$Outbound` instead. */
+  export type Outbound = Missing2$Outbound;
+}
+
+export function missing2ToJSON(missing2: Missing2): string {
+  return JSON.stringify(Missing2$outboundSchema.parse(missing2));
+}
+
+export function missing2FromJSON(
+  jsonString: string,
+): SafeParseResult<Missing2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Missing2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Missing2' from JSON`,
+  );
+}
+
+/** @internal */
+export const MissingType$inboundSchema: z.ZodNativeEnum<typeof MissingType> = z
+  .nativeEnum(MissingType);
+
+/** @internal */
+export const MissingType$outboundSchema: z.ZodNativeEnum<typeof MissingType> =
+  MissingType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MissingType$ {
+  /** @deprecated use `MissingType$inboundSchema` instead. */
+  export const inboundSchema = MissingType$inboundSchema;
+  /** @deprecated use `MissingType$outboundSchema` instead. */
+  export const outboundSchema = MissingType$outboundSchema;
+}
+
+/** @internal */
+export const CreateDeploymentValueEq$inboundSchema: z.ZodType<
+  CreateDeploymentValueEq,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.string(), z.number()]);
+
+/** @internal */
+export type CreateDeploymentValueEq$Outbound = string | number;
+
+/** @internal */
+export const CreateDeploymentValueEq$outboundSchema: z.ZodType<
+  CreateDeploymentValueEq$Outbound,
+  z.ZodTypeDef,
+  CreateDeploymentValueEq
+> = z.union([z.string(), z.number()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentValueEq$ {
+  /** @deprecated use `CreateDeploymentValueEq$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentValueEq$inboundSchema;
+  /** @deprecated use `CreateDeploymentValueEq$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentValueEq$outboundSchema;
+  /** @deprecated use `CreateDeploymentValueEq$Outbound` instead. */
+  export type Outbound = CreateDeploymentValueEq$Outbound;
+}
+
+export function createDeploymentValueEqToJSON(
+  createDeploymentValueEq: CreateDeploymentValueEq,
+): string {
+  return JSON.stringify(
+    CreateDeploymentValueEq$outboundSchema.parse(createDeploymentValueEq),
+  );
+}
+
+export function createDeploymentValueEqFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateDeploymentValueEq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateDeploymentValueEq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentValueEq' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentValueDeploymentsResponse2$inboundSchema: z.ZodType<
+  CreateDeploymentValueDeploymentsResponse2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  eq: z.union([z.string(), z.number()]).optional(),
+  neq: z.string().optional(),
+  inc: z.array(z.string()).optional(),
+  ninc: z.array(z.string()).optional(),
+  pre: z.string().optional(),
+  suf: z.string().optional(),
+  re: z.string().optional(),
+  gt: z.number().optional(),
+  gte: z.number().optional(),
+  lt: z.number().optional(),
+  lte: z.number().optional(),
+});
+
+/** @internal */
+export type CreateDeploymentValueDeploymentsResponse2$Outbound = {
+  eq?: string | number | undefined;
+  neq?: string | undefined;
+  inc?: Array<string> | undefined;
+  ninc?: Array<string> | undefined;
+  pre?: string | undefined;
+  suf?: string | undefined;
+  re?: string | undefined;
+  gt?: number | undefined;
+  gte?: number | undefined;
+  lt?: number | undefined;
+  lte?: number | undefined;
+};
+
+/** @internal */
+export const CreateDeploymentValueDeploymentsResponse2$outboundSchema:
+  z.ZodType<
+    CreateDeploymentValueDeploymentsResponse2$Outbound,
+    z.ZodTypeDef,
+    CreateDeploymentValueDeploymentsResponse2
+  > = z.object({
+    eq: z.union([z.string(), z.number()]).optional(),
+    neq: z.string().optional(),
+    inc: z.array(z.string()).optional(),
+    ninc: z.array(z.string()).optional(),
+    pre: z.string().optional(),
+    suf: z.string().optional(),
+    re: z.string().optional(),
+    gt: z.number().optional(),
+    gte: z.number().optional(),
+    lt: z.number().optional(),
+    lte: z.number().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentValueDeploymentsResponse2$ {
+  /** @deprecated use `CreateDeploymentValueDeploymentsResponse2$inboundSchema` instead. */
+  export const inboundSchema =
+    CreateDeploymentValueDeploymentsResponse2$inboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeploymentsResponse2$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateDeploymentValueDeploymentsResponse2$outboundSchema;
+  /** @deprecated use `CreateDeploymentValueDeploymentsResponse2$Outbound` instead. */
+  export type Outbound = CreateDeploymentValueDeploymentsResponse2$Outbound;
+}
+
+export function createDeploymentValueDeploymentsResponse2ToJSON(
+  createDeploymentValueDeploymentsResponse2:
+    CreateDeploymentValueDeploymentsResponse2,
+): string {
+  return JSON.stringify(
+    CreateDeploymentValueDeploymentsResponse2$outboundSchema.parse(
+      createDeploymentValueDeploymentsResponse2,
+    ),
+  );
+}
+
+export function createDeploymentValueDeploymentsResponse2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CreateDeploymentValueDeploymentsResponse2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateDeploymentValueDeploymentsResponse2$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CreateDeploymentValueDeploymentsResponse2' from JSON`,
+  );
+}
+
+/** @internal */
+export const MissingValue$inboundSchema: z.ZodType<
+  MissingValue,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => CreateDeploymentValueDeploymentsResponse2$inboundSchema),
+  z.string(),
+]);
+
+/** @internal */
+export type MissingValue$Outbound =
+  | CreateDeploymentValueDeploymentsResponse2$Outbound
+  | string;
+
+/** @internal */
+export const MissingValue$outboundSchema: z.ZodType<
+  MissingValue$Outbound,
+  z.ZodTypeDef,
+  MissingValue
+> = z.union([
+  z.lazy(() => CreateDeploymentValueDeploymentsResponse2$outboundSchema),
+  z.string(),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MissingValue$ {
+  /** @deprecated use `MissingValue$inboundSchema` instead. */
+  export const inboundSchema = MissingValue$inboundSchema;
+  /** @deprecated use `MissingValue$outboundSchema` instead. */
+  export const outboundSchema = MissingValue$outboundSchema;
+  /** @deprecated use `MissingValue$Outbound` instead. */
+  export type Outbound = MissingValue$Outbound;
+}
+
+export function missingValueToJSON(missingValue: MissingValue): string {
+  return JSON.stringify(MissingValue$outboundSchema.parse(missingValue));
+}
+
+export function missingValueFromJSON(
+  jsonString: string,
+): SafeParseResult<MissingValue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MissingValue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MissingValue' from JSON`,
+  );
+}
+
+/** @internal */
+export const Missing1$inboundSchema: z.ZodType<
+  Missing1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: MissingType$inboundSchema,
+  value: z.union([
+    z.lazy(() => CreateDeploymentValueDeploymentsResponse2$inboundSchema),
+    z.string(),
+  ]),
+});
+
+/** @internal */
+export type Missing1$Outbound = {
+  type: string;
+  value: CreateDeploymentValueDeploymentsResponse2$Outbound | string;
+};
+
+/** @internal */
+export const Missing1$outboundSchema: z.ZodType<
+  Missing1$Outbound,
+  z.ZodTypeDef,
+  Missing1
+> = z.object({
+  type: MissingType$outboundSchema,
+  value: z.union([
+    z.lazy(() => CreateDeploymentValueDeploymentsResponse2$outboundSchema),
+    z.string(),
+  ]),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Missing1$ {
+  /** @deprecated use `Missing1$inboundSchema` instead. */
+  export const inboundSchema = Missing1$inboundSchema;
+  /** @deprecated use `Missing1$outboundSchema` instead. */
+  export const outboundSchema = Missing1$outboundSchema;
+  /** @deprecated use `Missing1$Outbound` instead. */
+  export type Outbound = Missing1$Outbound;
+}
+
+export function missing1ToJSON(missing1: Missing1): string {
+  return JSON.stringify(Missing1$outboundSchema.parse(missing1));
+}
+
+export function missing1FromJSON(
+  jsonString: string,
+): SafeParseResult<Missing1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Missing1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Missing1' from JSON`,
+  );
+}
+
+/** @internal */
+export const RoutesMissing$inboundSchema: z.ZodType<
+  RoutesMissing,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => Missing1$inboundSchema),
+  z.lazy(() => Missing2$inboundSchema),
+]);
+
+/** @internal */
+export type RoutesMissing$Outbound = Missing1$Outbound | Missing2$Outbound;
+
+/** @internal */
+export const RoutesMissing$outboundSchema: z.ZodType<
+  RoutesMissing$Outbound,
+  z.ZodTypeDef,
+  RoutesMissing
+> = z.union([
+  z.lazy(() => Missing1$outboundSchema),
+  z.lazy(() => Missing2$outboundSchema),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RoutesMissing$ {
+  /** @deprecated use `RoutesMissing$inboundSchema` instead. */
+  export const inboundSchema = RoutesMissing$inboundSchema;
+  /** @deprecated use `RoutesMissing$outboundSchema` instead. */
+  export const outboundSchema = RoutesMissing$outboundSchema;
+  /** @deprecated use `RoutesMissing$Outbound` instead. */
+  export type Outbound = RoutesMissing$Outbound;
+}
+
+export function routesMissingToJSON(routesMissing: RoutesMissing): string {
+  return JSON.stringify(RoutesMissing$outboundSchema.parse(routesMissing));
+}
+
+export function routesMissingFromJSON(
+  jsonString: string,
+): SafeParseResult<RoutesMissing, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RoutesMissing$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RoutesMissing' from JSON`,
+  );
+}
+
+/** @internal */
+export const RoutesAction$inboundSchema: z.ZodNativeEnum<typeof RoutesAction> =
+  z.nativeEnum(RoutesAction);
+
+/** @internal */
+export const RoutesAction$outboundSchema: z.ZodNativeEnum<typeof RoutesAction> =
+  RoutesAction$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RoutesAction$ {
+  /** @deprecated use `RoutesAction$inboundSchema` instead. */
+  export const inboundSchema = RoutesAction$inboundSchema;
+  /** @deprecated use `RoutesAction$outboundSchema` instead. */
+  export const outboundSchema = RoutesAction$outboundSchema;
+}
+
+/** @internal */
+export const RoutesMitigate$inboundSchema: z.ZodType<
+  RoutesMitigate,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  action: RoutesAction$inboundSchema,
+});
+
+/** @internal */
+export type RoutesMitigate$Outbound = {
+  action: string;
+};
+
+/** @internal */
+export const RoutesMitigate$outboundSchema: z.ZodType<
+  RoutesMitigate$Outbound,
+  z.ZodTypeDef,
+  RoutesMitigate
+> = z.object({
+  action: RoutesAction$outboundSchema,
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RoutesMitigate$ {
+  /** @deprecated use `RoutesMitigate$inboundSchema` instead. */
+  export const inboundSchema = RoutesMitigate$inboundSchema;
+  /** @deprecated use `RoutesMitigate$outboundSchema` instead. */
+  export const outboundSchema = RoutesMitigate$outboundSchema;
+  /** @deprecated use `RoutesMitigate$Outbound` instead. */
+  export type Outbound = RoutesMitigate$Outbound;
+}
+
+export function routesMitigateToJSON(routesMitigate: RoutesMitigate): string {
+  return JSON.stringify(RoutesMitigate$outboundSchema.parse(routesMitigate));
+}
+
+export function routesMitigateFromJSON(
+  jsonString: string,
+): SafeParseResult<RoutesMitigate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RoutesMitigate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RoutesMitigate' from JSON`,
+  );
+}
+
+/** @internal */
+export const Locale$inboundSchema: z.ZodType<Locale, z.ZodTypeDef, unknown> = z
+  .object({
+    redirect: z.record(z.string()).optional(),
+    cookie: z.string().optional(),
+  });
+
+/** @internal */
+export type Locale$Outbound = {
+  redirect?: { [k: string]: string } | undefined;
+  cookie?: string | undefined;
+};
+
+/** @internal */
+export const Locale$outboundSchema: z.ZodType<
+  Locale$Outbound,
+  z.ZodTypeDef,
+  Locale
+> = z.object({
+  redirect: z.record(z.string()).optional(),
+  cookie: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Locale$ {
+  /** @deprecated use `Locale$inboundSchema` instead. */
+  export const inboundSchema = Locale$inboundSchema;
+  /** @deprecated use `Locale$outboundSchema` instead. */
+  export const outboundSchema = Locale$outboundSchema;
+  /** @deprecated use `Locale$Outbound` instead. */
+  export type Outbound = Locale$Outbound;
+}
+
+export function localeToJSON(locale: Locale): string {
+  return JSON.stringify(Locale$outboundSchema.parse(locale));
+}
+
+export function localeFromJSON(
+  jsonString: string,
+): SafeParseResult<Locale, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Locale$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Locale' from JSON`,
+  );
+}
+
+/** @internal */
+export const Routes1$inboundSchema: z.ZodType<Routes1, z.ZodTypeDef, unknown> =
+  z.object({
+    src: z.string(),
+    dest: z.string().optional(),
+    headers: z.record(z.string()).optional(),
+    methods: z.array(z.string()).optional(),
+    continue: z.boolean().optional(),
+    override: z.boolean().optional(),
+    caseSensitive: z.boolean().optional(),
+    check: z.boolean().optional(),
+    important: z.boolean().optional(),
+    status: z.number().optional(),
+    has: z.array(
+      z.union([
+        z.lazy(() => Has1$inboundSchema),
+        z.lazy(() => Has2$inboundSchema),
+      ]),
+    ).optional(),
+    missing: z.array(
+      z.union([
+        z.lazy(() => Missing1$inboundSchema),
+        z.lazy(() => Missing2$inboundSchema),
+      ]),
+    ).optional(),
+    mitigate: z.lazy(() => RoutesMitigate$inboundSchema).optional(),
+    locale: z.lazy(() => Locale$inboundSchema).optional(),
+    middlewarePath: z.string().optional(),
+    middlewareRawSrc: z.array(z.string()).optional(),
+    middleware: z.number().optional(),
+  });
+
+/** @internal */
+export type Routes1$Outbound = {
+  src: string;
+  dest?: string | undefined;
+  headers?: { [k: string]: string } | undefined;
+  methods?: Array<string> | undefined;
+  continue?: boolean | undefined;
+  override?: boolean | undefined;
+  caseSensitive?: boolean | undefined;
+  check?: boolean | undefined;
+  important?: boolean | undefined;
+  status?: number | undefined;
+  has?: Array<Has1$Outbound | Has2$Outbound> | undefined;
+  missing?: Array<Missing1$Outbound | Missing2$Outbound> | undefined;
+  mitigate?: RoutesMitigate$Outbound | undefined;
+  locale?: Locale$Outbound | undefined;
+  middlewarePath?: string | undefined;
+  middlewareRawSrc?: Array<string> | undefined;
+  middleware?: number | undefined;
+};
+
+/** @internal */
+export const Routes1$outboundSchema: z.ZodType<
+  Routes1$Outbound,
+  z.ZodTypeDef,
+  Routes1
+> = z.object({
+  src: z.string(),
+  dest: z.string().optional(),
+  headers: z.record(z.string()).optional(),
+  methods: z.array(z.string()).optional(),
+  continue: z.boolean().optional(),
+  override: z.boolean().optional(),
+  caseSensitive: z.boolean().optional(),
+  check: z.boolean().optional(),
+  important: z.boolean().optional(),
+  status: z.number().optional(),
+  has: z.array(
+    z.union([
+      z.lazy(() => Has1$outboundSchema),
+      z.lazy(() => Has2$outboundSchema),
+    ]),
+  ).optional(),
+  missing: z.array(
+    z.union([
+      z.lazy(() => Missing1$outboundSchema),
+      z.lazy(() => Missing2$outboundSchema),
+    ]),
+  ).optional(),
+  mitigate: z.lazy(() => RoutesMitigate$outboundSchema).optional(),
+  locale: z.lazy(() => Locale$outboundSchema).optional(),
+  middlewarePath: z.string().optional(),
+  middlewareRawSrc: z.array(z.string()).optional(),
+  middleware: z.number().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Routes1$ {
+  /** @deprecated use `Routes1$inboundSchema` instead. */
+  export const inboundSchema = Routes1$inboundSchema;
+  /** @deprecated use `Routes1$outboundSchema` instead. */
+  export const outboundSchema = Routes1$outboundSchema;
+  /** @deprecated use `Routes1$Outbound` instead. */
+  export type Outbound = Routes1$Outbound;
+}
+
+export function routes1ToJSON(routes1: Routes1): string {
+  return JSON.stringify(Routes1$outboundSchema.parse(routes1));
+}
+
+export function routes1FromJSON(
+  jsonString: string,
+): SafeParseResult<Routes1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Routes1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Routes1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
+  .union([
+    z.lazy(() => Routes3$inboundSchema),
+    z.lazy(() => Routes1$inboundSchema),
+    z.lazy(() => Routes2$inboundSchema),
+  ]);
+
+/** @internal */
+export type Routes$Outbound =
+  | Routes3$Outbound
+  | Routes1$Outbound
+  | Routes2$Outbound;
+
+/** @internal */
+export const Routes$outboundSchema: z.ZodType<
+  Routes$Outbound,
+  z.ZodTypeDef,
+  Routes
+> = z.union([
+  z.lazy(() => Routes3$outboundSchema),
+  z.lazy(() => Routes1$outboundSchema),
+  z.lazy(() => Routes2$outboundSchema),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Routes$ {
+  /** @deprecated use `Routes$inboundSchema` instead. */
+  export const inboundSchema = Routes$inboundSchema;
+  /** @deprecated use `Routes$outboundSchema` instead. */
+  export const outboundSchema = Routes$outboundSchema;
+  /** @deprecated use `Routes$Outbound` instead. */
+  export type Outbound = Routes$Outbound;
+}
+
+export function routesToJSON(routes: Routes): string {
+  return JSON.stringify(Routes$outboundSchema.parse(routes));
+}
+
+export function routesFromJSON(
+  jsonString: string,
+): SafeParseResult<Routes, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Routes$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Routes' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateDeploymentCrons$inboundSchema: z.ZodType<
+  CreateDeploymentCrons,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  schedule: z.string(),
+  path: z.string(),
+});
+
+/** @internal */
+export type CreateDeploymentCrons$Outbound = {
+  schedule: string;
+  path: string;
+};
+
+/** @internal */
+export const CreateDeploymentCrons$outboundSchema: z.ZodType<
+  CreateDeploymentCrons$Outbound,
+  z.ZodTypeDef,
+  CreateDeploymentCrons
+> = z.object({
+  schedule: z.string(),
+  path: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateDeploymentCrons$ {
+  /** @deprecated use `CreateDeploymentCrons$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentCrons$inboundSchema;
+  /** @deprecated use `CreateDeploymentCrons$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentCrons$outboundSchema;
+  /** @deprecated use `CreateDeploymentCrons$Outbound` instead. */
+  export type Outbound = CreateDeploymentCrons$Outbound;
+}
+
+export function createDeploymentCronsToJSON(
+  createDeploymentCrons: CreateDeploymentCrons,
+): string {
+  return JSON.stringify(
+    CreateDeploymentCrons$outboundSchema.parse(createDeploymentCrons),
+  );
+}
+
+export function createDeploymentCronsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateDeploymentCrons, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateDeploymentCrons$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentCrons' from JSON`,
+  );
+}
+
+/** @internal */
 export const CreateDeploymentMicrofrontendsApplications$inboundSchema:
   z.ZodType<CreateDeploymentMicrofrontendsApplications, z.ZodTypeDef, unknown> =
     z.object({
+      isDefaultApp: z.boolean().optional(),
       productionHost: z.string(),
       deploymentAlias: z.string().optional(),
       deploymentHost: z.string().optional(),
@@ -6096,6 +7953,7 @@ export const CreateDeploymentMicrofrontendsApplications$inboundSchema:
 
 /** @internal */
 export type CreateDeploymentMicrofrontendsApplications$Outbound = {
+  isDefaultApp?: boolean | undefined;
   productionHost: string;
   deploymentAlias?: string | undefined;
   deploymentHost?: string | undefined;
@@ -6108,6 +7966,7 @@ export const CreateDeploymentMicrofrontendsApplications$outboundSchema:
     z.ZodTypeDef,
     CreateDeploymentMicrofrontendsApplications
   > = z.object({
+    isDefaultApp: z.boolean().optional(),
     productionHost: z.string(),
     deploymentAlias: z.string().optional(),
     deploymentHost: z.string().optional(),
@@ -6300,14 +8159,14 @@ export const CreateDeploymentMicrofrontends$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => CreateDeploymentMicrofrontends1$inboundSchema),
   z.lazy(() => CreateDeploymentMicrofrontends2$inboundSchema),
+  z.lazy(() => CreateDeploymentMicrofrontends1$inboundSchema),
 ]);
 
 /** @internal */
 export type CreateDeploymentMicrofrontends$Outbound =
-  | CreateDeploymentMicrofrontends1$Outbound
-  | CreateDeploymentMicrofrontends2$Outbound;
+  | CreateDeploymentMicrofrontends2$Outbound
+  | CreateDeploymentMicrofrontends1$Outbound;
 
 /** @internal */
 export const CreateDeploymentMicrofrontends$outboundSchema: z.ZodType<
@@ -6315,8 +8174,8 @@ export const CreateDeploymentMicrofrontends$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateDeploymentMicrofrontends
 > = z.union([
-  z.lazy(() => CreateDeploymentMicrofrontends1$outboundSchema),
   z.lazy(() => CreateDeploymentMicrofrontends2$outboundSchema),
+  z.lazy(() => CreateDeploymentMicrofrontends1$outboundSchema),
 ]);
 
 /**
@@ -6353,951 +8212,143 @@ export function createDeploymentMicrofrontendsFromJSON(
 }
 
 /** @internal */
-export const FunctionType$inboundSchema: z.ZodNativeEnum<typeof FunctionType> =
-  z.nativeEnum(FunctionType);
+export const CreateDeploymentState$inboundSchema: z.ZodNativeEnum<
+  typeof CreateDeploymentState
+> = z.nativeEnum(CreateDeploymentState);
 
 /** @internal */
-export const FunctionType$outboundSchema: z.ZodNativeEnum<typeof FunctionType> =
-  FunctionType$inboundSchema;
+export const CreateDeploymentState$outboundSchema: z.ZodNativeEnum<
+  typeof CreateDeploymentState
+> = CreateDeploymentState$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace FunctionType$ {
-  /** @deprecated use `FunctionType$inboundSchema` instead. */
-  export const inboundSchema = FunctionType$inboundSchema;
-  /** @deprecated use `FunctionType$outboundSchema` instead. */
-  export const outboundSchema = FunctionType$outboundSchema;
+export namespace CreateDeploymentState$ {
+  /** @deprecated use `CreateDeploymentState$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentState$inboundSchema;
+  /** @deprecated use `CreateDeploymentState$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentState$outboundSchema;
 }
 
 /** @internal */
-export const FunctionMemoryType$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionMemoryType
-> = z.nativeEnum(FunctionMemoryType);
-
-/** @internal */
-export const FunctionMemoryType$outboundSchema: z.ZodNativeEnum<
-  typeof FunctionMemoryType
-> = FunctionMemoryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FunctionMemoryType$ {
-  /** @deprecated use `FunctionMemoryType$inboundSchema` instead. */
-  export const inboundSchema = FunctionMemoryType$inboundSchema;
-  /** @deprecated use `FunctionMemoryType$outboundSchema` instead. */
-  export const outboundSchema = FunctionMemoryType$outboundSchema;
-}
-
-/** @internal */
-export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
-  .object({
-    version: z.number().optional(),
-    functionType: FunctionType$inboundSchema,
-    functionMemoryType: FunctionMemoryType$inboundSchema,
-    functionTimeout: z.nullable(z.number()),
-    secureComputePrimaryRegion: z.nullable(z.string()),
-    secureComputeFallbackRegion: z.nullable(z.string()),
-  });
-
-/** @internal */
-export type Config$Outbound = {
-  version?: number | undefined;
-  functionType: string;
-  functionMemoryType: string;
-  functionTimeout: number | null;
-  secureComputePrimaryRegion: string | null;
-  secureComputeFallbackRegion: string | null;
-};
-
-/** @internal */
-export const Config$outboundSchema: z.ZodType<
-  Config$Outbound,
-  z.ZodTypeDef,
-  Config
-> = z.object({
-  version: z.number().optional(),
-  functionType: FunctionType$outboundSchema,
-  functionMemoryType: FunctionMemoryType$outboundSchema,
-  functionTimeout: z.nullable(z.number()),
-  secureComputePrimaryRegion: z.nullable(z.string()),
-  secureComputeFallbackRegion: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Config$ {
-  /** @deprecated use `Config$inboundSchema` instead. */
-  export const inboundSchema = Config$inboundSchema;
-  /** @deprecated use `Config$outboundSchema` instead. */
-  export const outboundSchema = Config$outboundSchema;
-  /** @deprecated use `Config$Outbound` instead. */
-  export type Outbound = Config$Outbound;
-}
-
-export function configToJSON(config: Config): string {
-  return JSON.stringify(Config$outboundSchema.parse(config));
-}
-
-export function configFromJSON(
-  jsonString: string,
-): SafeParseResult<Config, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Config$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Config' from JSON`,
-  );
-}
-
-/** @internal */
-export const Functions$inboundSchema: z.ZodType<
-  Functions,
+export const DeploymentAlias$inboundSchema: z.ZodType<
+  DeploymentAlias,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  memory: z.number().optional(),
-  maxDuration: z.number().optional(),
-  runtime: z.string().optional(),
-  includeFiles: z.string().optional(),
-  excludeFiles: z.string().optional(),
+  state: CreateDeploymentState$inboundSchema,
+  startedAt: z.number(),
+  completedAt: z.number().optional(),
 });
 
 /** @internal */
-export type Functions$Outbound = {
-  memory?: number | undefined;
-  maxDuration?: number | undefined;
-  runtime?: string | undefined;
-  includeFiles?: string | undefined;
-  excludeFiles?: string | undefined;
+export type DeploymentAlias$Outbound = {
+  state: string;
+  startedAt: number;
+  completedAt?: number | undefined;
 };
 
 /** @internal */
-export const Functions$outboundSchema: z.ZodType<
-  Functions$Outbound,
+export const DeploymentAlias$outboundSchema: z.ZodType<
+  DeploymentAlias$Outbound,
   z.ZodTypeDef,
-  Functions
+  DeploymentAlias
 > = z.object({
-  memory: z.number().optional(),
-  maxDuration: z.number().optional(),
-  runtime: z.string().optional(),
-  includeFiles: z.string().optional(),
-  excludeFiles: z.string().optional(),
+  state: CreateDeploymentState$outboundSchema,
+  startedAt: z.number(),
+  completedAt: z.number().optional(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Functions$ {
-  /** @deprecated use `Functions$inboundSchema` instead. */
-  export const inboundSchema = Functions$inboundSchema;
-  /** @deprecated use `Functions$outboundSchema` instead. */
-  export const outboundSchema = Functions$outboundSchema;
-  /** @deprecated use `Functions$Outbound` instead. */
-  export type Outbound = Functions$Outbound;
+export namespace DeploymentAlias$ {
+  /** @deprecated use `DeploymentAlias$inboundSchema` instead. */
+  export const inboundSchema = DeploymentAlias$inboundSchema;
+  /** @deprecated use `DeploymentAlias$outboundSchema` instead. */
+  export const outboundSchema = DeploymentAlias$outboundSchema;
+  /** @deprecated use `DeploymentAlias$Outbound` instead. */
+  export type Outbound = DeploymentAlias$Outbound;
 }
 
-export function functionsToJSON(functions: Functions): string {
-  return JSON.stringify(Functions$outboundSchema.parse(functions));
+export function deploymentAliasToJSON(
+  deploymentAlias: DeploymentAlias,
+): string {
+  return JSON.stringify(DeploymentAlias$outboundSchema.parse(deploymentAlias));
 }
 
-export function functionsFromJSON(
+export function deploymentAliasFromJSON(
   jsonString: string,
-): SafeParseResult<Functions, SDKValidationError> {
+): SafeParseResult<DeploymentAlias, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Functions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Functions' from JSON`,
+    (x) => DeploymentAlias$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeploymentAlias' from JSON`,
   );
 }
 
 /** @internal */
-export const Routes3$inboundSchema: z.ZodType<Routes3, z.ZodTypeDef, unknown> =
-  z.object({
-    src: z.string(),
-    continue: z.boolean(),
-    middleware: z.number(),
-  });
-
-/** @internal */
-export type Routes3$Outbound = {
-  src: string;
-  continue: boolean;
-  middleware: number;
-};
-
-/** @internal */
-export const Routes3$outboundSchema: z.ZodType<
-  Routes3$Outbound,
-  z.ZodTypeDef,
-  Routes3
-> = z.object({
-  src: z.string(),
-  continue: z.boolean(),
-  middleware: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Routes3$ {
-  /** @deprecated use `Routes3$inboundSchema` instead. */
-  export const inboundSchema = Routes3$inboundSchema;
-  /** @deprecated use `Routes3$outboundSchema` instead. */
-  export const outboundSchema = Routes3$outboundSchema;
-  /** @deprecated use `Routes3$Outbound` instead. */
-  export type Outbound = Routes3$Outbound;
-}
-
-export function routes3ToJSON(routes3: Routes3): string {
-  return JSON.stringify(Routes3$outboundSchema.parse(routes3));
-}
-
-export function routes3FromJSON(
-  jsonString: string,
-): SafeParseResult<Routes3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Routes3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Routes3' from JSON`,
-  );
-}
-
-/** @internal */
-export const RoutesHandle$inboundSchema: z.ZodNativeEnum<typeof RoutesHandle> =
-  z.nativeEnum(RoutesHandle);
-
-/** @internal */
-export const RoutesHandle$outboundSchema: z.ZodNativeEnum<typeof RoutesHandle> =
-  RoutesHandle$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RoutesHandle$ {
-  /** @deprecated use `RoutesHandle$inboundSchema` instead. */
-  export const inboundSchema = RoutesHandle$inboundSchema;
-  /** @deprecated use `RoutesHandle$outboundSchema` instead. */
-  export const outboundSchema = RoutesHandle$outboundSchema;
-}
-
-/** @internal */
-export const Routes2$inboundSchema: z.ZodType<Routes2, z.ZodTypeDef, unknown> =
-  z.object({
-    handle: RoutesHandle$inboundSchema,
-    src: z.string().optional(),
-    dest: z.string().optional(),
-    status: z.number().optional(),
-  });
-
-/** @internal */
-export type Routes2$Outbound = {
-  handle: string;
-  src?: string | undefined;
-  dest?: string | undefined;
-  status?: number | undefined;
-};
-
-/** @internal */
-export const Routes2$outboundSchema: z.ZodType<
-  Routes2$Outbound,
-  z.ZodTypeDef,
-  Routes2
-> = z.object({
-  handle: RoutesHandle$outboundSchema,
-  src: z.string().optional(),
-  dest: z.string().optional(),
-  status: z.number().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Routes2$ {
-  /** @deprecated use `Routes2$inboundSchema` instead. */
-  export const inboundSchema = Routes2$inboundSchema;
-  /** @deprecated use `Routes2$outboundSchema` instead. */
-  export const outboundSchema = Routes2$outboundSchema;
-  /** @deprecated use `Routes2$Outbound` instead. */
-  export type Outbound = Routes2$Outbound;
-}
-
-export function routes2ToJSON(routes2: Routes2): string {
-  return JSON.stringify(Routes2$outboundSchema.parse(routes2));
-}
-
-export function routes2FromJSON(
-  jsonString: string,
-): SafeParseResult<Routes2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Routes2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Routes2' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateDeploymentHasType$inboundSchema: z.ZodNativeEnum<
-  typeof CreateDeploymentHasType
-> = z.nativeEnum(CreateDeploymentHasType);
-
-/** @internal */
-export const CreateDeploymentHasType$outboundSchema: z.ZodNativeEnum<
-  typeof CreateDeploymentHasType
-> = CreateDeploymentHasType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateDeploymentHasType$ {
-  /** @deprecated use `CreateDeploymentHasType$inboundSchema` instead. */
-  export const inboundSchema = CreateDeploymentHasType$inboundSchema;
-  /** @deprecated use `CreateDeploymentHasType$outboundSchema` instead. */
-  export const outboundSchema = CreateDeploymentHasType$outboundSchema;
-}
-
-/** @internal */
-export const Has2$inboundSchema: z.ZodType<Has2, z.ZodTypeDef, unknown> = z
-  .object({
-    type: CreateDeploymentHasType$inboundSchema,
-    key: z.string(),
-    value: z.string().optional(),
-  });
-
-/** @internal */
-export type Has2$Outbound = {
-  type: string;
-  key: string;
-  value?: string | undefined;
-};
-
-/** @internal */
-export const Has2$outboundSchema: z.ZodType<Has2$Outbound, z.ZodTypeDef, Has2> =
-  z.object({
-    type: CreateDeploymentHasType$outboundSchema,
-    key: z.string(),
-    value: z.string().optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Has2$ {
-  /** @deprecated use `Has2$inboundSchema` instead. */
-  export const inboundSchema = Has2$inboundSchema;
-  /** @deprecated use `Has2$outboundSchema` instead. */
-  export const outboundSchema = Has2$outboundSchema;
-  /** @deprecated use `Has2$Outbound` instead. */
-  export type Outbound = Has2$Outbound;
-}
-
-export function has2ToJSON(has2: Has2): string {
-  return JSON.stringify(Has2$outboundSchema.parse(has2));
-}
-
-export function has2FromJSON(
-  jsonString: string,
-): SafeParseResult<Has2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Has2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Has2' from JSON`,
-  );
-}
-
-/** @internal */
-export const HasType$inboundSchema: z.ZodNativeEnum<typeof HasType> = z
-  .nativeEnum(HasType);
-
-/** @internal */
-export const HasType$outboundSchema: z.ZodNativeEnum<typeof HasType> =
-  HasType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HasType$ {
-  /** @deprecated use `HasType$inboundSchema` instead. */
-  export const inboundSchema = HasType$inboundSchema;
-  /** @deprecated use `HasType$outboundSchema` instead. */
-  export const outboundSchema = HasType$outboundSchema;
-}
-
-/** @internal */
-export const Has1$inboundSchema: z.ZodType<Has1, z.ZodTypeDef, unknown> = z
-  .object({
-    type: HasType$inboundSchema,
-    value: z.string(),
-  });
-
-/** @internal */
-export type Has1$Outbound = {
-  type: string;
-  value: string;
-};
-
-/** @internal */
-export const Has1$outboundSchema: z.ZodType<Has1$Outbound, z.ZodTypeDef, Has1> =
-  z.object({
-    type: HasType$outboundSchema,
-    value: z.string(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Has1$ {
-  /** @deprecated use `Has1$inboundSchema` instead. */
-  export const inboundSchema = Has1$inboundSchema;
-  /** @deprecated use `Has1$outboundSchema` instead. */
-  export const outboundSchema = Has1$outboundSchema;
-  /** @deprecated use `Has1$Outbound` instead. */
-  export type Outbound = Has1$Outbound;
-}
-
-export function has1ToJSON(has1: Has1): string {
-  return JSON.stringify(Has1$outboundSchema.parse(has1));
-}
-
-export function has1FromJSON(
-  jsonString: string,
-): SafeParseResult<Has1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Has1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Has1' from JSON`,
-  );
-}
-
-/** @internal */
-export const RoutesHas$inboundSchema: z.ZodType<
-  RoutesHas,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => Has1$inboundSchema),
-  z.lazy(() => Has2$inboundSchema),
-]);
-
-/** @internal */
-export type RoutesHas$Outbound = Has1$Outbound | Has2$Outbound;
-
-/** @internal */
-export const RoutesHas$outboundSchema: z.ZodType<
-  RoutesHas$Outbound,
-  z.ZodTypeDef,
-  RoutesHas
-> = z.union([
-  z.lazy(() => Has1$outboundSchema),
-  z.lazy(() => Has2$outboundSchema),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RoutesHas$ {
-  /** @deprecated use `RoutesHas$inboundSchema` instead. */
-  export const inboundSchema = RoutesHas$inboundSchema;
-  /** @deprecated use `RoutesHas$outboundSchema` instead. */
-  export const outboundSchema = RoutesHas$outboundSchema;
-  /** @deprecated use `RoutesHas$Outbound` instead. */
-  export type Outbound = RoutesHas$Outbound;
-}
-
-export function routesHasToJSON(routesHas: RoutesHas): string {
-  return JSON.stringify(RoutesHas$outboundSchema.parse(routesHas));
-}
-
-export function routesHasFromJSON(
-  jsonString: string,
-): SafeParseResult<RoutesHas, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RoutesHas$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RoutesHas' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateDeploymentMissingType$inboundSchema: z.ZodNativeEnum<
-  typeof CreateDeploymentMissingType
-> = z.nativeEnum(CreateDeploymentMissingType);
-
-/** @internal */
-export const CreateDeploymentMissingType$outboundSchema: z.ZodNativeEnum<
-  typeof CreateDeploymentMissingType
-> = CreateDeploymentMissingType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateDeploymentMissingType$ {
-  /** @deprecated use `CreateDeploymentMissingType$inboundSchema` instead. */
-  export const inboundSchema = CreateDeploymentMissingType$inboundSchema;
-  /** @deprecated use `CreateDeploymentMissingType$outboundSchema` instead. */
-  export const outboundSchema = CreateDeploymentMissingType$outboundSchema;
-}
-
-/** @internal */
-export const Missing2$inboundSchema: z.ZodType<
-  Missing2,
+export const CreateDeploymentChecks$inboundSchema: z.ZodType<
+  CreateDeploymentChecks,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CreateDeploymentMissingType$inboundSchema,
-  key: z.string(),
-  value: z.string().optional(),
-});
-
-/** @internal */
-export type Missing2$Outbound = {
-  type: string;
-  key: string;
-  value?: string | undefined;
-};
-
-/** @internal */
-export const Missing2$outboundSchema: z.ZodType<
-  Missing2$Outbound,
-  z.ZodTypeDef,
-  Missing2
-> = z.object({
-  type: CreateDeploymentMissingType$outboundSchema,
-  key: z.string(),
-  value: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Missing2$ {
-  /** @deprecated use `Missing2$inboundSchema` instead. */
-  export const inboundSchema = Missing2$inboundSchema;
-  /** @deprecated use `Missing2$outboundSchema` instead. */
-  export const outboundSchema = Missing2$outboundSchema;
-  /** @deprecated use `Missing2$Outbound` instead. */
-  export type Outbound = Missing2$Outbound;
-}
-
-export function missing2ToJSON(missing2: Missing2): string {
-  return JSON.stringify(Missing2$outboundSchema.parse(missing2));
-}
-
-export function missing2FromJSON(
-  jsonString: string,
-): SafeParseResult<Missing2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Missing2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Missing2' from JSON`,
-  );
-}
-
-/** @internal */
-export const MissingType$inboundSchema: z.ZodNativeEnum<typeof MissingType> = z
-  .nativeEnum(MissingType);
-
-/** @internal */
-export const MissingType$outboundSchema: z.ZodNativeEnum<typeof MissingType> =
-  MissingType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MissingType$ {
-  /** @deprecated use `MissingType$inboundSchema` instead. */
-  export const inboundSchema = MissingType$inboundSchema;
-  /** @deprecated use `MissingType$outboundSchema` instead. */
-  export const outboundSchema = MissingType$outboundSchema;
-}
-
-/** @internal */
-export const Missing1$inboundSchema: z.ZodType<
-  Missing1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: MissingType$inboundSchema,
-  value: z.string(),
-});
-
-/** @internal */
-export type Missing1$Outbound = {
-  type: string;
-  value: string;
-};
-
-/** @internal */
-export const Missing1$outboundSchema: z.ZodType<
-  Missing1$Outbound,
-  z.ZodTypeDef,
-  Missing1
-> = z.object({
-  type: MissingType$outboundSchema,
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Missing1$ {
-  /** @deprecated use `Missing1$inboundSchema` instead. */
-  export const inboundSchema = Missing1$inboundSchema;
-  /** @deprecated use `Missing1$outboundSchema` instead. */
-  export const outboundSchema = Missing1$outboundSchema;
-  /** @deprecated use `Missing1$Outbound` instead. */
-  export type Outbound = Missing1$Outbound;
-}
-
-export function missing1ToJSON(missing1: Missing1): string {
-  return JSON.stringify(Missing1$outboundSchema.parse(missing1));
-}
-
-export function missing1FromJSON(
-  jsonString: string,
-): SafeParseResult<Missing1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Missing1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Missing1' from JSON`,
-  );
-}
-
-/** @internal */
-export const RoutesMissing$inboundSchema: z.ZodType<
-  RoutesMissing,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => Missing1$inboundSchema),
-  z.lazy(() => Missing2$inboundSchema),
-]);
-
-/** @internal */
-export type RoutesMissing$Outbound = Missing1$Outbound | Missing2$Outbound;
-
-/** @internal */
-export const RoutesMissing$outboundSchema: z.ZodType<
-  RoutesMissing$Outbound,
-  z.ZodTypeDef,
-  RoutesMissing
-> = z.union([
-  z.lazy(() => Missing1$outboundSchema),
-  z.lazy(() => Missing2$outboundSchema),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RoutesMissing$ {
-  /** @deprecated use `RoutesMissing$inboundSchema` instead. */
-  export const inboundSchema = RoutesMissing$inboundSchema;
-  /** @deprecated use `RoutesMissing$outboundSchema` instead. */
-  export const outboundSchema = RoutesMissing$outboundSchema;
-  /** @deprecated use `RoutesMissing$Outbound` instead. */
-  export type Outbound = RoutesMissing$Outbound;
-}
-
-export function routesMissingToJSON(routesMissing: RoutesMissing): string {
-  return JSON.stringify(RoutesMissing$outboundSchema.parse(routesMissing));
-}
-
-export function routesMissingFromJSON(
-  jsonString: string,
-): SafeParseResult<RoutesMissing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RoutesMissing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RoutesMissing' from JSON`,
-  );
-}
-
-/** @internal */
-export const Locale$inboundSchema: z.ZodType<Locale, z.ZodTypeDef, unknown> = z
-  .object({
-    redirect: z.record(z.string()).optional(),
-    cookie: z.string().optional(),
+  "deployment-alias": z.lazy(() => DeploymentAlias$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "deployment-alias": "deploymentAlias",
   });
+});
 
 /** @internal */
-export type Locale$Outbound = {
-  redirect?: { [k: string]: string } | undefined;
-  cookie?: string | undefined;
+export type CreateDeploymentChecks$Outbound = {
+  "deployment-alias": DeploymentAlias$Outbound;
 };
 
 /** @internal */
-export const Locale$outboundSchema: z.ZodType<
-  Locale$Outbound,
+export const CreateDeploymentChecks$outboundSchema: z.ZodType<
+  CreateDeploymentChecks$Outbound,
   z.ZodTypeDef,
-  Locale
+  CreateDeploymentChecks
 > = z.object({
-  redirect: z.record(z.string()).optional(),
-  cookie: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Locale$ {
-  /** @deprecated use `Locale$inboundSchema` instead. */
-  export const inboundSchema = Locale$inboundSchema;
-  /** @deprecated use `Locale$outboundSchema` instead. */
-  export const outboundSchema = Locale$outboundSchema;
-  /** @deprecated use `Locale$Outbound` instead. */
-  export type Outbound = Locale$Outbound;
-}
-
-export function localeToJSON(locale: Locale): string {
-  return JSON.stringify(Locale$outboundSchema.parse(locale));
-}
-
-export function localeFromJSON(
-  jsonString: string,
-): SafeParseResult<Locale, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Locale$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Locale' from JSON`,
-  );
-}
-
-/** @internal */
-export const Routes1$inboundSchema: z.ZodType<Routes1, z.ZodTypeDef, unknown> =
-  z.object({
-    src: z.string(),
-    dest: z.string().optional(),
-    headers: z.record(z.string()).optional(),
-    methods: z.array(z.string()).optional(),
-    continue: z.boolean().optional(),
-    override: z.boolean().optional(),
-    caseSensitive: z.boolean().optional(),
-    check: z.boolean().optional(),
-    important: z.boolean().optional(),
-    status: z.number().optional(),
-    has: z.array(
-      z.union([
-        z.lazy(() => Has1$inboundSchema),
-        z.lazy(() => Has2$inboundSchema),
-      ]),
-    ).optional(),
-    missing: z.array(
-      z.union([
-        z.lazy(() => Missing1$inboundSchema),
-        z.lazy(() => Missing2$inboundSchema),
-      ]),
-    ).optional(),
-    locale: z.lazy(() => Locale$inboundSchema).optional(),
-    middlewarePath: z.string().optional(),
-    middlewareRawSrc: z.array(z.string()).optional(),
-    middleware: z.number().optional(),
+  deploymentAlias: z.lazy(() => DeploymentAlias$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    deploymentAlias: "deployment-alias",
   });
-
-/** @internal */
-export type Routes1$Outbound = {
-  src: string;
-  dest?: string | undefined;
-  headers?: { [k: string]: string } | undefined;
-  methods?: Array<string> | undefined;
-  continue?: boolean | undefined;
-  override?: boolean | undefined;
-  caseSensitive?: boolean | undefined;
-  check?: boolean | undefined;
-  important?: boolean | undefined;
-  status?: number | undefined;
-  has?: Array<Has1$Outbound | Has2$Outbound> | undefined;
-  missing?: Array<Missing1$Outbound | Missing2$Outbound> | undefined;
-  locale?: Locale$Outbound | undefined;
-  middlewarePath?: string | undefined;
-  middlewareRawSrc?: Array<string> | undefined;
-  middleware?: number | undefined;
-};
-
-/** @internal */
-export const Routes1$outboundSchema: z.ZodType<
-  Routes1$Outbound,
-  z.ZodTypeDef,
-  Routes1
-> = z.object({
-  src: z.string(),
-  dest: z.string().optional(),
-  headers: z.record(z.string()).optional(),
-  methods: z.array(z.string()).optional(),
-  continue: z.boolean().optional(),
-  override: z.boolean().optional(),
-  caseSensitive: z.boolean().optional(),
-  check: z.boolean().optional(),
-  important: z.boolean().optional(),
-  status: z.number().optional(),
-  has: z.array(
-    z.union([
-      z.lazy(() => Has1$outboundSchema),
-      z.lazy(() => Has2$outboundSchema),
-    ]),
-  ).optional(),
-  missing: z.array(
-    z.union([
-      z.lazy(() => Missing1$outboundSchema),
-      z.lazy(() => Missing2$outboundSchema),
-    ]),
-  ).optional(),
-  locale: z.lazy(() => Locale$outboundSchema).optional(),
-  middlewarePath: z.string().optional(),
-  middlewareRawSrc: z.array(z.string()).optional(),
-  middleware: z.number().optional(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Routes1$ {
-  /** @deprecated use `Routes1$inboundSchema` instead. */
-  export const inboundSchema = Routes1$inboundSchema;
-  /** @deprecated use `Routes1$outboundSchema` instead. */
-  export const outboundSchema = Routes1$outboundSchema;
-  /** @deprecated use `Routes1$Outbound` instead. */
-  export type Outbound = Routes1$Outbound;
+export namespace CreateDeploymentChecks$ {
+  /** @deprecated use `CreateDeploymentChecks$inboundSchema` instead. */
+  export const inboundSchema = CreateDeploymentChecks$inboundSchema;
+  /** @deprecated use `CreateDeploymentChecks$outboundSchema` instead. */
+  export const outboundSchema = CreateDeploymentChecks$outboundSchema;
+  /** @deprecated use `CreateDeploymentChecks$Outbound` instead. */
+  export type Outbound = CreateDeploymentChecks$Outbound;
 }
 
-export function routes1ToJSON(routes1: Routes1): string {
-  return JSON.stringify(Routes1$outboundSchema.parse(routes1));
-}
-
-export function routes1FromJSON(
-  jsonString: string,
-): SafeParseResult<Routes1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Routes1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Routes1' from JSON`,
-  );
-}
-
-/** @internal */
-export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
-  .union([
-    z.lazy(() => Routes3$inboundSchema),
-    z.lazy(() => Routes2$inboundSchema),
-    z.lazy(() => Routes1$inboundSchema),
-  ]);
-
-/** @internal */
-export type Routes$Outbound =
-  | Routes3$Outbound
-  | Routes2$Outbound
-  | Routes1$Outbound;
-
-/** @internal */
-export const Routes$outboundSchema: z.ZodType<
-  Routes$Outbound,
-  z.ZodTypeDef,
-  Routes
-> = z.union([
-  z.lazy(() => Routes3$outboundSchema),
-  z.lazy(() => Routes2$outboundSchema),
-  z.lazy(() => Routes1$outboundSchema),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Routes$ {
-  /** @deprecated use `Routes$inboundSchema` instead. */
-  export const inboundSchema = Routes$inboundSchema;
-  /** @deprecated use `Routes$outboundSchema` instead. */
-  export const outboundSchema = Routes$outboundSchema;
-  /** @deprecated use `Routes$Outbound` instead. */
-  export type Outbound = Routes$Outbound;
-}
-
-export function routesToJSON(routes: Routes): string {
-  return JSON.stringify(Routes$outboundSchema.parse(routes));
-}
-
-export function routesFromJSON(
-  jsonString: string,
-): SafeParseResult<Routes, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Routes$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Routes' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateDeploymentCrons$inboundSchema: z.ZodType<
-  CreateDeploymentCrons,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  schedule: z.string(),
-  path: z.string(),
-});
-
-/** @internal */
-export type CreateDeploymentCrons$Outbound = {
-  schedule: string;
-  path: string;
-};
-
-/** @internal */
-export const CreateDeploymentCrons$outboundSchema: z.ZodType<
-  CreateDeploymentCrons$Outbound,
-  z.ZodTypeDef,
-  CreateDeploymentCrons
-> = z.object({
-  schedule: z.string(),
-  path: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateDeploymentCrons$ {
-  /** @deprecated use `CreateDeploymentCrons$inboundSchema` instead. */
-  export const inboundSchema = CreateDeploymentCrons$inboundSchema;
-  /** @deprecated use `CreateDeploymentCrons$outboundSchema` instead. */
-  export const outboundSchema = CreateDeploymentCrons$outboundSchema;
-  /** @deprecated use `CreateDeploymentCrons$Outbound` instead. */
-  export type Outbound = CreateDeploymentCrons$Outbound;
-}
-
-export function createDeploymentCronsToJSON(
-  createDeploymentCrons: CreateDeploymentCrons,
+export function createDeploymentChecksToJSON(
+  createDeploymentChecks: CreateDeploymentChecks,
 ): string {
   return JSON.stringify(
-    CreateDeploymentCrons$outboundSchema.parse(createDeploymentCrons),
+    CreateDeploymentChecks$outboundSchema.parse(createDeploymentChecks),
   );
 }
 
-export function createDeploymentCronsFromJSON(
+export function createDeploymentChecksFromJSON(
   jsonString: string,
-): SafeParseResult<CreateDeploymentCrons, SDKValidationError> {
+): SafeParseResult<CreateDeploymentChecks, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CreateDeploymentCrons$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateDeploymentCrons' from JSON`,
+    (x) => CreateDeploymentChecks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateDeploymentChecks' from JSON`,
   );
 }
 
@@ -7657,16 +8708,16 @@ export function gitRepo1FromJSON(
 /** @internal */
 export const GitRepo$inboundSchema: z.ZodType<GitRepo, z.ZodTypeDef, unknown> =
   z.union([
-    z.lazy(() => GitRepo1$inboundSchema),
     z.lazy(() => GitRepo2$inboundSchema),
     z.lazy(() => GitRepo3$inboundSchema),
+    z.lazy(() => GitRepo1$inboundSchema),
   ]);
 
 /** @internal */
 export type GitRepo$Outbound =
-  | GitRepo1$Outbound
   | GitRepo2$Outbound
-  | GitRepo3$Outbound;
+  | GitRepo3$Outbound
+  | GitRepo1$Outbound;
 
 /** @internal */
 export const GitRepo$outboundSchema: z.ZodType<
@@ -7674,9 +8725,9 @@ export const GitRepo$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitRepo
 > = z.union([
-  z.lazy(() => GitRepo1$outboundSchema),
   z.lazy(() => GitRepo2$outboundSchema),
   z.lazy(() => GitRepo3$outboundSchema),
+  z.lazy(() => GitRepo1$outboundSchema),
 ]);
 
 /**
@@ -7988,29 +9039,30 @@ export const CreateDeploymentResponseBody$inboundSchema: z.ZodType<
   previewCommentsEnabled: z.boolean().optional(),
   ttyBuildLogs: z.boolean().optional(),
   customEnvironment: z.union([
-    z.lazy(() => CustomEnvironment2$inboundSchema),
     z.lazy(() => CustomEnvironment1$inboundSchema),
+    z.lazy(() => CustomEnvironment2$inboundSchema),
   ]).optional(),
-  type: CreateDeploymentType$inboundSchema,
+  oomReport: OomReport$inboundSchema.optional(),
+  id: z.string(),
   name: z.string(),
   createdAt: z.number(),
+  type: CreateDeploymentType$inboundSchema,
   deletedAt: z.nullable(z.number()).optional(),
-  id: z.string(),
   version: z.number(),
   autoAssignCustomDomains: z.boolean().optional(),
   gitSource: z.union([
-    z.lazy(() => CreateDeploymentGitSource8$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource11$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource1$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource5$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource2$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource3$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource6$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource7$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource9$inboundSchema),
-    z.lazy(() => CreateDeploymentGitSource4$inboundSchema),
     z.lazy(() => CreateDeploymentGitSource10$inboundSchema),
     z.lazy(() => CreateDeploymentGitSource12$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource4$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource8$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource9$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource11$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource2$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource3$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource7$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource1$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource5$inboundSchema),
+    z.lazy(() => CreateDeploymentGitSource6$inboundSchema),
   ]).optional(),
   meta: z.record(z.string()),
   project: z.lazy(() => CreateDeploymentProject$inboundSchema).optional(),
@@ -8038,14 +9090,10 @@ export const CreateDeploymentResponseBody$inboundSchema: z.ZodType<
   undeletedAt: z.number().optional(),
   url: z.string(),
   oidcTokenClaims: z.lazy(() => OidcTokenClaims$inboundSchema).optional(),
-  plan: CreateDeploymentPlan$inboundSchema,
   projectId: z.string(),
   ownerId: z.string(),
-  microfrontends: z.union([
-    z.lazy(() => CreateDeploymentMicrofrontends1$inboundSchema),
-    z.lazy(() => CreateDeploymentMicrofrontends2$inboundSchema),
-  ]).optional(),
   monorepoManager: z.nullable(z.string()).optional(),
+  plan: CreateDeploymentPlan$inboundSchema,
   config: z.lazy(() => Config$inboundSchema).optional(),
   functions: z.nullable(z.record(z.lazy(() => Functions$inboundSchema)))
     .optional(),
@@ -8053,21 +9101,26 @@ export const CreateDeploymentResponseBody$inboundSchema: z.ZodType<
     z.array(z.union([
       z.lazy(() => Routes3$inboundSchema),
       z.lazy(() =>
-        Routes2$inboundSchema
+        Routes1$inboundSchema
       ),
-      z.lazy(() => Routes1$inboundSchema),
+      z.lazy(() => Routes2$inboundSchema),
     ])),
   ),
   crons: z.array(z.lazy(() => CreateDeploymentCrons$inboundSchema)).optional(),
+  microfrontends: z.union([
+    z.lazy(() => CreateDeploymentMicrofrontends2$inboundSchema),
+    z.lazy(() => CreateDeploymentMicrofrontends1$inboundSchema),
+  ]).optional(),
+  checks: z.lazy(() => CreateDeploymentChecks$inboundSchema).optional(),
   connectBuildsEnabled: z.boolean().optional(),
   connectConfigurationId: z.string().optional(),
   createdIn: z.string(),
   passiveConnectConfigurationId: z.string().optional(),
   gitRepo: z.nullable(
     z.union([
-      z.lazy(() => GitRepo1$inboundSchema),
       z.lazy(() => GitRepo2$inboundSchema),
       z.lazy(() => GitRepo3$inboundSchema),
+      z.lazy(() => GitRepo1$inboundSchema),
     ]),
   ).optional(),
   flags: z.union([
@@ -8109,29 +9162,30 @@ export type CreateDeploymentResponseBody$Outbound = {
   previewCommentsEnabled?: boolean | undefined;
   ttyBuildLogs?: boolean | undefined;
   customEnvironment?:
-    | CustomEnvironment2$Outbound
     | CustomEnvironment1$Outbound
+    | CustomEnvironment2$Outbound
     | undefined;
-  type: string;
+  oomReport?: string | undefined;
+  id: string;
   name: string;
   createdAt: number;
+  type: string;
   deletedAt?: number | null | undefined;
-  id: string;
   version: number;
   autoAssignCustomDomains?: boolean | undefined;
   gitSource?:
-    | CreateDeploymentGitSource8$Outbound
-    | CreateDeploymentGitSource11$Outbound
-    | CreateDeploymentGitSource1$Outbound
-    | CreateDeploymentGitSource5$Outbound
-    | CreateDeploymentGitSource2$Outbound
-    | CreateDeploymentGitSource3$Outbound
-    | CreateDeploymentGitSource6$Outbound
-    | CreateDeploymentGitSource7$Outbound
-    | CreateDeploymentGitSource9$Outbound
-    | CreateDeploymentGitSource4$Outbound
     | CreateDeploymentGitSource10$Outbound
     | CreateDeploymentGitSource12$Outbound
+    | CreateDeploymentGitSource4$Outbound
+    | CreateDeploymentGitSource8$Outbound
+    | CreateDeploymentGitSource9$Outbound
+    | CreateDeploymentGitSource11$Outbound
+    | CreateDeploymentGitSource2$Outbound
+    | CreateDeploymentGitSource3$Outbound
+    | CreateDeploymentGitSource7$Outbound
+    | CreateDeploymentGitSource1$Outbound
+    | CreateDeploymentGitSource5$Outbound
+    | CreateDeploymentGitSource6$Outbound
     | undefined;
   meta: { [k: string]: string };
   project?: CreateDeploymentProject$Outbound | undefined;
@@ -8159,26 +9213,27 @@ export type CreateDeploymentResponseBody$Outbound = {
   undeletedAt?: number | undefined;
   url: string;
   oidcTokenClaims?: OidcTokenClaims$Outbound | undefined;
-  plan: string;
   projectId: string;
   ownerId: string;
-  microfrontends?:
-    | CreateDeploymentMicrofrontends1$Outbound
-    | CreateDeploymentMicrofrontends2$Outbound
-    | undefined;
   monorepoManager?: string | null | undefined;
+  plan: string;
   config?: Config$Outbound | undefined;
   functions?: { [k: string]: Functions$Outbound } | null | undefined;
-  routes: Array<Routes3$Outbound | Routes2$Outbound | Routes1$Outbound> | null;
+  routes: Array<Routes3$Outbound | Routes1$Outbound | Routes2$Outbound> | null;
   crons?: Array<CreateDeploymentCrons$Outbound> | undefined;
+  microfrontends?:
+    | CreateDeploymentMicrofrontends2$Outbound
+    | CreateDeploymentMicrofrontends1$Outbound
+    | undefined;
+  checks?: CreateDeploymentChecks$Outbound | undefined;
   connectBuildsEnabled?: boolean | undefined;
   connectConfigurationId?: string | undefined;
   createdIn: string;
   passiveConnectConfigurationId?: string | undefined;
   gitRepo?:
-    | GitRepo1$Outbound
     | GitRepo2$Outbound
     | GitRepo3$Outbound
+    | GitRepo1$Outbound
     | null
     | undefined;
   flags?: Flags1$Outbound | Array<Flags2$Outbound> | undefined;
@@ -8221,29 +9276,30 @@ export const CreateDeploymentResponseBody$outboundSchema: z.ZodType<
   previewCommentsEnabled: z.boolean().optional(),
   ttyBuildLogs: z.boolean().optional(),
   customEnvironment: z.union([
-    z.lazy(() => CustomEnvironment2$outboundSchema),
     z.lazy(() => CustomEnvironment1$outboundSchema),
+    z.lazy(() => CustomEnvironment2$outboundSchema),
   ]).optional(),
-  type: CreateDeploymentType$outboundSchema,
+  oomReport: OomReport$outboundSchema.optional(),
+  id: z.string(),
   name: z.string(),
   createdAt: z.number(),
+  type: CreateDeploymentType$outboundSchema,
   deletedAt: z.nullable(z.number()).optional(),
-  id: z.string(),
   version: z.number(),
   autoAssignCustomDomains: z.boolean().optional(),
   gitSource: z.union([
-    z.lazy(() => CreateDeploymentGitSource8$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource11$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource1$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource5$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource2$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource3$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource6$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource7$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource9$outboundSchema),
-    z.lazy(() => CreateDeploymentGitSource4$outboundSchema),
     z.lazy(() => CreateDeploymentGitSource10$outboundSchema),
     z.lazy(() => CreateDeploymentGitSource12$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource4$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource8$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource9$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource11$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource2$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource3$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource7$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource1$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource5$outboundSchema),
+    z.lazy(() => CreateDeploymentGitSource6$outboundSchema),
   ]).optional(),
   meta: z.record(z.string()),
   project: z.lazy(() => CreateDeploymentProject$outboundSchema).optional(),
@@ -8272,14 +9328,10 @@ export const CreateDeploymentResponseBody$outboundSchema: z.ZodType<
   undeletedAt: z.number().optional(),
   url: z.string(),
   oidcTokenClaims: z.lazy(() => OidcTokenClaims$outboundSchema).optional(),
-  plan: CreateDeploymentPlan$outboundSchema,
   projectId: z.string(),
   ownerId: z.string(),
-  microfrontends: z.union([
-    z.lazy(() => CreateDeploymentMicrofrontends1$outboundSchema),
-    z.lazy(() => CreateDeploymentMicrofrontends2$outboundSchema),
-  ]).optional(),
   monorepoManager: z.nullable(z.string()).optional(),
+  plan: CreateDeploymentPlan$outboundSchema,
   config: z.lazy(() => Config$outboundSchema).optional(),
   functions: z.nullable(z.record(z.lazy(() => Functions$outboundSchema)))
     .optional(),
@@ -8287,21 +9339,26 @@ export const CreateDeploymentResponseBody$outboundSchema: z.ZodType<
     z.array(z.union([
       z.lazy(() => Routes3$outboundSchema),
       z.lazy(() =>
-        Routes2$outboundSchema
+        Routes1$outboundSchema
       ),
-      z.lazy(() => Routes1$outboundSchema),
+      z.lazy(() => Routes2$outboundSchema),
     ])),
   ),
   crons: z.array(z.lazy(() => CreateDeploymentCrons$outboundSchema)).optional(),
+  microfrontends: z.union([
+    z.lazy(() => CreateDeploymentMicrofrontends2$outboundSchema),
+    z.lazy(() => CreateDeploymentMicrofrontends1$outboundSchema),
+  ]).optional(),
+  checks: z.lazy(() => CreateDeploymentChecks$outboundSchema).optional(),
   connectBuildsEnabled: z.boolean().optional(),
   connectConfigurationId: z.string().optional(),
   createdIn: z.string(),
   passiveConnectConfigurationId: z.string().optional(),
   gitRepo: z.nullable(
     z.union([
-      z.lazy(() => GitRepo1$outboundSchema),
       z.lazy(() => GitRepo2$outboundSchema),
       z.lazy(() => GitRepo3$outboundSchema),
+      z.lazy(() => GitRepo1$outboundSchema),
     ]),
   ).optional(),
   flags: z.union([
