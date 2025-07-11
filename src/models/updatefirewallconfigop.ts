@@ -9,6 +9,15 @@ import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./sdkvalidationerror.js";
 
+/**
+ * Toggle botID
+ */
+export type RequestBody13 = {
+  action: string;
+  id?: string | undefined;
+  value: boolean;
+};
+
 export const UpdateFirewallConfigRequestBodySecurityRequest12Action = {
   Log: "log",
   Challenge: "challenge",
@@ -243,9 +252,6 @@ export type UpdateFirewallConfigRequestBodySecurityAction = ClosedEnum<
   typeof UpdateFirewallConfigRequestBodySecurityAction
 >;
 
-/**
- * [Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.
- */
 export const UpdateFirewallConfigRequestBodySecurityType = {
   Host: "host",
   Path: "path",
@@ -270,16 +276,10 @@ export const UpdateFirewallConfigRequestBodySecurityType = {
   Ja3Digest: "ja3_digest",
   RateLimitApiId: "rate_limit_api_id",
 } as const;
-/**
- * [Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.
- */
 export type UpdateFirewallConfigRequestBodySecurityType = ClosedEnum<
   typeof UpdateFirewallConfigRequestBodySecurityType
 >;
 
-/**
- * [Operator](https://vercel.com/docs/security/vercel-waf/rule-configuration#operators) used to compare the parameter with a value
- */
 export const UpdateFirewallConfigRequestBodyOp = {
   Re: "re",
   Eq: "eq",
@@ -296,9 +296,6 @@ export const UpdateFirewallConfigRequestBodyOp = {
   Lt: "lt",
   Lte: "lte",
 } as const;
-/**
- * [Operator](https://vercel.com/docs/security/vercel-waf/rule-configuration#operators) used to compare the parameter with a value
- */
 export type UpdateFirewallConfigRequestBodyOp = ClosedEnum<
   typeof UpdateFirewallConfigRequestBodyOp
 >;
@@ -309,13 +306,7 @@ export type UpdateFirewallConfigRequestBodySecurityRequest3Value =
   | number;
 
 export type UpdateFirewallConfigRequestBodyConditions = {
-  /**
-   * [Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.
-   */
   type: UpdateFirewallConfigRequestBodySecurityType;
-  /**
-   * [Operator](https://vercel.com/docs/security/vercel-waf/rule-configuration#operators) used to compare the parameter with a value
-   */
   op: UpdateFirewallConfigRequestBodyOp;
   neg?: boolean | undefined;
   key?: string | undefined;
@@ -416,9 +407,6 @@ export type UpdateFirewallConfigRequestBodyAction = ClosedEnum<
   typeof UpdateFirewallConfigRequestBodyAction
 >;
 
-/**
- * [Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.
- */
 export const UpdateFirewallConfigRequestBodyType = {
   Host: "host",
   Path: "path",
@@ -443,16 +431,10 @@ export const UpdateFirewallConfigRequestBodyType = {
   Ja3Digest: "ja3_digest",
   RateLimitApiId: "rate_limit_api_id",
 } as const;
-/**
- * [Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.
- */
 export type UpdateFirewallConfigRequestBodyType = ClosedEnum<
   typeof UpdateFirewallConfigRequestBodyType
 >;
 
-/**
- * [Operator](https://vercel.com/docs/security/vercel-waf/rule-configuration#operators) used to compare the parameter with a value.
- */
 export const RequestBodyOp = {
   Re: "re",
   Eq: "eq",
@@ -469,9 +451,6 @@ export const RequestBodyOp = {
   Lt: "lt",
   Lte: "lte",
 } as const;
-/**
- * [Operator](https://vercel.com/docs/security/vercel-waf/rule-configuration#operators) used to compare the parameter with a value.
- */
 export type RequestBodyOp = ClosedEnum<typeof RequestBodyOp>;
 
 export type UpdateFirewallConfigRequestBodySecurityRequest2Value =
@@ -480,13 +459,7 @@ export type UpdateFirewallConfigRequestBodySecurityRequest2Value =
   | number;
 
 export type RequestBodyConditions = {
-  /**
-   * [Parameter](https://vercel.com/docs/security/vercel-waf/rule-configuration#parameters) from the incoming traffic.
-   */
   type: UpdateFirewallConfigRequestBodyType;
-  /**
-   * [Operator](https://vercel.com/docs/security/vercel-waf/rule-configuration#operators) used to compare the parameter with a value.
-   */
   op: RequestBodyOp;
   neg?: boolean | undefined;
   key?: string | undefined;
@@ -589,18 +562,19 @@ export type UpdateFirewallConfigRequestBody1 = {
 };
 
 export type UpdateFirewallConfigRequestBody =
-  | UpdateFirewallConfigRequestBody1
-  | UpdateFirewallConfigRequestBody2
   | UpdateFirewallConfigRequestBody3
-  | UpdateFirewallConfigRequestBody4
   | UpdateFirewallConfigRequestBody5
   | UpdateFirewallConfigRequestBody6
-  | UpdateFirewallConfigRequestBody7
-  | UpdateFirewallConfigRequestBody8
   | UpdateFirewallConfigRequestBody9
-  | UpdateFirewallConfigRequestBody10
   | RequestBody11
-  | RequestBody12;
+  | RequestBody12
+  | UpdateFirewallConfigRequestBody1
+  | UpdateFirewallConfigRequestBody2
+  | UpdateFirewallConfigRequestBody4
+  | UpdateFirewallConfigRequestBody8
+  | UpdateFirewallConfigRequestBody10
+  | RequestBody13
+  | UpdateFirewallConfigRequestBody7;
 
 export type UpdateFirewallConfigRequest = {
   projectId: string;
@@ -613,21 +587,78 @@ export type UpdateFirewallConfigRequest = {
    */
   slug?: string | undefined;
   requestBody:
-    | UpdateFirewallConfigRequestBody1
-    | UpdateFirewallConfigRequestBody2
     | UpdateFirewallConfigRequestBody3
-    | UpdateFirewallConfigRequestBody4
     | UpdateFirewallConfigRequestBody5
     | UpdateFirewallConfigRequestBody6
-    | UpdateFirewallConfigRequestBody7
-    | UpdateFirewallConfigRequestBody8
     | UpdateFirewallConfigRequestBody9
-    | UpdateFirewallConfigRequestBody10
     | RequestBody11
-    | RequestBody12;
+    | RequestBody12
+    | UpdateFirewallConfigRequestBody1
+    | UpdateFirewallConfigRequestBody2
+    | UpdateFirewallConfigRequestBody4
+    | UpdateFirewallConfigRequestBody8
+    | UpdateFirewallConfigRequestBody10
+    | RequestBody13
+    | UpdateFirewallConfigRequestBody7;
 };
 
 export type UpdateFirewallConfigResponseBody = {};
+
+/** @internal */
+export const RequestBody13$inboundSchema: z.ZodType<
+  RequestBody13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  action: z.string(),
+  id: z.string().optional(),
+  value: z.boolean(),
+});
+
+/** @internal */
+export type RequestBody13$Outbound = {
+  action: string;
+  id?: string | undefined;
+  value: boolean;
+};
+
+/** @internal */
+export const RequestBody13$outboundSchema: z.ZodType<
+  RequestBody13$Outbound,
+  z.ZodTypeDef,
+  RequestBody13
+> = z.object({
+  action: z.string(),
+  id: z.string().optional(),
+  value: z.boolean(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RequestBody13$ {
+  /** @deprecated use `RequestBody13$inboundSchema` instead. */
+  export const inboundSchema = RequestBody13$inboundSchema;
+  /** @deprecated use `RequestBody13$outboundSchema` instead. */
+  export const outboundSchema = RequestBody13$outboundSchema;
+  /** @deprecated use `RequestBody13$Outbound` instead. */
+  export type Outbound = RequestBody13$Outbound;
+}
+
+export function requestBody13ToJSON(requestBody13: RequestBody13): string {
+  return JSON.stringify(RequestBody13$outboundSchema.parse(requestBody13));
+}
+
+export function requestBody13FromJSON(
+  jsonString: string,
+): SafeParseResult<RequestBody13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RequestBody13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RequestBody13' from JSON`,
+  );
+}
 
 /** @internal */
 export const UpdateFirewallConfigRequestBodySecurityRequest12Action$inboundSchema:
@@ -3923,34 +3954,36 @@ export const UpdateFirewallConfigRequestBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => UpdateFirewallConfigRequestBody1$inboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody2$inboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody3$inboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody4$inboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody5$inboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody6$inboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody7$inboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody8$inboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody9$inboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody10$inboundSchema),
   z.lazy(() => RequestBody11$inboundSchema),
   z.lazy(() => RequestBody12$inboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody1$inboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody2$inboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody4$inboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody8$inboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody10$inboundSchema),
+  z.lazy(() => RequestBody13$inboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody7$inboundSchema),
 ]);
 
 /** @internal */
 export type UpdateFirewallConfigRequestBody$Outbound =
-  | UpdateFirewallConfigRequestBody1$Outbound
-  | UpdateFirewallConfigRequestBody2$Outbound
   | UpdateFirewallConfigRequestBody3$Outbound
-  | UpdateFirewallConfigRequestBody4$Outbound
   | UpdateFirewallConfigRequestBody5$Outbound
   | UpdateFirewallConfigRequestBody6$Outbound
-  | UpdateFirewallConfigRequestBody7$Outbound
-  | UpdateFirewallConfigRequestBody8$Outbound
   | UpdateFirewallConfigRequestBody9$Outbound
-  | UpdateFirewallConfigRequestBody10$Outbound
   | RequestBody11$Outbound
-  | RequestBody12$Outbound;
+  | RequestBody12$Outbound
+  | UpdateFirewallConfigRequestBody1$Outbound
+  | UpdateFirewallConfigRequestBody2$Outbound
+  | UpdateFirewallConfigRequestBody4$Outbound
+  | UpdateFirewallConfigRequestBody8$Outbound
+  | UpdateFirewallConfigRequestBody10$Outbound
+  | RequestBody13$Outbound
+  | UpdateFirewallConfigRequestBody7$Outbound;
 
 /** @internal */
 export const UpdateFirewallConfigRequestBody$outboundSchema: z.ZodType<
@@ -3958,18 +3991,19 @@ export const UpdateFirewallConfigRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateFirewallConfigRequestBody
 > = z.union([
-  z.lazy(() => UpdateFirewallConfigRequestBody1$outboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody2$outboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody3$outboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody4$outboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody5$outboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody6$outboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody7$outboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody8$outboundSchema),
   z.lazy(() => UpdateFirewallConfigRequestBody9$outboundSchema),
-  z.lazy(() => UpdateFirewallConfigRequestBody10$outboundSchema),
   z.lazy(() => RequestBody11$outboundSchema),
   z.lazy(() => RequestBody12$outboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody1$outboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody2$outboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody4$outboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody8$outboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody10$outboundSchema),
+  z.lazy(() => RequestBody13$outboundSchema),
+  z.lazy(() => UpdateFirewallConfigRequestBody7$outboundSchema),
 ]);
 
 /**
@@ -4015,18 +4049,19 @@ export const UpdateFirewallConfigRequest$inboundSchema: z.ZodType<
   teamId: z.string().optional(),
   slug: z.string().optional(),
   RequestBody: z.union([
-    z.lazy(() => UpdateFirewallConfigRequestBody1$inboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody2$inboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody3$inboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody4$inboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody5$inboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody6$inboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody7$inboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody8$inboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody9$inboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody10$inboundSchema),
     z.lazy(() => RequestBody11$inboundSchema),
     z.lazy(() => RequestBody12$inboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody1$inboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody2$inboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody4$inboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody8$inboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody10$inboundSchema),
+    z.lazy(() => RequestBody13$inboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody7$inboundSchema),
   ]),
 }).transform((v) => {
   return remap$(v, {
@@ -4040,18 +4075,19 @@ export type UpdateFirewallConfigRequest$Outbound = {
   teamId?: string | undefined;
   slug?: string | undefined;
   RequestBody:
-    | UpdateFirewallConfigRequestBody1$Outbound
-    | UpdateFirewallConfigRequestBody2$Outbound
     | UpdateFirewallConfigRequestBody3$Outbound
-    | UpdateFirewallConfigRequestBody4$Outbound
     | UpdateFirewallConfigRequestBody5$Outbound
     | UpdateFirewallConfigRequestBody6$Outbound
-    | UpdateFirewallConfigRequestBody7$Outbound
-    | UpdateFirewallConfigRequestBody8$Outbound
     | UpdateFirewallConfigRequestBody9$Outbound
-    | UpdateFirewallConfigRequestBody10$Outbound
     | RequestBody11$Outbound
-    | RequestBody12$Outbound;
+    | RequestBody12$Outbound
+    | UpdateFirewallConfigRequestBody1$Outbound
+    | UpdateFirewallConfigRequestBody2$Outbound
+    | UpdateFirewallConfigRequestBody4$Outbound
+    | UpdateFirewallConfigRequestBody8$Outbound
+    | UpdateFirewallConfigRequestBody10$Outbound
+    | RequestBody13$Outbound
+    | UpdateFirewallConfigRequestBody7$Outbound;
 };
 
 /** @internal */
@@ -4064,18 +4100,19 @@ export const UpdateFirewallConfigRequest$outboundSchema: z.ZodType<
   teamId: z.string().optional(),
   slug: z.string().optional(),
   requestBody: z.union([
-    z.lazy(() => UpdateFirewallConfigRequestBody1$outboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody2$outboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody3$outboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody4$outboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody5$outboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody6$outboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody7$outboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody8$outboundSchema),
     z.lazy(() => UpdateFirewallConfigRequestBody9$outboundSchema),
-    z.lazy(() => UpdateFirewallConfigRequestBody10$outboundSchema),
     z.lazy(() => RequestBody11$outboundSchema),
     z.lazy(() => RequestBody12$outboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody1$outboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody2$outboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody4$outboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody8$outboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody10$outboundSchema),
+    z.lazy(() => RequestBody13$outboundSchema),
+    z.lazy(() => UpdateFirewallConfigRequestBody7$outboundSchema),
   ]),
 }).transform((v) => {
   return remap$(v, {

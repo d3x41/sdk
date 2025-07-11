@@ -10,9 +10,7 @@ let value: CreateWebhookRequest = {
   slug: "my-team-url-slug",
   requestBody: {
     url: "https://passionate-season.net",
-    events: [
-      "deployment.promoted",
-    ],
+    events: [],
   },
 };
 ```

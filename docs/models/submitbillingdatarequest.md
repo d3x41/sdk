@@ -11,28 +11,11 @@ let value: SubmitBillingDataRequest = {
     timestamp: new Date("2023-01-02T00:26:27.204Z"),
     eod: new Date("2025-05-30T03:47:49.560Z"),
     period: {
-      start: new Date("2023-02-20T12:37:57.468Z"),
-      end: new Date("2024-04-08T05:31:29.801Z"),
+      start: new Date("2024-09-03T00:54:32.604Z"),
+      end: new Date("2024-05-12T10:42:22.084Z"),
     },
-    billing: [
-      {
-        billingPlanId: "<id>",
-        name: "<value>",
-        price: "650.49",
-        quantity: 4163.3,
-        units: "<value>",
-        total: "<value>",
-      },
-    ],
-    usage: [
-      {
-        name: "<value>",
-        type: "total",
-        units: "<value>",
-        dayValue: 8589.98,
-        periodValue: 2023.16,
-      },
-    ],
+    billing: [],
+    usage: [],
   },
 };
 ```

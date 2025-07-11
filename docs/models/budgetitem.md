@@ -11,13 +11,14 @@ let value: BudgetItem = {
   type: "fixed",
   fixedBudget: 2024.42,
   previousSpend: [
-    6252.33,
+    5920.82,
+    3690.02,
   ],
   notifiedAt: [
-    5920.82,
+    7656.02,
   ],
-  createdAt: 3690.02,
-  isActive: false,
+  createdAt: 1086.99,
+  isActive: true,
   teamId: "<id>",
   id: "<id>",
 };
@@ -27,7 +28,7 @@ let value: BudgetItem = {
 
 | Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `type`                                                                 | [models.UserEventPayload100Type](../models/usereventpayload100type.md) | :heavy_check_mark:                                                     | The budget type                                                        |
+| `type`                                                                 | [models.UserEventPayload102Type](../models/usereventpayload102type.md) | :heavy_check_mark:                                                     | The budget type                                                        |
 | `fixedBudget`                                                          | *number*                                                               | :heavy_check_mark:                                                     | Budget amount                                                          |
 | `previousSpend`                                                        | *number*[]                                                             | :heavy_check_mark:                                                     | Array of the last 3 months of spend data                               |
 | `notifiedAt`                                                           | *number*[]                                                             | :heavy_check_mark:                                                     | Array of 50, 75, 100 to keep track of notifications sent out           |

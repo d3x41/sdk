@@ -7,6 +7,7 @@ generation:
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
@@ -19,17 +20,20 @@ generation:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
   tests:
+    generateTests: true
     generateNewTests: true
-    skipResponseBodyAssertions: true
+    skipResponseBodyAssertions: false
 typescript:
-  version: 1.7.7
+  version: 1.10.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
     peerDependencies: {}
   additionalPackageJSON: {}
   author: Speakeasy
+  baseErrorName: VercelError
   clientServerStatusCodesAsErrors: true
+  constFieldsAlwaysOptional: true
   defaultErrorName: SDKError
   enableCustomCodeRegions: false
   enableMCPServer: true
@@ -37,6 +41,7 @@ typescript:
   enumFormat: union
   flattenGlobalSecurity: true
   flatteningOrder: body-first
+  generateExamples: true
   imports:
     option: openapi
     paths:

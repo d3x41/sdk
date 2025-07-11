@@ -8,7 +8,7 @@
 ```typescript
 const value: models.Has1 = {
   type: "host",
-  value: "<value>",
+  value: {},
 };
 ```
 
@@ -16,7 +16,7 @@ const value: models.Has1 = {
 
 ```typescript
 const value: models.Has2 = {
-  type: "query",
+  type: "header",
   key: "<key>",
 };
 ```

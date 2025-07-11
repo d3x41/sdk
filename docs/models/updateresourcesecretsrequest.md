@@ -10,12 +10,7 @@ let value: UpdateResourceSecretsRequest = {
   integrationProductIdOrSlug: "<value>",
   resourceId: "<id>",
   requestBody: {
-    secrets: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
+    secrets: [],
   },
 };
 ```

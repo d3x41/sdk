@@ -32,6 +32,7 @@ const vercel = new Vercel({
 async function run() {
   const result = await vercel.deployments.getDeploymentEvents({
     idOrUrl: "dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd",
+    direction: "backward",
     follow: 1,
     limit: 100,
     name: "bld_cotnkcr76",
@@ -44,7 +45,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -68,6 +68,7 @@ const vercel = new VercelCore({
 async function run() {
   const res = await deploymentsGetDeploymentEvents(vercel, {
     idOrUrl: "dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd",
+    direction: "backward",
     follow: 1,
     limit: 100,
     name: "bld_cotnkcr76",
@@ -79,15 +80,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsGetDeploymentEvents failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -162,14 +160,12 @@ async function run() {
     resourceId: "<id>",
     action: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("deploymentsUpdateIntegrationDeploymentAction failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -217,7 +213,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -245,15 +240,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsGetDeployment failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -307,6 +299,7 @@ async function run() {
       gitMetadata: {
         remoteUrl: "https://github.com/vercel/next.js",
         commitAuthorName: "kyliau",
+        commitAuthorEmail: "kyliau@example.com",
         commitMessage: "add method to measure Interaction to Next Paint (INP) (#36490)",
         commitRef: "main",
         commitSha: "dc36199b2234c6586ebe05ec94078a895c707e29",
@@ -332,7 +325,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -367,6 +359,7 @@ async function run() {
       gitMetadata: {
         remoteUrl: "https://github.com/vercel/next.js",
         commitAuthorName: "kyliau",
+        commitAuthorEmail: "kyliau@example.com",
         commitMessage: "add method to measure Interaction to Next Paint (INP) (#36490)",
         commitRef: "main",
         commitSha: "dc36199b2234c6586ebe05ec94078a895c707e29",
@@ -391,15 +384,12 @@ async function run() {
       target: "production",
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsCreateDeployment failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -447,7 +437,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -474,15 +463,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsCancelDeployment failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -529,7 +515,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -555,15 +540,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsUploadFile failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -610,7 +592,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -637,15 +618,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsListDeploymentFiles failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -721,14 +699,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("deploymentsGetDeploymentFileContents failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -785,7 +761,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -821,15 +796,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsGetDeployments failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -878,7 +850,6 @@ async function run() {
     slug: "my-team-url-slug",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -906,15 +877,12 @@ async function run() {
     teamId: "team_1a2b3c4d5e6f7g8h9i0j1k2l",
     slug: "my-team-url-slug",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("deploymentsDeleteDeployment failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

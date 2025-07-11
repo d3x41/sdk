@@ -8,9 +8,9 @@ The deployment including only public information
 import { GetDeploymentResponseBody2 } from "@vercel/sdk/models/getdeploymentop.js";
 
 let value: GetDeploymentResponseBody2 = {
-  aliasAssigned: false,
-  bootedAt: 3380.01,
-  buildingAt: 1303.95,
+  aliasAssigned: true,
+  bootedAt: 1303.95,
+  buildingAt: 4156.67,
   buildSkipped: false,
   creator: {
     uid: "<id>",
@@ -20,16 +20,15 @@ let value: GetDeploymentResponseBody2 = {
   id: "<id>",
   name: "<value>",
   type: "LAMBDAS",
-  createdAt: 6666.5,
-  readyState: "CANCELED",
-  meta: {
-    "key": "<value>",
-  },
+  createdAt: 9590.27,
+  readyState: "READY",
+  meta: {},
   regions: [
-    "<value>",
+    "<value 1>",
+    "<value 2>",
   ],
-  url: "https://whimsical-polyester.com/",
-  version: 6963.76,
+  url: "https://normal-sonnet.info",
+  version: 2871.74,
 };
 ```
 
@@ -55,6 +54,7 @@ let value: GetDeploymentResponseBody2 = {
 | `previewCommentsEnabled`                                                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                            |
 | `ttyBuildLogs`                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                            |
 | `customEnvironment`                                                                                                                                                                                                                                                            | *models.ResponseBodyCustomEnvironment*                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                            |
+| `oomReport`                                                                                                                                                                                                                                                                    | [models.ResponseBodyOomReport](../models/responsebodyoomreport.md)                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                            |
 | `aliasWarning`                                                                                                                                                                                                                                                                 | [models.ResponseBodyAliasWarning](../models/responsebodyaliaswarning.md)                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                            |
 | `id`                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                            |
 | `name`                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                            |
